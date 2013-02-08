@@ -1,0 +1,28 @@
+Barcode	PopID	CrossNum	Indiv	Origin	Exp	Trt	Rack	Pos	LfCount1	LfLgth1	LfWdth1	comments	Wilt	TotWilt	Death	DeathDay	WiltDay	TotWiltDay
+1	BG001-5-5	BG001	5	5	nat	mat fx	drought	9	18	14	11.8	2.6		8/1/2010	8/3/2010	8/5/2010	9	5	7
+2	BG001-5-6	BG001	5	6	nat	mat fx	drought	9	36	14	10.6	2.8		7/30/2010	8/1/2010	8/2/2010	6	3	5
+3	BG001-9-1	BG001	9	1	nat	mat fx	drought	9	23	11	20.9	3.7		7/29/2010	8/1/2010	8/3/2010	7	2	5
+4	CA001-3-5	CA001	3	5	inv	mat fx	drought	9	32	13	15.1	4.5		7/28/2010	8/1/2010	8/2/2010	6	1	5
+5	CA001-4-3	CA001	4	3	inv	mat fx	drought	9	34	25	17.9	4		7/28/2010	8/1/2010	8/2/2010	6	1	5
+6	CA001-8-6	CA001	8	6	inv	mat fx	drought	9	25	12	18.2	5.2		7/29/2010	8/1/2010	8/3/2010	7	2	5
+7	GR002-10-1	GR002	10	1	nat	mat fx	drought	9	16	11	16.9	4.2		7/29/2010	8/2/2010	8/6/2010	10	2	6
+8	GR002-4-1	GR002	4	1	nat	mat fx	drought	9	9	14	15	3.2		7/28/2010	7/29/2010	8/9/2010	13	1	2
+9	GR002-9-2	GR002	9	2	nat	mat fx	drought	9	12	15	14.9	3.2		7/28/2010	7/30/2010	8/4/2010	8	1	3
+10	RU008-4-1	RU008	4	1	nat	mat fx	drought	9	49	15	16.5	4.9		7/28/2010	7/30/2010	8/3/2010	7	1	3
+11	RU008-5-6	RU008	5	6	nat	mat fx	drought	9	20	16	14.9	3.7	ENTIRE YELLOW PLANT	7/28/2010	7/29/2010	8/2/2010	6	1	2
+12	RU008-8-7	RU008	8	7	nat	mat fx	drought	9	43	14	19.5	5.3		7/28/2010	7/30/2010	8/3/2010	7	1	3
+13	SAND-2-1	SAND	2	1	SK	mat fx	drought	9	45	12	28	7.6		7/28/2010	7/30/2010	8/4/2010	8	1	3
+14	SAND-2-4	SAND	2	4	SK	mat fx	drought	9	47	19	24.3	7.8		7/28/2010	8/1/2010	8/3/2010	7	1	5
+15	SAND-2-5	SAND	2	5	SK	mat fx	drought	9	1	16	16.9	5.2		7/28/2010	8/1/2010	8/2/2010	6	1	5
+16	TR001-1-1	TR001	1	1	nat	mat fx	drought	9	38	14	16.8	3.5		7/29/2010	7/30/2010	8/4/2010	8	2	3
+17	TR001-3-2	TR001	3	2	nat	mat fx	drought	9	29	11	14.9	3.5		7/29/2010	8/2/2010	8/5/2010	9	2	6
+18	TR001-9-2	TR001	9	2	nat	mat fx	drought	9	14	13	13.5	3.1		7/30/2010	8/1/2010	8/4/2010	8	3	5
+19	US001-4-5	US001	4	5	inv	mat fx	drought	9	7	19	19.3	4.1		7/28/2010	7/30/2010	8/4/2010	8	1	3
+20	US001-7-9	US001	7	9	inv	mat fx	drought	9	3	15	20.3	7.5		7/28/2010	7/30/2010	8/2/2010	6	1	3
+21	US001-9-3	US001	9	3	inv	mat fx	drought	9	21	17	21.4	4.4		7/28/2010	7/30/2010	8/3/2010	7	1	3
+22	US002-2-3	US002	2	3	inv	mat fx	drought	9	27	16	13.7	3.1		7/29/2010	8/2/2010	8/3/2010	7	2	6
+23	US002-5-4	US002	5	4	inv	mat fx	drought	9	5	15	13.5	4		7/29/2010	8/2/2010	8/3/2010	7	2	6
+24	US002-5-9	US002	5	9	inv	mat fx	drought	9	40	25	15.2	3.8		7/28/2010	7/30/2010	8/3/2010	7	1	3
+25	US003-14-3	US003	14	3	inv	mat fx	drought	9	41	15	25.1	5.6		7/28/2010	7/29/2010	8/2/2010	6	1	2
+26	US003-14-8	US003	14	8	inv	mat fx	drought	9	50	16	21.2	4.4		7/28/2010	7/29/2010	8/3/2010	7	1	2
+27	US003-8-3	US003	8	3	inv	mat fx	drought	9	10	10	13.7	4.1		7/28/2010	7/30/2010	8/6/2010	10	1	3

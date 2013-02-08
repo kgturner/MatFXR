@@ -1,0 +1,679 @@
+Rack	Pos	Barcode	PopID	CrossNum	Indiv	Origin	Exp	Trt	Wilt	TotWilt	Yellow	Death	Float	Note	BoltDate	FlwrDate	FlwrCol	FlwrNote	BoltMsrDate	BoltCount1	MaxBoltHt1	OtherBoltHt1	BoltMsr	BoltCount2	MaxBoltHt2	OtherBoltHt2	BoltMsrDate3	BoltCount3	MaxBoltHt3	OtherBoltHt3
+BG001-10-1	14	47	BG001-10-1	BG001	10	1	nat	array	dna							8/9/2010	9/10/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-10-2	10	10	BG001-10-2	BG001	10	2	nat	mat fx	flood			8/3/2010	8/9/2010	8/7/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-10-3	10	50	BG001-10-3	BG001	10	3	nat	mat fx	flood			8/3/2010	8/9/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-1-1	19	45	BG001-1-1	BG001	1	1	nat	ass map	control							8/9/2010	9/3/2010	light purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-11-1	1	16	BG001-11-1	BG001	11	1	nat	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-11-2	20	38	BG001-11-2	BG001	11	2	nat	ass map	control							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-11-3	4	29	BG001-11-3	BG001	11	3	nat	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-1-2	11	14	BG001-1-2	BG001	1	2	nat	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-13-1	3	32	BG001-13-1	BG001	13	1	nat	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-14-1	17	8	BG001-14-1	BG001	14	1	nat	ass map	control							8/27/2010	9/30/2010	light purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-14-2	6	1	BG001-14-2	BG001	14	2	nat	mat fx	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-14-3	5	1	BG001-14-3	BG001	14	3	nat	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-15-1	1	3	BG001-15-1	BG001	15	1	nat	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-16-1	13	40	BG001-16-1	BG001	16	1	nat	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-17-1	22	35	BG001-17-1	BG001	17	1	nat	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-17-10	18	29	BG001-17-10	BG001	17	10	nat	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-17-2	8	10	BG001-17-2	BG001	17	2	nat	mat fx	cut							10/18/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-17-3	19	16	BG001-17-3	BG001	17	3	nat	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-17-4	16	18	BG001-17-4	BG001	17	4	nat	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-17-5	4	10	BG001-17-5	BG001	17	5	nat	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-17-6	16	36	BG001-17-6	BG001	17	6	nat	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-17-7	5	34	BG001-17-7	BG001	17	7	nat	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-17-8	11	7	BG001-17-8	BG001	17	8	nat	mat fx	nut def			8/3/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-17-9	6	5	BG001-17-9	BG001	17	9	nat	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-18-1	2	34	BG001-18-1	BG001	18	1	nat	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-18-2	5	49	BG001-18-2	BG001	18	2	nat	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-18-3	15	49	BG001-18-3	BG001	18	3	nat	ass map	control							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-18-4	6	27	BG001-18-4	BG001	18	4	nat	mat fx	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-18-5	19	48	BG001-18-5	BG001	18	5	nat	array	dna							9/16/2010	10/21/2010	light purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-18-6	6	3	BG001-18-6	BG001	18	6	nat	mat fx	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-18-7	14	29	BG001-18-7	BG001	18	7	nat	ass map	control							10/19/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-2-1	12	21	BG001-2-1	BG001	2	1	nat	ass map	control							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-3-1	8	50	BG001-3-1	BG001	3	1	nat	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-3-2	7	1	BG001-3-2	BG001	3	2	nat	mat fx	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-4-1	17	31	BG001-4-1	BG001	4	1	nat	ass map	control							9/27/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-5-1	4	40	BG001-5-1	BG001	5	1	nat	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-5-2	18	3	BG001-5-2	BG001	5	2	nat	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-5-3	2	20	BG001-5-3	BG001	5	3	nat	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-5-4	13	5	BG001-5-4	BG001	5	4	nat	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-5-5	9	18	BG001-5-5	BG001	5	5	nat	mat fx	drought	8/1/2010	8/3/2010		8/5/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-5-6	9	36	BG001-5-6	BG001	5	6	nat	mat fx	drought	7/30/2010	8/1/2010		8/2/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-6-1	13	8	BG001-6-1	BG001	6	1	nat	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-6-2	3	9	BG001-6-2	BG001	6	2	nat	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-6-3	19	12	BG001-6-3	BG001	6	3	nat	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-6-5	15	48	BG001-6-5	BG001	6	5	nat	array	dna							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-7-1	4	20	BG001-7-1	BG001	7	1	nat	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-7-2	2	12	BG001-7-2	BG001	7	2	nat	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-8-1	6	29	BG001-8-1	BG001	8	1	nat	mat fx	control							9/10/2010	10/19/2010	light purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-8-2	22	18	BG001-8-2	BG001	8	2	nat	ass map	control							7/24/2010	9/30/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-8-3	2	43	BG001-8-3	BG001	8	3	nat	array	control 1							8/2/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-8-4	14	34	BG001-8-4	BG001	8	4	nat	ass map	control							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-8-5	8	43	BG001-8-5	BG001	8	5	nat	mat fx	cut							10/18/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-8-6	4	23	BG001-8-6	BG001	8	6	nat	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-8-7	3	21	BG001-8-7	BG001	8	7	nat	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-8-8	2	45	BG001-8-8	BG001	8	8	nat	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-1	9	23	BG001-9-1	BG001	9	1	nat	mat fx	drought	7/29/2010	8/1/2010		8/3/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-10	16	1	BG001-9-10	BG001	9	10	nat	ass map	control							9/3/2010	9/10/2010	pale purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-11	2	27	BG001-9-11	BG001	9	11	nat	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-12	23	5	BG001-9-12	BG001	9	12	nat	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-2	10	32	BG001-9-2	BG001	9	2	nat	mat fx	flood			8/1/2010	8/9/2010	8/7/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-3	3	7	BG001-9-3	BG001	9	3	nat	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-4	2	25	BG001-9-4	BG001	9	4	nat	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-5	11	34	BG001-9-5	BG001	9	5	nat	mat fx	nut def			8/5/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-6	21	47	BG001-9-6	BG001	9	6	nat	ass map	control							8/9/2010	9/10/2010	light purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-7	22	8	BG001-9-7	BG001	9	7	nat	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-8	13	16	BG001-9-8	BG001	9	8	nat	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG001-9-9	19	31	BG001-9-9	BG001	9	9	nat	ass map	control							9/16/2010	10/21/2010	light purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG3-1-1	22	36	BG3-1-1	BG3	1	1	SK	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG3-1-2	17	30	BG3-1-2	BG3	1	2	SK	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG3-1-3	18	30	BG3-1-3	BG3	1	3	SK	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG3-1-4	17	9	BG3-1-4	BG3	1	4	SK	ass map	control							9/10/2010			diffuse-like light bracts	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG3-2-1	13	38	BG3-2-1	BG3	2	1	SK	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG3-2-2	15	8	BG3-2-2	BG3	2	2	SK	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+BG3-3-1	14	32	BG3-3-1	BG3	3	1	SK	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-10-1	13	3	CA001-10-1	CA001	10	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-10-2	14	15	CA001-10-2	CA001	10	2	inv	ass map	control							10/19/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-10-3	23	40	CA001-10-3	CA001	10	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-10-4	13	48	CA001-10-4	CA001	10	4	inv	array	dna											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-10-5	21	14	CA001-10-5	CA001	10	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-10-6	17	3	CA001-10-6	CA001	10	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-10-7	16	21	CA001-10-7	CA001	10	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-1-1	13	30	CA001-1-1	CA001	1	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-11-1	8	34	CA001-11-1	CA001	11	1	inv	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-11-10	5	38	CA001-11-10	CA001	11	10	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-11-11	15	43	CA001-11-11	CA001	11	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-11-2	19	14	CA001-11-2	CA001	11	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-11-3	21	43	CA001-11-3	CA001	11	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-11-4	23	21	CA001-11-4	CA001	11	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-11-5	17	32	CA001-11-5	CA001	11	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-11-6	15	45	CA001-11-6	CA001	11	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-11-7	20	14	CA001-11-7	CA001	11	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-11-8	21	45	CA001-11-8	CA001	11	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-11-9	15	10	CA001-11-9	CA001	11	9	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-1-2	21	30	CA001-1-2	CA001	1	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-1	1	32	CA001-12-1	CA001	12	1	inv	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-10	16	9	CA001-12-10	CA001	12	10	inv	ass map	control							10/15/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-11	22	31	CA001-12-11	CA001	12	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-12	13	9	CA001-12-12	CA001	12	12	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-13	20	47	CA001-12-13	CA001	12	13	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-14	11	20	CA001-12-14	CA001	12	14	inv	mat fx	nut def			8/5/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-15	21	11	CA001-12-15	CA001	12	15	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-16	19	49	CA001-12-16	CA001	12	16	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-17	23	35	CA001-12-17	CA001	12	17	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-18	19	41	CA001-12-18	CA001	12	18	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-19	4	47	CA001-12-19	CA001	12	19	inv	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-2	17	14	CA001-12-2	CA001	12	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-3	21	27	CA001-12-3	CA001	12	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-4	10	38	CA001-12-4	CA001	12	4	inv	mat fx	flood			8/2/2010	8/9/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-5	18	14	CA001-12-5	CA001	12	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-6	4	7	CA001-12-6	CA001	12	6	inv	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-7	3	27	CA001-12-7	CA001	12	7	inv	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-8	12	30	CA001-12-8	CA001	12	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-12-9	13	25	CA001-12-9	CA001	12	9	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-1-3	23	14	CA001-1-3	CA001	1	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-13-1	7	29	CA001-13-1	CA001	13	1	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-13-2	16	5	CA001-13-2	CA001	13	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-13-3	22	3	CA001-13-3	CA001	13	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-14-1	6	12	CA001-14-1	CA001	14	1	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-15-1	12	7	CA001-15-1	CA001	15	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-15-2	19	3	CA001-15-2	CA001	15	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-15-3	20	11	CA001-15-3	CA001	15	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-15-4	23	12	CA001-15-4	CA001	15	4	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-15-5	12	32	CA001-15-5	CA001	15	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-15-6	16	7	CA001-15-6	CA001	15	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-15-7	18	9	CA001-15-7	CA001	15	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-16-1	19	7	CA001-16-1	CA001	16	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-16-2	12	34	CA001-16-2	CA001	16	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-16-3	15	35	CA001-16-3	CA001	16	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-16-4	8	42	CA001-16-4	CA001	16	4	inv	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-16-5	1	9	CA001-16-5	CA001	16	5	inv	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-16-6	15	40	CA001-16-6	CA001	16	6	inv	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-16-7	12	9	CA001-16-7	CA001	16	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-16-8	17	20	CA001-16-8	CA001	16	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-16-9	1	40	CA001-16-9	CA001	16	9	inv	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-1	18	18	CA001-17-1	CA001	17	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-10	18	40	CA001-17-10	CA001	17	10	inv	ass map	control							9/16?				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-11	16	50	CA001-17-11	CA001	17	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-12	16	40	CA001-17-12	CA001	17	12	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-2	19	38	CA001-17-2	CA001	17	2	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-3	20	7	CA001-17-3	CA001	17	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-4	16	38	CA001-17-4	CA001	17	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-5	19	20	CA001-17-5	CA001	17	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-6	14	49	CA001-17-6	CA001	17	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-7	18	10	CA001-17-7	CA001	17	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-8	22	40	CA001-17-8	CA001	17	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-17-9	13	10	CA001-17-9	CA001	17	9	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-18-1	1	23	CA001-18-1	CA001	18	1	inv	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-18-2	20	3	CA001-18-2	CA001	18	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-19-1	19	5	CA001-19-1	CA001	19	1	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-19-2	14	14	CA001-19-2	CA001	19	2	inv	array	dna							10/19/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-19-3	13	43	CA001-19-3	CA001	19	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-20-1	17	50	CA001-20-1	CA001	20	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-20-10	16	3	CA001-20-10	CA001	20	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-20-11	13	12	CA001-20-11	CA001	20	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-20-12	12	15	CA001-20-12	CA001	20	12	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-20-2	1	27	CA001-20-2	CA001	20	2	inv	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-20-3	20	18	CA001-20-3	CA001	20	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-20-4	19	8	CA001-20-4	CA001	20	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-20-5	17	25	CA001-20-5	CA001	20	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-20-7	22	7	CA001-20-7	CA001	20	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-20-8	22	12	CA001-20-8	CA001	20	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-20-9	18	20	CA001-20-9	CA001	20	9	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-2-1	5	47	CA001-2-1	CA001	2	1	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-2-2	20	32	CA001-2-2	CA001	2	2	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-2-3	13	45	CA001-2-3	CA001	2	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-2-4	15	23	CA001-2-4	CA001	2	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-2-5	19	21	CA001-2-5	CA001	2	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-2-6	20	27	CA001-2-6	CA001	2	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-1	18	8	CA001-3-1	CA001	3	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-10	1	41	CA001-3-10	CA001	3	10	inv	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-11	20	21	CA001-3-11	CA001	3	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-12	13	20	CA001-3-12	CA001	3	12	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-13	21	50	CA001-3-13	CA001	3	13	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-14	16	34	CA001-3-14	CA001	3	14	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-15	23	36	CA001-3-15	CA001	3	15	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-16	4	3	CA001-3-16	CA001	3	16	inv	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-17	15	3	CA001-3-17	CA001	3	17	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-18	12	50	CA001-3-18	CA001	3	18	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-19	18	34	CA001-3-19	CA001	3	19	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-2	15	31	CA001-3-2	CA001	3	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-3	22	23	CA001-3-3	CA001	3	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-4	21	21	CA001-3-4	CA001	3	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-5	9	32	CA001-3-5	CA001	3	5	inv	mat fx	drought	7/28/2010	8/1/2010		8/2/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-6	16	10	CA001-3-6	CA001	3	6	inv	ass map	control							10/15/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-7	12	43	CA001-3-7	CA001	3	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-8	14	45	CA001-3-8	CA001	3	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-3-9	14	8	CA001-3-9	CA001	3	9	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-1	18	38	CA001-4-1	CA001	4	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-10	13	34	CA001-4-10	CA001	4	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-11	12	31	CA001-4-11	CA001	4	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-12	12	14	CA001-4-12	CA001	4	12	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-2	21	20	CA001-4-2	CA001	4	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-3	9	34	CA001-4-3	CA001	4	3	inv	mat fx	drought	7/28/2010	8/1/2010		8/2/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-4	16	14	CA001-4-4	CA001	4	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-5	12	11	CA001-4-5	CA001	4	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-6	14	18	CA001-4-6	CA001	4	6	inv	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-7	13	14	CA001-4-7	CA001	4	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-8	18	50	CA001-4-8	CA001	4	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-4-9	12	40	CA001-4-9	CA001	4	9	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-1	10	7	CA001-5-1	CA001	5	1	inv	mat fx	flood			8/1/2010	8/9/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-10	17	40	CA001-5-10	CA001	5	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-11	18	16	CA001-5-11	CA001	5	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-12	20	34	CA001-5-12	CA001	5	12	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-13	23	43	CA001-5-13	CA001	5	13	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-14	14	25	CA001-5-14	CA001	5	14	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-15	19	43	CA001-5-15	CA001	5	15	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-16	5	43	CA001-5-16	CA001	5	16	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-17	11	40	CA001-5-17	CA001	5	17	inv	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-18	22	9	CA001-5-18	CA001	5	18	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-19	19	11	CA001-5-19	CA001	5	19	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-2	21	23	CA001-5-2	CA001	5	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-20	2	16	CA001-5-20	CA001	5	20	inv	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-21	18	36	CA001-5-21	CA001	5	21	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-22	17	5	CA001-5-22	CA001	5	22	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-23	15	14	CA001-5-23	CA001	5	23	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-24	23	45	CA001-5-24	CA001	5	24	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-3	18	32	CA001-5-3	CA001	5	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-4	22	50	CA001-5-4	CA001	5	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-5	20	31	CA001-5-5	CA001	5	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-6	23	23	CA001-5-6	CA001	5	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-7	21	16	CA001-5-7	CA001	5	7	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-8	14	31	CA001-5-8	CA001	5	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-5-9	23	30	CA001-5-9	CA001	5	9	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-6-2	8	38	CA001-6-2	CA001	6	2	inv	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-7-1	14	3	CA001-7-1	CA001	7	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-7-10	17	15	CA001-7-10	CA001	7	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-7-2	15	9	CA001-7-2	CA001	7	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-7-3	18	49	CA001-7-3	CA001	7	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-7-4	20	25	CA001-7-4	CA001	7	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-7-5	11	36	CA001-7-5	CA001	7	5	inv	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-7-6	21	9	CA001-7-6	CA001	7	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-7-7	20	41	CA001-7-7	CA001	7	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-7-9	21	34	CA001-7-9	CA001	7	9	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-1	12	29	CA001-8-1	CA001	8	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-10	4	32	CA001-8-10	CA001	8	10	inv	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-11	10	34	CA001-8-11	CA001	8	11	inv	mat fx	flood			8/1/2010	8/13/2010	8/11/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-12	23	1	CA001-8-12	CA001	8	12	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-13	16	30	CA001-8-13	CA001	8	13	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-14	13	36	CA001-8-14	CA001	8	14	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-15	20	50	CA001-8-15	CA001	8	15	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-16	12	12	CA001-8-16	CA001	8	16	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-17	19	29	CA001-8-17	CA001	8	17	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-18	14	20	CA001-8-18	CA001	8	18	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-19	4	45	CA001-8-19	CA001	8	19	inv	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-2	23	25	CA001-8-2	CA001	8	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-20	15	50	CA001-8-20	CA001	8	20	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-21	15	7	CA001-8-21	CA001	8	21	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-22	19	40	CA001-8-22	CA001	8	22	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-23	19	1	CA001-8-23	CA001	8	23	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-24	7	12	CA001-8-24	CA001	8	24	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-25	23	18	CA001-8-25	CA001	8	25	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-3	22	1	CA001-8-3	CA001	8	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-4	13	49	CA001-8-4	CA001	8	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-5	22	20	CA001-8-5	CA001	8	5	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-6	9	25	CA001-8-6	CA001	8	6	inv	mat fx	drought	7/29/2010	8/1/2010		8/3/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-7	22	45	CA001-8-7	CA001	8	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-8	12	3	CA001-8-8	CA001	8	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-8-9	23	8	CA001-8-9	CA001	8	9	inv	ass map	control							10/20/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-1	13	7	CA001-9-1	CA001	9	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-10	22	25	CA001-9-10	CA001	9	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-11	18	5	CA001-9-11	CA001	9	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-12	21	40	CA001-9-12	CA001	9	12	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-13	23	34	CA001-9-13	CA001	9	13	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-14	13	41	CA001-9-14	CA001	9	14	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-15	1	36	CA001-9-15	CA001	9	15	inv	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-16	14	40	CA001-9-16	CA001	9	16	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-17	23	49	CA001-9-17	CA001	9	17	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-18	12	16	CA001-9-18	CA001	9	18	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-19	19	32	CA001-9-19	CA001	9	19	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-2	3	14	CA001-9-2	CA001	9	2	inv	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-20	21	29	CA001-9-20	CA001	9	20	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-21	12	25	CA001-9-21	CA001	9	21	inv	array	dna											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-22	15	38	CA001-9-22	CA001	9	22	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-23	14	23	CA001-9-23	CA001	9	23	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-24	16	31	CA001-9-24	CA001	9	24	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-25	20	35	CA001-9-25	CA001	9	25	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-26	16	29	CA001-9-26	CA001	9	26	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-27	17	1	CA001-9-27	CA001	9	27	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-28	2	29	CA001-9-28	CA001	9	28	inv	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-29	4	43	CA001-9-29	CA001	9	29	inv	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-3	17	23	CA001-9-3	CA001	9	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-30	18	43	CA001-9-30	CA001	9	30	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-31	6	7	CA001-9-31	CA001	9	31	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-4	15	32	CA001-9-4	CA001	9	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-5	7	18	CA001-9-5	CA001	9	5	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-6	15	21	CA001-9-6	CA001	9	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-7	21	7	CA001-9-7	CA001	9	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-8	4	5	CA001-9-8	CA001	9	8	inv	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+CA001-9-9	21	15	CA001-9-9	CA001	9	9	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-10-1	9	16	GR002-10-1	GR002	10	1	nat	mat fx	drought	7/29/2010	8/2/2010		8/6/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-10-2	20	43	GR002-10-2	GR002	10	2	nat	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-10-3	11	45	GR002-10-3	GR002	10	3	nat	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-10-4	7	25	GR002-10-4	GR002	10	4	nat	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-1-1	7	16	GR002-1-1	GR002	1	1	nat	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-1-2	6	34	GR002-1-2	GR002	1	2	nat	mat fx	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-1-3	5	27	GR002-1-3	GR002	1	3	nat	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-3-1	8	16	GR002-3-1	GR002	3	1	nat	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-3-2	7	47	GR002-3-2	GR002	3	2	nat	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-3-3	8	27	GR002-3-3	GR002	3	3	nat	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-4-1	9	9	GR002-4-1	GR002	4	1	nat	mat fx	drought	7/28/2010	7/29/2010		8/9/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-5-1	8	7	GR002-5-1	GR002	5	1	nat	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-6-1	7	43	GR002-6-1	GR002	6	1	nat	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-6-2	11	49	GR002-6-2	GR002	6	2	nat	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-8-1	10	36	GR002-8-1	GR002	8	1	nat	mat fx	flood			8/3/2010	8/7/2010	8/7/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-9-1	5	7	GR002-9-1	GR002	9	1	nat	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-9-2	9	12	GR002-9-2	GR002	9	2	nat	mat fx	drought	7/28/2010	7/30/2010		8/4/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-9-3	5	32	GR002-9-3	GR002	9	3	nat	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-9-4	6	41	GR002-9-4	GR002	9	4	nat	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-9-5	10	29	GR002-9-5	GR002	9	5	nat	mat fx	flood			8/2/2010	8/9/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-9-6	12	38	GR002-9-6	GR002	9	6	nat	ass map	control							9/27/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-9-7	16	35	GR002-9-7	GR002	9	7	nat	ass map	control							9/16/2010	10/15/2010	white		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-9-8	11	38	GR002-9-8	GR002	9	8	nat	mat fx	nut def			8/3/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+GR002-9-9	10	43	GR002-9-9	GR002	9	9	nat	mat fx	flood			8/2/2010	8/9/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+HUG-1-1	23	32	HUG-1-1	HUG	1	1	SK	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-10-1	3	45	RU008-10-1	RU008	10	1	nat	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-1-1	4	34	RU008-1-1	RU008	1	1	nat	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-11-1	6	25	RU008-11-1	RU008	11	1	nat	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-11-2	2	1	RU008-11-2	RU008	11	2	nat	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-1-2	6	9	RU008-1-2	RU008	1	2	nat	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-2-1	8	18	RU008-2-1	RU008	2	1	nat	mat fx	cut							10/18/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-2-2	2	9	RU008-2-2	RU008	2	2	nat	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-3-1	5	21	RU008-3-1	RU008	3	1	nat	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-4-1	9	49	RU008-4-1	RU008	4	1	nat	mat fx	drought	7/28/2010	7/30/2010		8/3/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-5-1	7	27	RU008-5-1	RU008	5	1	nat	mat fx	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-5-2	6	23	RU008-5-2	RU008	5	2	nat	mat fx	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-5-3	3	5	RU008-5-3	RU008	5	3	nat	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-5-4	10	16	RU008-5-4	RU008	5	4	nat	mat fx	flood			8/3/2010	8/13/2010	8/11/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-5-5	10	40	RU008-5-5	RU008	5	5	nat	mat fx	flood			8/1/2010	8/9/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-5-6	9	20	RU008-5-6	RU008	5	6	nat	mat fx	drought	7/28/2010	7/29/2010		8/2/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-5-7	4	49	RU008-5-7	RU008	5	7	nat	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-5-8	3	23	RU008-5-8	RU008	5	8	nat	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-5-9	7	38	RU008-5-9	RU008	5	9	nat	mat fx	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-6-1	11	27	RU008-6-1	RU008	6	1	nat	mat fx	nut def			8/3/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-7-1	1	20	RU008-7-1	RU008	7	1	nat	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-8-1	8	12	RU008-8-1	RU008	8	1	nat	mat fx	cut							9/10/2010	10/18/2010	white		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-8-2	6	47	RU008-8-2	RU008	8	2	nat	mat fx	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-8-3	2	21	RU008-8-3	RU008	8	3	nat	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-8-4	8	41	RU008-8-4	RU008	8	4	nat	mat fx	cut							10/18/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-8-5	10	9	RU008-8-5	RU008	8	5	nat	mat fx	flood			8/1/2010	8/13/2010	8/7/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-8-6	5	29	RU008-8-6	RU008	8	6	nat	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-8-7	9	43	RU008-8-7	RU008	8	7	nat	mat fx	drought	7/28/2010	7/30/2010		8/3/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-9-1	1	29	RU008-9-1	RU008	9	1	nat	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-9-2	11	23	RU008-9-2	RU008	9	2	nat	mat fx	nut def			8/3/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-9-3	2	5	RU008-9-3	RU008	9	3	nat	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-9-4	3	49	RU008-9-4	RU008	9	4	nat	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+RU008-9-5	11	47	RU008-9-5	RU008	9	5	nat	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-1-1	7	45	SAND-1-1	SAND	1	1	SK	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-1-2	6	32	SAND-1-2	SAND	1	2	SK	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-1-3	11	3	SAND-1-3	SAND	1	3	SK	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-1-4	11	43	SAND-1-4	SAND	1	4	SK	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-1-5	8	32	SAND-1-5	SAND	1	5	SK	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-1-6	7	21	SAND-1-6	SAND	1	6	SK	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-1-7	5	9	SAND-1-7	SAND	1	7	SK	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-1-8	17	47	SAND-1-8	SAND	1	8	SK	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-1-9	6	18	SAND-1-9	SAND	1	9	SK	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-2-1	9	45	SAND-2-1	SAND	2	1	SK	mat fx	drought	7/28/2010	7/30/2010		8/4/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-2-2	8	36	SAND-2-2	SAND	2	2	SK	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-2-3	5	14	SAND-2-3	SAND	2	3	SK	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-2-4	9	47	SAND-2-4	SAND	2	4	SK	mat fx	drought	7/28/2010	8/1/2010		8/3/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-2-5	9	1	SAND-2-5	SAND	2	5	SK	mat fx	drought	7/28/2010	8/1/2010		8/2/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-2-6	10	47	SAND-2-6	SAND	2	6	SK	mat fx	flood			8/1/2010	8/13/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-2-7	8	9	SAND-2-7	SAND	2	7	SK	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-3-1	10	21	SAND-3-1	SAND	3	1	SK	mat fx	flood			8/2/2010	8/11/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-3-2	10	14	SAND-3-2	SAND	3	2	SK	mat fx	flood			8/1/2010	8/16/2010	8/16/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-3-3	7	34	SAND-3-3	SAND	3	3	SK	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-3-4	11	21	SAND-3-4	SAND	3	4	SK	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-3-5	7	41	SAND-3-5	SAND	3	5	SK	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SAND-3-6	5	25	SAND-3-6	SAND	3	6	SK	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-1-1	19	15	SERG-1-1	SERG	1	1	SK	ass map	control						19-5?	8/9/2010	9/3/2010	light purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-1-2	23	41	SERG-1-2	SERG	1	2	SK	ass map	control							7/24/2010	9/3/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-1-3	14	43	SERG-1-3	SERG	1	3	SK	ass map	control							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-1-4	14	7	SERG-1-4	SERG	1	4	SK	ass map	control							8/7/2010	9/10/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-1-5	18	11	SERG-1-5	SERG	1	5	SK	array	dna							8/27/2010	9/30/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-1-6	20	15	SERG-1-6	SERG	1	6	SK	ass map	control							7/24/2010	9/3/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-1-7	17	43	SERG-1-7	SERG	1	7	SK	array	dna							7/24/2010	8/16/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-2-1	14	27	SERG-2-1	SERG	2	1	SK	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-2-2	23	16	SERG-2-2	SERG	2	2	SK	ass map	control							8/27/2010	9/30/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-2-3	22	16	SERG-2-3	SERG	2	3	SK	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-2-4	17	29	SERG-2-4	SERG	2	4	SK	ass map	control							9/16/2010	10/8/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-2-5	16	48	SERG-2-5	SERG	2	5	SK	array	dna							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-2-6	15	16	SERG-2-6	SERG	2	6	SK	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-2-7	23	27	SERG-2-7	SERG	2	7	SK	ass map	control							9/3/2010	9/30/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-2-8	17	36	SERG-2-8	SERG	2	8	SK	ass map	control							8/27/2010	9/30/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-2-9	22	38	SERG-2-9	SERG	2	9	SK	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-3-1	15	5	SERG-3-1	SERG	3	1	SK	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-3-10	23	38	SERG-3-10	SERG	3	10	SK	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-3-2	22	32	SERG-3-2	SERG	3	2	SK	ass map	control							9/30/2010	10/21/2010	light purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-3-3	20	12	SERG-3-3	SERG	3	3	SK	ass map	control							8/9/2010	9/3/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-3-4	18	45	SERG-3-4	SERG	3	4	SK	ass map	control							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-3-5	21	5	SERG-3-5	SERG	3	5	SK	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-3-6	21	8	SERG-3-6	SERG	3	6	SK	ass map	control							9/3/2010	9/10/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-3-7	17	11	SERG-3-7	SERG	3	7	SK	ass map	control							7/24/2010	9/3/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-3-8	14	5	SERG-3-8	SERG	3	8	SK	ass map	control							8/9/2010	9/3/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+SERG-3-9	12	1	SERG-3-9	SERG	3	9	SK	ass map	control							9/20/2010	10/19/2010	purple		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-10-1	1	18	TR001-10-1	TR001	10	1	nat	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-10-2	5	40	TR001-10-2	TR001	10	2	nat	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-10-3	11	16	TR001-10-3	TR001	10	3	nat	mat fx	nut def			8/7/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-10-4	8	21	TR001-10-4	TR001	10	4	nat	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-1-1	9	38	TR001-1-1	TR001	1	1	nat	mat fx	drought	7/29/2010	7/30/2010		8/4/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-2-1	8	47	TR001-2-1	TR001	2	1	nat	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-2-2	11	18	TR001-2-2	TR001	2	2	nat	mat fx	nut def			8/13/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-3-1	7	9	TR001-3-1	TR001	3	1	nat	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-3-2	9	29	TR001-3-2	TR001	3	2	nat	mat fx	drought	7/29/2010	8/2/2010		8/5/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-3-3	2	47	TR001-3-3	TR001	3	3	nat	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-5-1	11	5	TR001-5-1	TR001	5	1	nat	mat fx	nut def			8/3/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-5-2	1	47	TR001-5-2	TR001	5	2	nat	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-6-1	2	49	TR001-6-1	TR001	6	1	nat	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-6-2	5	20	TR001-6-2	TR001	6	2	nat	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-6-3	1	45	TR001-6-3	TR001	6	3	nat	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-6-4	3	40	TR001-6-4	TR001	6	4	nat	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-6-5	3	18	TR001-6-5	TR001	6	5	nat	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-6-7	8	23	TR001-6-7	TR001	6	7	nat	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-7-1	20	1	TR001-7-1	TR001	7	1	nat	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-8-1	10	18	TR001-8-1	TR001	8	1	nat	mat fx	flood			8/2/2010	8/9/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-1	1	7	TR001-9-1	TR001	9	1	nat	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-10	10	45	TR001-9-10	TR001	9	10	nat	mat fx	flood			8/2/2010	8/9/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-11	18	25	TR001-9-11	TR001	9	11	nat	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-12	2	36	TR001-9-12	TR001	9	12	nat	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-13	6	21	TR001-9-13	TR001	9	13	nat	mat fx	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-14	4	27	TR001-9-14	TR001	9	14	nat	array	drought 3							8/4/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-15	10	23	TR001-9-15	TR001	9	15	nat	mat fx	flood			8/7/2010	8/9/2010	8/7/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-16	3	29	TR001-9-16	TR001	9	16	nat	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-17	2	7	TR001-9-17	TR001	9	17	nat	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-18	7	3	TR001-9-18	TR001	9	18	nat	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-19	4	38	TR001-9-19	TR001	9	19	nat	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-2	9	14	TR001-9-2	TR001	9	2	nat	mat fx	drought	7/30/2010	8/1/2010		8/4/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-20	5	36	TR001-9-20	TR001	9	20	nat	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-21	3	47	TR001-9-21	TR001	9	21	nat	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-22	3	43	TR001-9-22	TR001	9	22	nat	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-23	7	49	TR001-9-23	TR001	9	23	nat	mat fx	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-3	4	18	TR001-9-3	TR001	9	3	nat	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-4	21	10	TR001-9-4	TR001	9	4	nat	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-5	1	21	TR001-9-5	TR001	9	5	nat	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-6	7	20	TR001-9-6	TR001	9	6	nat	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-7	3	38	TR001-9-7	TR001	9	7	nat	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-8	15	20	TR001-9-8	TR001	9	8	nat	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+TR001-9-9	7	36	TR001-9-9	TR001	9	9	nat	mat fx	control							8/9/2010	9/16/2010	white		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-10-1	22	29	US001-10-1	US001	10	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-10-2	5	5	US001-10-2	US001	10	2	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-10-3	6	40	US001-10-3	US001	10	3	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-10-4	6	45	US001-10-4	US001	10	4	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-10-5	7	7	US001-10-5	US001	10	5	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-10-6	3	16	US001-10-6	US001	10	6	inv	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-10-7	18	23	US001-10-7	US001	10	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-10-8	4	21	US001-10-8	US001	10	8	inv	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-1-1	16	23	US001-1-1	US001	1	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-11-1	10	5	US001-11-1	US001	11	1	inv	mat fx	flood			8/1/2010	8/9/2010	8/7/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-12-1	10	20	US001-12-1	US001	12	1	inv	mat fx	flood			8/5/2010	8/7/2010	8/5/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-12-2	8	40	US001-12-2	US001	12	2	inv	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-2-1	19	25	US001-2-1	US001	2	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-2-2	2	18	US001-2-2	US001	2	2	inv	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-2-3	11	32	US001-2-3	US001	2	3	inv	mat fx	nut def			8/1/2010				10/13/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-2-4	20	29	US001-2-4	US001	2	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-2-5	1	38	US001-2-5	US001	2	5	inv	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-2-6	8	25	US001-2-6	US001	2	6	inv	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-3-1	15	1	US001-3-1	US001	3	1	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-4-1	23	31	US001-4-1	US001	4	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-4-10	21	3	US001-4-10	US001	4	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-4-2	2	3	US001-4-2	US001	4	2	inv	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-4-3	10	25	US001-4-3	US001	4	3	inv	mat fx	flood			8/1/2010	8/9/2010	8/7/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-4-4	19	9	US001-4-4	US001	4	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-4-5	9	7	US001-4-5	US001	4	5	inv	mat fx	drought	7/28/2010	7/30/2010		8/4/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-4-6	4	1	US001-4-6	US001	4	6	inv	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-4-7	16	27	US001-4-7	US001	4	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-4-8	2	14	US001-4-8	US001	4	8	inv	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-4-9	2	23	US001-4-9	US001	4	9	inv	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-5-1	21	36	US001-5-1	US001	5	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-5-2	5	41	US001-5-2	US001	5	2	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-6-1	15	29	US001-6-1	US001	6	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-6-2	21	1	US001-6-2	US001	6	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-6-3	6	20	US001-6-3	US001	6	3	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-6-4	14	50	US001-6-4	US001	6	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-6-5	1	5	US001-6-5	US001	6	5	inv	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-7-1	5	45	US001-7-1	US001	7	1	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-7-10	21	25	US001-7-10	US001	7	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-7-11	22	41	US001-7-11	US001	7	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-7-2	3	25	US001-7-2	US001	7	2	inv	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-7-3	15	34	US001-7-3	US001	7	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-7-4	7	23	US001-7-4	US001	7	4	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-7-5	1	43	US001-7-5	US001	7	5	inv	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-7-6	11	29	US001-7-6	US001	7	6	inv	mat fx	nut def			8/7/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-7-7	8	1	US001-7-7	US001	7	7	inv	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-7-8	3	1	US001-7-8	US001	7	8	inv	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-7-9	9	3	US001-7-9	US001	7	9	inv	mat fx	drought	7/28/2010	7/30/2010		8/2/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-8-1	3	20	US001-8-1	US001	8	1	inv	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-8-2	11	12	US001-8-2	US001	8	2	inv	mat fx	nut def			8/3/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-8-3	1	34	US001-8-3	US001	8	3	inv	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-9-1	1	12	US001-9-1	US001	9	1	inv	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-9-2	18	35	US001-9-2	US001	9	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-9-3	9	21	US001-9-3	US001	9	3	inv	mat fx	drought	7/28/2010	7/30/2010		8/3/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-9-4	4	14	US001-9-4	US001	9	4	inv	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-9-5	4	16	US001-9-5	US001	9	5	inv	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-9-6	4	41	US001-9-6	US001	9	6	inv	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US001-9-7	6	43	US001-9-7	US001	9	7	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-1-1	23	9	US002-1-1	US002	1	1	inv	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-1-2	10	41	US002-1-2	US002	1	2	inv	mat fx	flood			8/1/2010	8/11/2010	8/11/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-2-1	17	10	US002-2-1	US002	2	1	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-2-2	20	23	US002-2-2	US002	2	2	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-2-3	9	27	US002-2-3	US002	2	3	inv	mat fx	drought	7/29/2010	8/2/2010		8/3/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-1	15	15	US002-3-1	US002	3	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-10	14	9	US002-3-10	US002	3	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-11	21	38	US002-3-11	US002	3	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-12	16	32	US002-3-12	US002	3	12	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-13	17	38	US002-3-13	US002	3	13	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-14	12	36	US002-3-14	US002	3	14	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-15	13	50	US002-3-15	US002	3	15	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-16	23	47	US002-3-16	US002	3	16	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-17	19	23	US002-3-17	US002	3	17	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-18	11	41	US002-3-18	US002	3	18	inv	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-19	16	16	US002-3-19	US002	3	19	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-2	5	23	US002-3-2	US002	3	2	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-20	22	49	US002-3-20	US002	3	20	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-21	6	38	US002-3-21	US002	3	21	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-22	10	49	US002-3-22	US002	3	22	inv	mat fx	flood			8/1/2010	8/9/2010	8/7/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-23	7	14	US002-3-23	US002	3	23	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-24	6	36	US002-3-24	US002	3	24	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-25	8	5	US002-3-25	US002	3	25	inv	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-26	15	12	US002-3-26	US002	3	26	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-27	12	18	US002-3-27	US002	3	27	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-28	13	15	US002-3-28	US002	3	28	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-3	11	1	US002-3-3	US002	3	3	inv	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-4	13	18	US002-3-4	US002	3	4	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-5	19	27	US002-3-5	US002	3	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-6	8	45	US002-3-6	US002	3	6	inv	mat fx	cut							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-7	21	18	US002-3-7	US002	3	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-8	22	27	US002-3-8	US002	3	8	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-3-9	12	47	US002-3-9	US002	3	9	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-4-1	19	30	US002-4-1	US002	4	1	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-1	16	15	US002-5-1	US002	5	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-10	12	20	US002-5-10	US002	5	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-11	17	12	US002-5-11	US002	5	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-12	5	3	US002-5-12	US002	5	12	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-2	8	49	US002-5-2	US002	5	2	inv	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-3	6	49	US002-5-3	US002	5	3	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-4	9	5	US002-5-4	US002	5	4	inv	mat fx	drought	7/29/2010	8/2/2010		8/3/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-5	11	9	US002-5-5	US002	5	5	inv	mat fx	nut def			8/3/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-6	13	27	US002-5-6	US002	5	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-7	20	30	US002-5-7	US002	5	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-8	15	11	US002-5-8	US002	5	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-5-9	9	40	US002-5-9	US002	5	9	inv	mat fx	drought	7/28/2010	7/30/2010		8/3/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-6-1	10	3	US002-6-1	US002	6	1	inv	mat fx	flood			8/2/2010	8/13/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-6-2	7	40	US002-6-2	US002	6	2	inv	mat fx	control							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-6-3	5	16	US002-6-3	US002	6	3	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-6-4	6	16	US002-6-4	US002	6	4	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US002-6-5	14	21	US002-6-5	US002	6	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-10-1	14	11	US003-10-1	US003	10	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-10-2	23	29	US003-10-2	US003	10	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-1	8	3	US003-11-1	US003	11	1	inv	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-10	1	49	US003-11-10	US003	11	10	inv	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-11	17	27	US003-11-11	US003	11	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-12	15	36	US003-11-12	US003	11	12	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-13	17	41	US003-11-13	US003	11	13	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-14	22	47	US003-11-14	US003	11	14	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-15	15	27	US003-11-15	US003	11	15	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-2	10	27	US003-11-2	US003	11	2	inv	mat fx	flood			8/5/2010	8/9/2010	8/9/2010						NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-3	21	35	US003-11-3	US003	11	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-4	17	18	US003-11-4	US003	11	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-5	20	8	US003-11-5	US003	11	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-6	13	47	US003-11-6	US003	11	6	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-7	12	8	US003-11-7	US003	11	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-8	12	35	US003-11-8	US003	11	8	inv	ass map	control							9/27/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-11-9	4	25	US003-11-9	US003	11	9	inv	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-12-1	18	41	US003-12-1	US003	12	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-12-2	22	5	US003-12-2	US003	12	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-12-3	11	25	US003-12-3	US003	12	3	inv	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-12-4	4	36	US003-12-4	US003	12	4	inv	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-12-5	13	31	US003-12-5	US003	12	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-12-6	12	5	US003-12-6	US003	12	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-13-1	19	10	US003-13-1	US003	13	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-13-2	22	43	US003-13-2	US003	13	2	inv	ass map	control							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-13-3	1	25	US003-13-3	US003	13	3	inv	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-13-4	20	10	US003-13-4	US003	13	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-13-5	22	21	US003-13-5	US003	13	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-13-6	16	12	US003-13-6	US003	13	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-13-7	5	12	US003-13-7	US003	13	7	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-13-8	23	11	US003-13-8	US003	13	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-14-1	20	16	US003-14-1	US003	14	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-14-10	14	38	US003-14-10	US003	14	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-14-2	14	12	US003-14-2	US003	14	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-14-3	9	41	US003-14-3	US003	14	3	inv	mat fx	drought	7/28/2010	7/29/2010		8/2/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-14-4	3	36	US003-14-4	US003	14	4	inv	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-14-5	13	23	US003-14-5	US003	14	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-14-6	5	50	US003-14-6	US003	14	6	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-14-7	17	21	US003-14-7	US003	14	7	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-14-8	9	50	US003-14-8	US003	14	8	inv	mat fx	drought	7/28/2010	7/29/2010		8/3/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-14-9	20	9	US003-14-9	US003	14	9	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-15-1	17	45	US003-15-1	US003	15	1	inv	ass map	control							9/27/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-15-2	10	12	US003-15-2	US003	15	2	inv	mat fx	flood			8/1/2010	8/9/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-15-3	19	36	US003-15-3	US003	15	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-15-4	22	34	US003-15-4	US003	15	4	inv	ass map	control							8/27/2010	9/30/2010	white		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-15-5	21	12	US003-15-5	US003	15	5	inv	ass map	control							9/16/2010	10/21/2010	white		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-1	18	27	US003-16-1	US003	16	1	inv	ass map	control							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-10	11	50	US003-16-10	US003	16	10	inv	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-11	7	5	US003-16-11	US003	16	11	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-12	13	11	US003-16-12	US003	16	12	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-13	19	18	US003-16-13	US003	16	13	inv	ass map	control							9/3/2010	10/8/2010	white		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-14	8	29	US003-16-14	US003	16	14	inv	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-2	8	20	US003-16-2	US003	16	2	inv	mat fx	cut											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-3	2	32	US003-16-3	US003	16	3	inv	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-4	1	1	US003-16-4	US003	16	4	inv	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-5	12	45	US003-16-5	US003	16	5	inv	ass map	control							9/27/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-6	19	34	US003-16-6	US003	16	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-7	16	11	US003-16-7	US003	16	7	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-8	19	35	US003-16-8	US003	16	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-16-9	2	41	US003-16-9	US003	16	9	inv	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-17-1	23	15	US003-17-1	US003	17	1	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-17-2	3	12	US003-17-2	US003	17	2	inv	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-17-3	18	7	US003-17-3	US003	17	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-18-1	14	35	US003-18-1	US003	18	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-2-1	7	32	US003-2-1	US003	2	1	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-2-2	22	14	US003-2-2	US003	2	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-1	15	30	US003-3-1	US003	3	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-10	6	10	US003-3-10	US003	3	10	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-11	16	25	US003-3-11	US003	3	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-12	23	10	US003-3-12	US003	3	12	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-13	20	49	US003-3-13	US003	3	13	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-14	16	20	US003-3-14	US003	3	14	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-15	13	29	US003-3-15	US003	3	15	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-16	16	43	US003-3-16	US003	3	16	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-17	20	45	US003-3-17	US003	3	17	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-18	20	36	US003-3-18	US003	3	18	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-19	18	1	US003-3-19	US003	3	19	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-2	17	34	US003-3-2	US003	3	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-20	2	38	US003-3-20	US003	3	20	inv	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-21	21	31	US003-3-21	US003	3	21	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-22	22	15	US003-3-22	US003	3	22	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-3	3	41	US003-3-3	US003	3	3	inv	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-4	12	10	US003-3-4	US003	3	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-5	19	50	US003-3-5	US003	3	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-6	3	3	US003-3-6	US003	3	6	inv	array	drought 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-7	16	49	US003-3-7	US003	3	7	inv	ass map	control							10/8/2010	10/13/2010	white		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-8	18	15	US003-3-8	US003	3	8	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-3-9	21	49	US003-3-9	US003	3	9	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-4-1	16	41	US003-4-1	US003	4	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-4-2	17	35	US003-4-2	US003	4	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-4-3	10	1	US003-4-3	US003	4	3	inv	mat fx	flood			8/3/2010	8/9/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-4-4	13	21	US003-4-4	US003	4	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-5-1	14	41	US003-5-1	US003	5	1	inv	ass map	control							9/10/2010	10/19/2010	white		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-5-2	11	10	US003-5-2	US003	5	2	inv	mat fx	nut def			8/1/2010								NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-5-3	22	11	US003-5-3	US003	5	3	inv	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-5-4	19	47	US003-5-4	US003	5	4	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-5-5	15	18	US003-5-5	US003	5	5	inv	ass map	control							10/21/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-5-6	4	9	US003-5-6	US003	5	6	inv	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-5-7	14	30	US003-5-7	US003	5	7	inv	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-5-8	23	3	US003-5-8	US003	5	8	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-6-1	14	1	US003-6-1	US003	6	1	inv	ass map	control							9/10/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-6-2	2	40	US003-6-2	US003	6	2	inv	array	control 1											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-6-3	17	49	US003-6-3	US003	6	3	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-1	22	10	US003-7-1	US003	7	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-10	21	41	US003-7-10	US003	7	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-11	14	16	US003-7-11	US003	7	11	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-12	4	12	US003-7-12	US003	7	12	inv	array	drought 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-13	13	35	US003-7-13	US003	7	13	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-2	23	7	US003-7-2	US003	7	2	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-3	16	47	US003-7-3	US003	7	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-4	7	10	US003-7-4	US003	7	4	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-5	13	32	US003-7-5	US003	7	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-6	16	45	US003-7-6	US003	7	6	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-7	1	14	US003-7-7	US003	7	7	inv	array	control 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-8	16	8	US003-7-8	US003	7	8	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-7-9	2	10	US003-7-9	US003	7	9	inv	array	control 3											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-8-1	17	16	US003-8-1	US003	8	1	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-8-2	6	50	US003-8-2	US003	8	2	inv	mat fx	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-8-3	9	10	US003-8-3	US003	8	3	inv	mat fx	drought	7/28/2010	7/30/2010		8/6/2010							NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-8-4	12	27	US003-8-4	US003	8	4	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-8-5	21	32	US003-8-5	US003	8	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-8-6	20	5	US003-8-6	US003	8	6	inv	ass map	control							9/16/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-8-7	20	20	US003-8-7	US003	8	7	inv	ass map	control							10/8/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-9-1	17	7	US003-9-1	US003	9	1	inv	ass map	control							9/16/2010	10/20/2010	white		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-9-10	14	36	US003-9-10	US003	9	10	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-9-2	5	10	US003-9-2	US003	9	2	inv	mat fx	allo											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-9-3	15	41	US003-9-3	US003	9	3	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-9-4	18	21	US003-9-4	US003	9	4	inv	ass map	control							10/20/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-9-5	12	49	US003-9-5	US003	9	5	inv	ass map	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-9-6	13	1	US003-9-6	US003	9	6	inv	ass map	control							9/30/2010				NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-9-7	7	50	US003-9-7	US003	9	7	inv	mat fx	control											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-9-8	15	25	US003-9-8	US003	9	8	inv	ass map	control							9/30/2010	10/21/2010	white		NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+US003-9-9	3	34	US003-9-9	US003	9	9	inv	array	drought 2											NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
