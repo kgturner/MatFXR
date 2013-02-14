@@ -5,6 +5,20 @@ library(lme4)
 
 #REWRITE FOR MAT FX FILES#
 
+mfcom1<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #m1 all plants in analysis, balanced, dk only
+
+mfallo.dk<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #allo, dk only
+
+mfn.dk<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #nut, dk only
+
+mfcu.dk<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #cut, dk only
+
+mfd.dk<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #drought, dk only
+
+mff.dk<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #flood, dk only
+
+mfmom.dk<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #mom, dk only
+
 # #for each normal trait, compare this general set of models
 # model1<-lmer(trait  ~ Origin* Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
 # model2<-lmer(trait  ~ Origin* Latitude + (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect

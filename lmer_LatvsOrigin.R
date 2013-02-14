@@ -5,17 +5,9 @@ library(lme4)
 
 #REWRITE FOR MAT FX FILES#
 
+mfmom.dk<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #mom, dk only
 
-# #open data files
-# mom<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #momsubset
-# co<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #controlsubset
-# m1<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #m1subset
-# al<-read.table("STAllosubset.txt", header=T, sep="\t", quote='"', row.names=1) #allosubset
-# n<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #nutsubset
-# cu<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #cutsubset
-# d<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #droughtsubset
-# f<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #floodsubset
-# 
+
 # #for each normal trait, compare this general set of models
 # model1<-lmer(trait  ~ Origin+ Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
 # model2<-lmer(trait  ~ Origin+ Latitude + (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
@@ -48,163 +40,111 @@ library(lme4)
 # almodels[[1]][1] #first number is trait in column order of df, second number is model number
 # names(almodels[1]) #to verify trait
 # 
-# ######Allo, Origin + Lat models######
-# al<-read.table("STAllosubset.txt", header=T, sep="\t", quote='"', row.names=1) #allosubset
-# head(al)
-# alLR <- lapply(names(al)[c(11:13, 20)],function(n) CGtrait.LR(n,al)) #crow, shoot, root, root.log, all gaussian
-# names(alLR) <- names(al)[c(11:13, 20)]
-# alLR #check out LRs of models. Model progression logical?
-# almodels <- CGtrait.models("CrownDiam.mmA",al)
-# almodels
-# 
-# ###allo shoot, mom is sig, do by hand
-# modeldata<-al[!is.na(al$ShootA.log),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1raw<-lmer(ShootMass.gA  ~ Origin+ Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
-# model2raw<-lmer(ShootMass.gA  ~ Origin+ Latitude + (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(ShootMass.gA  ~ Origin+ Latitude + (1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom is sig!
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(ShootMass.gA  ~ Origin + (1|PopID/Mom), family=gaussian,data=modeldata)
-# anova(modelL, model1raw)
-# 
-# modelOraw<-lmer(ShootMass.gA ~ Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
-# anova(modelOraw,model1raw) #test for significance of origin - origin not sig
-# 
-# ###allo, root mass###
-# modeldata<-al[!is.na(al$RootA.log),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1raw<-lmer(RootA.log  ~ Origin + Latitude+(1|PopID/Mom), family=gaussian,data=modeldata)
-# model2raw<-lmer(RootA.log  ~ Origin + Latitude+ (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(RootA.log  ~ Origin + Latitude+ (1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom is sig!
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(RootA.log  ~ Origin + (1|PopID/Mom), family=gaussian,data=modeldata)
-# anova(modelL, model1raw)
-# 
-# modelOraw<-lmer(RootA.log ~ Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
-# anova(modelOraw,model1raw) #test for significance of origin - origin not sig
-# 
+######Allo, Origin + Lat models######
+mfallo.dk<-read.table("MFallo.dk.txt", header=T, sep="\t", quote='"', row.names=1) #allo, dk only
+head(mfallo.dk)
+mfallo.dk$lxw <- mfallo.dk$LfLgth1 * mfallo.dk$LfWdth1
+str(mfallo.dk)
+alLR <- lapply(names(mfallo.dk)[c(10:11)],function(n) CGtrait.LR(n,mfallo.dk)) #crow, shoot, all gaussian
+#names(alLR) <- names(mfallo.dk)[c(11:13, 20)]
+alLR #check out LRs of models. Model progression logical?
+almodels <- CGtrait.models("CrownDiam.mmA",mfallo.dk)
+almodels
+
 # #####m1, Origin + Lat#####
-# m1<-read.table("STm1subset.txt", header=T, sep="\t", quote='"', row.names=1) #m1subset
-# head(m1)
-# m1<-cbind(m1,lxw=m1$LfLgth1*m1$LfWdth1, lxw.log=log(m1$LfLgth1*m1$LfWdth1))
-# m1lxw <- CGtrait.LR("lxw", m1)
-# m1lf <- CGtrait.LR("LfCount1", m1, family=poisson)#poisson distribution
+mfcom1<-read.table("MF bonus control m1.txt", header=T, sep="\t", quote='"', row.names=1) #m1 all plants in analysis, balanced, dk only
+head(mfcom1)
+mfcom1$lxw <- mfcom1$LfLgth1*mfcom1$LfWdth1
+write.table(mfcom1, file="MF bonus control m1.txt", sep="\t", quote=F)
+m1lxw <- CGtrait.LR("lxw", mfcom1)
+m1lf <- CGtrait.LR("LfCount1", mfcom1, family=poisson)#poisson distribution
+
+###m1, lxw, cross sig, do by hand###
+modeldata<-mfcom1[!is.na(mfcom1$lxw),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1<-lmer(lxw ~ Origin +Latitude+(1|PopID/CrossNum), family=gaussian,data=modeldata)
+model2<-lmer(lxw ~ Origin +Latitude+ (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(lxw ~ Origin +Latitude+ (1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2,model1) # mom is sig!
+anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL<-lmer(lxw ~ Origin +(1|PopID/CrossNum), family=gaussian,data=modeldata)
+anova(modelL, model1)
 # 
-# ###m1, lxw, mom sig, do by hand###
-# modeldata<-m1[!is.na(m1$lxw),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1<-lmer(lxw ~ Origin +Latitude+(1|PopID/Mom), family=gaussian,data=modeldata)
-# model2<-lmer(lxw ~ Origin +Latitude+ (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3<-lmer(lxw ~ Origin +Latitude+ (1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2,model1) # mom is sig!
-# anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(lxw ~ Origin +(1|PopID/Mom), family=gaussian,data=modeldata)
-# anova(modelL, model1)
-# 
-# modelO<-lmer(lxw ~ (1|PopID/Mom), family=gaussian,data=modeldata)
+# modelO<-lmer(lxw ~ (1|PopID/CrossNum), family=gaussian,data=modeldata)
 # anova(modelO,modelL) #test for significance of origin - origin not sig....?
 # #mom and popID sig, but not Origin! for either log or raw data
+
+###m1, lfcount, cross sig, do by hand###
+modeldata<-mfcom1[!is.na(mfcom1$LfCount1),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1<-lmer(LfCount1  ~ Origin+ Latitude +(1|PopID/CrossNum), family=poisson,data=modeldata)
+model2<-lmer(LfCount1  ~ Origin+ Latitude + (1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(LfCount1  ~ Origin+ Latitude + (1|blank), family=poisson,data=modeldata) # Test population effect
+anova(model2,model1) # mom is sig!
+anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL<-lmer(LfCount1  ~ Origin + (1|PopID/CrossNum), family=poisson,data=modeldata)
+anova(modelL, model1)
 # 
-# ####m1, control, lf count####
-# modeldata<-m1[!is.na(m1$LfCount1),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
+# modelO<-lmer(LfCount1 ~ Latitude +(1|PopID/CrossNum), family=poisson,data=modeldata)
+# anova(modelO,model1) #test for significance of origin - origin only marginally sig....!
+
+####Control, Origin + Lat####
+mfco.dk1<-read.table("Mat fx bonus control.txt", header=T, sep="\t", quote='"', row.names=1) #m1 all plants in analysis, balanced, dk only
+head(mfco.dk1)
+mfco.dk1$lxwH <- mfco.dk1$LfLgthH * mfco.dk1$LfWdthH
+coLR <- lapply(names(mfco.dk1)[c(12:13,21:22,41, 44)],function(n) CGtrait.LR(n,mfco.dk1)) #crow, shoot, root, RootH.log, lxw, all gaussian
+names(coLR) <- names(mfco.dk1)[c(15:17,52:53)]
+coLR #check out LRs of models. Model progression logical?
+
+mfco.dk1$bolt.bin <- as.numeric(mfco.dk1$BoltedatH)-1
+mfco.dk1$BoltDay.adj <- mfco.dk1$BoltDay + 3
+write.table(mfco.dk1, file="Mat fx bonus control.txt", sep="\t", quote=F)
+coBatH <- CGtrait.LR("bolt.bin", mfco.dk1, family=binomial)
+coP <- lapply(names(mfco.dk1)[c(11,46)],function(n) CGtrait.LR(n,mfco.dk1, family=poisson)) #lfcountH, boltdate, all poisson
+
+####control, lxw, mom sig, so do by hand####
+modeldata<-mfco.dk1[!is.na(mfco.dk1$lxwH),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1raw<-lmer(lxwH ~ Origin +Latitude +(1|PopID/CrossNum), family=gaussian,data=modeldata)
+model2raw<-lmer(lxwH ~ Origin +Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(lxwH ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL<-lmer(lxwH ~ Origin +(1|PopID/CrossNum), family=gaussian,data=modeldata)
+anova(modelL, model1raw)
 # 
-# model1raw<-lmer(LfCount1 ~ Origin +Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
-# model2raw<-lmer(LfCount1 ~ Origin +Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(LfCount1 ~ Origin +Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(LfCount1 ~ Origin +(1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelL, model1raw)
-# 
-# modelOraw<-lmer(LfCount1 ~ Latitude+(1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelOraw,model1raw) #test for significance of origin - origin NOT sig....!
-# 
-# ####Control, Origin + Lat####
-# co<-read.table("STControlsubset.txt", header=T, sep="\t", quote='"', row.names=1) #controlsubset
-# head(co)
-# coLR <- lapply(names(co)[c(15:17,52:53)],function(n) CGtrait.LR(n,co)) #crow, shoot, root, RootH.log, lxw, all gaussian
-# names(coLR) <- names(co)[c(15:17,52:53)]
-# coLR #check out LRs of models. Model progression logical?
-# 
-# co <- cbind(co, bolt.bin=as.numeric(co$BoltedatH)-1)
-# write.table(co, file="STControlsubset.txt", sep="\t", quote=F)
-# coBatH <- CGtrait.LR("bolt.bin", co, family=binomial)
-# coP <- lapply(names(co)[c(10,27)],function(n) CGtrait.LR(n,co, family=poisson)) #lfcountH, boltdate, all poisson
-# 
-# comodels <- CGtrait.models("RootH.log",co)
-# comodels
-# 
-# ###control, root, lat not sig, do by hand###
-# modeldata<-co[!is.na(co$RootH.log),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1raw<-lmer(RootMass.g ~ Origin + Latitude+(1|PopID/Mom), family=gaussian,data=modeldata)
-# model2raw<-lmer(RootMass.g ~ Origin + Latitude+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(RootMass.g ~ Origin + Latitude+(1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig!
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(RootMass.g ~ Origin +(1|PopID), family=gaussian,data=modeldata)
-# anova(modelL, model2raw)
-# 
-# modelOraw<-lmer(RootMass.g ~ (1|PopID), family=gaussian,data=modeldata)
-# anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....! Roots suck
-# 
-# ####control, lxw, mom sig, so do by hand####
-# modeldata<-co[!is.na(co$lxwH),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1raw<-lmer(lxwH ~ Origin +Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
-# model2raw<-lmer(lxwH ~ Origin +Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(lxwH ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(lxwH ~ Origin +(1|PopID/Mom), family=gaussian,data=modeldata)
-# anova(modelL, model1raw)
-# 
-# modelOraw<-lmer(lxwH ~ Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
+# modelOraw<-lmer(lxwH ~ Latitude +(1|PopID/CrossNum), family=gaussian,data=modeldata)
 # anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
-# 
-# ####control, lf count, mom sig so do by hand#####
-# #poisson on raw data
-# modeldata<-co[!is.na(co$LfCountH),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1raw<-lmer(LfCountH ~ Origin +Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
-# model2raw<-lmer(LfCountH ~Origin +Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(LfCountH ~ Origin +Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(LfCountH ~ Origin +(1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelL, model1raw)
-# 
-# modelOraw<-lmer(LfCountH ~Latitude+(1|PopID/Mom), family=poisson,data=modeldata)
+
+####control, lf count, mom sig so do by hand#####
+#poisson on raw data
+modeldata<-mfco.dk1[!is.na(mfco.dk1$LfCountH),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1raw<-lmer(LfCountH ~ Origin +Latitude +(1|PopID/CrossNum), family=poisson,data=modeldata)
+model2raw<-lmer(LfCountH ~Origin +Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(LfCountH ~ Origin +Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL<-lmer(LfCountH ~ Origin +(1|PopID/CrossNum), family=poisson,data=modeldata)
+anova(modelL, model1raw)
+
+# modelOraw<-lmer(LfCountH ~Latitude+(1|PopID/CrossNum), family=poisson,data=modeldata)
 # anova(modelOraw,model1raw) #test for significance of origin - origin NOT sig....!
 # 
 # int<-1.510174
@@ -215,315 +155,144 @@ library(lme4)
 # pN<-exp(int+B)
 # pI
 # pN
+
+###control, boltday.adj, cross sig, do by hand###
+#only bolters
+modeldata<-mfco.dk1[!is.na(mfco.dk1$BoltDay.adj),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1<-lmer(BoltDay.adj ~ Origin + Latitude +(1|PopID/CrossNum), family=poisson,data=modeldata)
+model2<-lmer(BoltDay.adj ~ Origin + Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(BoltDay.adj ~ Origin + Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
+anova(model2,model1) # mom sig
+anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL<-lmer(BoltDay.adj ~ Origin + (1|PopID/CrossNum), family=poisson,data=modeldata)
+anova(modelL, model1)
 # 
-# ###control, boltdate, mom sig, do by hand###
-# #only bolters
-# modeldata<-co[!is.na(co$BoltDate),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1<-lmer(BoltDate ~ Origin + Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
-# model2<-lmer(BoltDate ~ Origin + Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3<-lmer(BoltDate ~ Origin + Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
-# anova(model2,model1) # mom sig
-# anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(BoltDate ~ Origin + (1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelL, model1)
-# 
-# modelO<-lmer(BoltDate ~  (1|PopID/Mom), family=poisson,data=modeldata)
+# modelO<-lmer(BoltDay.adj ~  (1|PopID/CrossNum), family=poisson,data=modeldata)
 # anova(modelO,modelL) #test for significance of origin - origin not sig!
+
+###control, crown, cross sig, do by hand###
+modeldata<-mfco.dk1[!is.na(mfco.dk1$CrownDiam.mm),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1raw<-lmer(CrownDiam.mm ~ Origin +Latitude +(1|PopID/CrossNum), family=gaussian,data=modeldata)
+model2raw<-lmer(CrownDiam.mm ~ Origin +Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(CrownDiam.mm ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL<-lmer(CrownDiam.mm ~ Origin +(1|PopID/CrossNum), family=gaussian,data=modeldata)
+anova(modelL, model1raw)
 # 
-# ###control boltedatH, mom sig, do by hand, binomial
-# #all plants, not just bolters
-# modeldata<-co[!is.na(co$BoltedatH),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$bolt.bin<-as.numeric(modeldata$BoltedatH)-1
-# str(modeldata$bolt.bin)
-# modeldata$Mom<-as.factor(modeldata$Mom)
+# modelOraw<-lmer(CrownDiam.mm ~ Latitude +(1|PopID/CrossNum), family=gaussian,data=modeldata)
+# anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+
+###control, sla, cross sig, do by hand###
+modeldata<-mfco.dk1[!is.na(mfco.dk1$sla),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1raw<-lmer(sla ~ Origin +Latitude +(1|PopID/CrossNum), family=gaussian,data=modeldata)
+model2raw<-lmer(sla ~ Origin +Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(sla ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL<-lmer(sla ~ Origin +(1|PopID/CrossNum), family=gaussian,data=modeldata)
+anova(modelL, model1raw)
 # 
-# model1<-lmer(bolt.bin ~ Origin + Latitude +(1|PopID/Mom), family=binomial,data=modeldata)
-# model2<-lmer(bolt.bin ~ Origin + Latitude +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3<-lmer(bolt.bin ~ Origin + Latitude +(1|blank), family=binomial,data=modeldata) # Test population effect
-# anova(model2,model1) # mom sig
-# anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(bolt.bin ~ Origin + (1|PopID/Mom), family=binomial,data=modeldata)
-# anova(modelL, model1) #are lat and origin different???? sig so yes?
-# 
-# modelO<-lmer(bolt.bin ~ Latitude + (1|PopID/Mom), family=binomial,data=modeldata)
-# anova(modelO,model1) #test for significance of origin??? origin sig!
-# 
-# #mean estimates, I don't understand.....
-# int<- 1.88428 #inv mean
-# B<-2.71785 #Originnat estimate from model summary
-# # Native
-# pN<-exp(int+B)/(exp(int+B)+1)
-# # Introduced (B=0)
-# pI<-exp(int)/(exp(int)+1)
-# 
-# pI  
-# pN 
-# #check
-# summary(co[co$Origin=="nat",]) #261 rows, 78 boltedatH = 30%
-# summary(co[co$Origin=="inv",]) #125 rows, 5 boltedatH = 4%
-# 
-# co.mod <- coefficients(with(co,glm(bolt.bin~Origin,family=binomial)))
-# exp(co.mod[1])/(exp(co.mod[1])+1) 
-# 
-# co.mod <- coefficients(with(co,glm(bolt.bin~Origin,family=binomial)))
-# exp(sum(co.mod))/(exp(sum(co.mod))+1) 
-# 
-# co.mod <- coefficients(with(co,glm(bolt.bin~Latitude,family=binomial)))
-# exp(sum(co.mod))/(exp(sum(co.mod))+1) 
-# with(co,plot(bolt.bin~Latitude))
-# curve(exp(co.mod[1]+co.mod[2]*x)/(1+exp(co.mod[1]+co.mod[2]*x)),add=TRUE)
-# 
-# str(co)
-# co.mod
-# with(co,tapply(bolt.bin,list(Origin,Latitude),mean))
-# with(co,tapply(bolt.bin,list(Origin),mean))
-# with(co,tapply(Latitude,list(Origin),mean))
-# 
-# summary(model1)
-# 
-# with(co,aggregate(bolt.bin,list(origin=Origin,latitude=Latitude,mom=Mom,PopID=PopID),length)) # how many moms
-# with(co,aggregate(bolt.bin,list(origin=Origin,latitude=Latitude,mom=Mom,PopID=PopID),sum)) # how many bolted
-# means <- with(co,aggregate(bolt.bin,list(origin=Origin,latitude=Latitude,mom=Mom,PopID=PopID),mean)) #mean boltage per mom per pop
-# popmeans <- with(means,aggregate(x,list(origin=origin,latitude=latitude,pop=PopID),mean))
-# summary(glm(x~origin+latitude,family=gaussian,data=popmeans))
-# 
-# with(popmeans,plot(x~origin))
-# tapply(popmeans$x,popmeans$origin,mean)
-# with(popmeans,plot(x~origin))
-# 
-# with(popmeans,plot(x~latitude))
-# ## without nonbolters
-# summary(with(subset(popmeans,popmeans$x!=0),lm(x~latitude)))
-# abline(with(subset(popmeans,popmeans$x!=0),lm(x~latitude)))
-# 
-# with(co,aggregate(bolt.bin,list(origin=Origin,latitude=Latitude,mom=Mom,PopID=PopID),length))
-# 
-# co[which(co$Origin=="nat"&co$PopID=="RO004"),]
-# summary(co)
-# mean(co$Latitude)
-# 
-# library(lattice)
-# xyplot(jitter(bolt.bin)~Latitude,groups=Origin,data=co,auto.key=TRUE)
-# xyplot(bolt.bin~Latitude|Latitude,groups=Origin,data=co)
-# 
-# plot(with(co,ftable(Origin,Latitude,bolt.bin)))
-# 
-# with(co,table(Origin,Latitude,bolt.bin))
-# 
-# ####Nut def, Origin + Lat####
-# n<-read.table("STNutsubset.txt", header=T, sep="\t", quote='"', row.names=1) #nutsubset
-# head(n)
-# # xtabs(~Origin+BoltedatH, modeldata) # no invasives bolted.........
-# # modeldata<-modeldata[modeldata$BoltedatH!="y",]#remove 7 bolted plants from nat SHOULD I???
-# nLR <- lapply(names(n)[c(11:12, 15:17, 50:51)],function(x) CGtrait.LR(x,n)) 
-# #lflgthH, lfwdthH, crown, shoot, root, root.log (pick one!)lxwH, all gaussian
+# modelOraw<-lmer(sla ~ Latitude +(1|PopID/CrossNum), family=gaussian,data=modeldata)
+# anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+
+####Nut def, Origin + Lat####
+mfn.dk<-read.table("Mat fx nut def.dk.txt", header=T, sep="\t", quote='"', row.names=1) #nut, dk only
+head(mfn.dk)
+xtabs(~Origin+BoltedatH, mfn.dk) # only one bolter... leaving in
+# modeldata<-modeldata[modeldata$BoltedatH!="y",]#remove 7 bolted plants from nat SHOULD I???
+mfn.dk$lxwH <- mfn.dk$LfLgthH * mfn.dk$LfWdthH
+# mfn.dk$bolt.bin <- as.numeric(mfn.dk$BoltedatH)-1
+# mfn.dk$BoltDay.adj <- mfco.dk1$BoltDay + 3
+write.table(mfn.dk, file="Mat fx nut def.dk.txt", sep="\t", quote=F)
+
+nLR <- lapply(names(mfn.dk)[c(20:21,27:28, 36)],function(n) CGtrait.LR(n, mfn.dk)) 
+#lflgthH, lfwdthH, crown, shoot, lxwH, all gaussian
 # names(nLR) <- names(al)[c(11:12, 15:17, 50:51)]
-# nLR #check out LRs of models. Model progression logical?
-# nmodels <- CGtrait.models("RootMass.g",n)
-# nmodels2 <- CGtrait.models("RootH.log",n)
+nLR #check out LRs of models. Model progression logical?
+# nmodels <- CGtrait.models("RootMass.g",mfn.dk)
+# nmodels2 <- CGtrait.models("RootH.log",mfn.dk)
 # nmodels
 # nRoot.lmer <- nmodels$model2
 # nRootlog.lmer <- nmodels2$model2
 # qqnorm(resid(nRootlog.lmer), main="Q-Q plot for residuals")
 # qqline(resid(nRootlog.lmer))
-# 
-# 
-# #non-gaussian?
-# n <- cbind(n, bolt.bin=as.numeric(n$BoltedatH)-1)
+
+
+#non-gaussian?
+# mfn.dk <- cbind(mfn.dk, bolt.bin=as.numeric(mfn.dk$BoltedatH)-1)
 # write.table(n, file="STNutsubset.txt", sep="\t", quote=F)
 # 
-# #nBatH <- CGtrait.LR("bolt.bin", n, family=binomial)# no invasive bolted!
-# nlfcount <- CGtrait.LR("LfCountH",n, family=poisson) #lfcountH, all poisson
-# 
-# ###nut def, lxwH, harvest, lat not sig, do by hand###
-# str(n)
-# #n<-cbind(n,lxwH=n$LfLgthH*n$LfWdthH,lxwH.log=log(n$LfLgthH*n$LfWdthH))
-# modeldata<-n[!is.na(n$lxwH),]
-# 
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1raw<-lmer(lxwH ~ Origin + Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
-# model2raw<-lmer(lxwH ~ Origin + Latitude + (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(lxwH ~ Origin + Latitude + (1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL <- lmer(lxwH ~ Origin +(1|PopID), family=gaussian,data=modeldata)
-# anova(modelL, model2raw)
-# 
-# modelOraw<-lmer(lxwH ~ (1|PopID), family=gaussian,data=modeldata)
-# anova(modelOraw,modelL) #test for significance of origin - origin IS sig..
-# 
-# ###nut def, crown, harvest, lat not sig###
-# str(n)
-# modeldata<-n[!is.na(n$CrownDiam.mm),]
-# 
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1raw<-lmer(CrownDiam.mm ~ Origin + Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
-# model2raw<-lmer(CrownDiam.mm ~ Origin +Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(CrownDiam.mm ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(CrownDiam.mm ~ Origin +(1|PopID), family=gaussian,data=modeldata)
-# anova(model2raw, modelL)
-# 
-# modelOraw<-lmer(CrownDiam.mm ~ (1|PopID), family=gaussian,data=modeldata)
-# anova(modelOraw,modelL) #test for significance of origin - origin IS sig.
-# 
-# ###nut def, shoot mass, harvest, lat not sig##
-# str(n)
-# modeldata<-n[!is.na(n$ShootMass.g),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1raw<-lmer(ShootMass.g ~ Origin + Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
-# model2raw<-lmer(ShootMass.g ~ Origin + Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(ShootMass.g ~ Origin + Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL <- lmer(ShootMass.g ~ Origin +(1|PopID), family=gaussian,data=modeldata)
-# anova(modelL, model2raw)
-# 
-# modelOraw<-lmer(ShootMass.g ~ (1|PopID), family=gaussian,data=modeldata)
-# anova(modelOraw,modelL) #test for significance of origin - origin IS sig....!
-# modelL
-# 
-# ###nut def, lf count, harvest, mom sig, do by hand###
-# str(n)
-# modeldata<-n[!is.na(n$LfCountH),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1raw<-lmer(LfCountH ~ Origin + Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
-# model2raw<-lmer(LfCountH ~ Origin + Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(LfCountH ~ Origin + Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL <- lmer(LfCountH ~ Origin +(1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelL, model1raw)
-# 
-# modelOraw<-lmer(LfCountH ~ Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelOraw,model1raw) #test for significance of origin - origin NOT sig....!
-# 
-# ####Cut, Origin + Lat####
-# cu<-read.table("STCutsubset.txt", header=T, sep="\t", quote='"', row.names=1) #cutsubset
-# head(cu)
-# cuLR <- lapply(names(cu)[c(13:14, 42)],function(n) CGtrait.LR(n,cu)) #crow, root, root.log, all gaussian
-# 
-# #non-gaussian?
-# cu<- cbind(cu, bolt.bin=as.numeric(cu$BoltedatH)-1)
-# write.table(cu, file="STCutsubset.txt", sep="\t", quote=F)
-# cuBatH <- CGtrait.LR("bolt.bin", cu, family=binomial)
-# cuP <- lapply(names(cu)[c(10,27)],function(n) CGtrait.LR(n,cu, family=poisson)) #lfcountH, boltdate, all poisson
-# 
-# cumodels <- CGtrait.models("RootH.log",cu)
-# cumodels
-# qqnorm(resid(cumodels$model2), main="Q-Q plot for residuals")
-# qqline(resid(cumodels$model2))
-# shapiro.test(resid(cumodels$model2))
-# 
-# 
-# ####cut, lf count, harvest, mom is sig, do by hand###
-# modeldata<-cu[!is.na(cu$LfCountH),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1raw<-lmer(LfCountH ~ Origin + Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
-# model2raw<-lmer(LfCountH ~ Origin + Latitude + (1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(LfCountH ~ Origin + Latitude + (1|blank), family=poisson,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL <- lmer(LfCountH ~ Origin +(1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelL,model1raw) 
-# 
-# modelOraw<-lmer(LfCountH ~ Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelOraw,model1raw) #test for significance of origin 
-# 
-# ###cut, harvest, bolt date, mom is sig, do by hand###
-# #given that it's bolted....
-# modeldata<-cu[!is.na(cu$BoltDate),]
-# xtabs(~Origin + BoltedatH, modeldata)
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1<-lmer(BoltDate ~ Origin +Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
-# model2<-lmer(BoltDate ~ Origin +Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3<-lmer(BoltDate ~ Origin +Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
-# anova(model2,model1) # mom sig
-# anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(BoltDate ~ Origin + (1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelL,model1) #test for significant interaction btw Origin and Bolted - not sig
-# 
-# modelO<-lmer(BoltDate ~ Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelO,model1) #test for significance of origin - origin not sig!
-# 
-# ###cut, bolt.bin, binomial###
-# modeldata<-cu[!is.na(cu$BoltedatH),]
-# xtabs(~Origin + BoltedatH, modeldata)
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
-# 
-# model1<-lmer(bolt.bin ~ Origin +Latitude +(1|PopID/Mom), family=binomial,data=modeldata)
-# model2<-lmer(bolt.bin ~ Origin +Latitude +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3<-lmer(bolt.bin ~ Origin +Latitude +(1|blank), family=binomial,data=modeldata) # Test population effect
-# anova(model2,model1) # mom sig
-# anova(model2,model3) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL <- lmer(bolt.bin ~ Origin +(1|blank), family=binomial,data=modeldata)
-# anova(modelL, model3)
-# 
-# modelO<-lmer(bolt.bin ~ (1|blank), family=binomial,data=modeldata)
-# anova(modelO,modelL) #test for significance of origin - origin sig!
-# modelL
-# 
-# int<--2.6742 #inv mean
-# B<-1.6648 #Originnat estimate from model summary
-# # Native
-# pN<-exp(int+B)/(exp(int+B)+1)
-# # Introduced (B=0)
-# pI<-exp(int)/(exp(int)+1)
-# 
-# pI # 6.5% 
-# pN # 27%
-# #check by looking at percentages
-# summary(cu[cu$Origin=="nat",]) #146 rows, 39 boltedatH = 27%
-# summary(cu[cu$Origin=="inv",]) #55 rows, 8 boltedatH = 6.4%
-# #also check glm
-# glm(bolt.bin ~ Origin, family=binomial,data=modeldata)
-# 
-# ####Drought, Origin + Lat####
-# d<-read.table("STDroughtsubset.txt", header=T, sep="\t", quote='"', row.names=1) #droughtsubset
-# head(d)
-# #no gaussian
-# dLR <- lapply(names(d)[8:10],function(n) CGtrait.LR(n,d, family=poisson)) #wilt, totwilt, death, all poisson
-# names(dLR) <- names(d)[8:10]
-# 
+# #nBatH <- CGtrait.LR("bolt.bin", mfn.dk, family=binomial)# no invasive bolted!
+nlfcount <- CGtrait.LR("LfCountH",mfn.dk, family=poisson) #lfcountH, all poisson
+
+
+####Cut, Origin + Lat####
+mfcu.dk<-read.table("Mat fx cut.dk.txt", header=T, sep="\t", quote='"', row.names=1) #cut, dk only
+head(mfcu.dk)
+cuLR <- CGtrait.LR("CrownDiam.mm",mfcu.dk) #crown all gaussian
+
+#non-gaussian?
+mfcu.dk<- cbind(mfcu.dk, bolt.bin=as.numeric(mfcu.dk$BoltedatH)-1)
+write.table(mfcu.dk, file="Mat fx cut.dk.txt", sep="\t", quote=F)
+xtabs(~Origin+BoltedatH, mfcu.dk)
+cuBatH <- CGtrait.LR("bolt.bin", mfcu.dk, family=binomial)
+cuP <- lapply(names(mfcu.dk)[c(19,34)],function(n) CGtrait.LR(n,mfcu.dk, family=poisson)) #lfcountH, boltdate, all poisson
+
+cumodels <- CGtrait.models("RootH.log",cu)
+cumodels
+qqnorm(resid(cumodels$model2), main="Q-Q plot for residuals")
+qqline(resid(cumodels$model2))
+shapiro.test(resid(cumodels$model2))
+
+
+####cut, lf count, harvest, mom is sig, do by hand###
+modeldata<-mfcu.dk[!is.na(mfcu.dk$LfCountH),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1raw<-lmer(LfCountH ~ Origin + Latitude + (1|PopID/CrossNum), family=poisson,data=modeldata)
+model2raw<-lmer(LfCountH ~ Origin + Latitude + (1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(LfCountH ~ Origin + Latitude + (1|blank), family=poisson,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL <- lmer(LfCountH ~ Origin +(1|PopID/CrossNum), family=poisson,data=modeldata)
+anova(modelL,model1raw) 
+
+modelOraw<-lmer(LfCountH ~ Latitude + (1|PopID/CrossNum), family=poisson,data=modeldata)
+anova(modelOraw,model1raw) #test for significance of origin 
+
+###cut, harvest, bolt day, PopID not sig, do by hand###
+#given that it's bolted....only 6 bolted total.
+
+
+####Drought, Origin + Lat####
+mfd.dk<-read.table("Mat fx drought.dk.txt", header=T, sep="\t", quote='"', row.names=1) #drought, dk only
+head(mfd.dk)
+#no gaussian
+dLR <- lapply(names(mfd.dk)[17:19],function(n) CGtrait.LR(n,mfd.dk, family=poisson)) #wilt, totwilt, death, all poisson
+names(dLR) <- names(d)[17:19]
+
 # dmodels <- lapply(names(d)[8:9],function(n) CGtrait.models(n,d))
 # dmodels
-# 
+
 # int<-10.69128#inv mean
 # B<-0.28995#Originnat estimate from model summary
 # pI<-exp(int)
@@ -532,85 +301,124 @@ library(lme4)
 # pN
 # summary(d[d$Origin=="inv",]$TotWilt)
 # summary(d[d$Origin=="nat",]$TotWilt)
-# 
-# ####Flood, Origin + Lat####
-# f<-read.table("STFloodsubset.txt", header=T, sep="\t", quote='"', row.names=1) #floodsubset
-# head(f)
-# #no gaussian
-# fLR <- lapply(names(f)[20:21],function(n) CGtrait.LR(n,f, family=poisson)) #wilt, totwilt, death, all poisson
+
+####Flood, Origin + Lat####
+mff.dk<-read.table("Mat fx flood.dk.txt", header=T, sep="\t", quote='"', row.names=1) #flood, dk only
+head(mff.dk)
+#no gaussian
+fLR <- lapply(names(mff.dk)[17:19],function(n) CGtrait.LR(n,mff.dk, family=poisson)) #wilt, totwilt, death, all poisson
 # names(fLR) <- names(f)[20:21]
 # 
 # fmodels <- lapply(names(f)[20:21],function(n) CGtrait.models(n,f))
 # fmodels
+###flood, yellow, pop not sig###
+modeldata<-mff.dk[!is.na(mff.dk$YellowDay),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1raw<-lmer(YellowDay ~ Origin + Latitude + (1|PopID/CrossNum), family=poisson,data=modeldata)
+model2raw<-lmer(YellowDay ~ Origin + Latitude + (1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(YellowDay ~ Origin + Latitude + (1|blank), family=poisson,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL <- lmer(YellowDay ~ Origin +(1|blank), family=poisson,data=modeldata)
+anova(modelL,model3raw) 
+
+modelOraw<-lmer(YellowDay ~ Latitude + (1|PopID/CrossNum), family=poisson,data=modeldata)
+anova(modelOraw,model1raw) #test for significance of origin 
+
+###flood, float, pop not sig###
+modeldata<-mff.dk[!is.na(mff.dk$FloatDay),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1raw<-lmer(FloatDay ~ Origin + Latitude + (1|PopID/CrossNum), family=poisson,data=modeldata)
+model2raw<-lmer(FloatDay ~ Origin + Latitude + (1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(FloatDay ~ Origin + Latitude + (1|blank), family=poisson,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL <- lmer(FloatDay ~ Origin +(1|blank), family=poisson,data=modeldata)
+anova(modelL,model3raw) 
+
+modelOraw<-lmer(FloatDay ~ Latitude + (1|PopID/CrossNum), family=poisson,data=modeldata)
+anova(modelOraw,model1raw) #test for significance of origin 
+
+####Mom, Origin + Lat####
+mfmom.dk<-read.table("Mat fx mom.dk.txt", header=T, sep="\t", quote='"', row.names=1) 
+head(mfmom.dk)
+
+
+####Mom, seedwt###
+str(mfmom.dk)
+mfmom.dk$Origin<-droplevels(mfmom.dk$Origin)
+mfmom.dk$CrossNum<-as.factor(mfmom.dk$CrossNum)
+modeldata<-mfmom.dk[!is.na(mfmom.dk$SeedWt),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+
+model1<-lmer(SeedWt ~ Origin +Latitude + (1|PopID/MomID), family=gaussian,data=modeldata)
+model2<-lmer(SeedWt ~ Origin +Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(SeedWt ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2,model1)
+anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL <-lmer(SeedWt ~ Origin +(1|PopID), family=gaussian,data=modeldata)
+anova(modelL, model2)
 # 
-# ####Mom, Origin + Lat####
-# mom<-read.table("STMomsubset.txt", header=T, sep="\t", quote='"', row.names=1) #momsubset
-# head(mom)
-# # momLR <- lapply(names(mom)[c(5:6,13, 17)],function(n) CGtrait.LR(n,mom)) #can't use func, because mom doesn't have Mom
-# #seedwt, germ avg date, sdwt.log (pick one!), avggermdate.log(I don't think this is the right transf...) all gaussian
+# modelO<-lmer(SeedWt ~ (1|PopID), family=gaussian,data=modeldata)
+# anova(modelO,model2) #test for significance of origin - origin not sig....?
+
+####Mom, germ count###
+modeldata<-mfmom.dk[!is.na(mfmom.dk$GermCount),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+
+model1<-lmer(GermCount ~ Origin +Latitude + SeedCount +(1|PopID/MomID), family=poisson,data=modeldata)
+model2<-lmer(GermCount ~ Origin +Latitude + SeedCount +(1|PopID), family=poisson, data=modeldata)
+model3<-lmer(GermCount ~ Origin +Latitude + SeedCount + (1|blank), family=poisson, data=modeldata)
+anova(model2, model1)
+anova(model3, model2)
+
+modelL <- lmer(GermCount ~ Origin + SeedCount +(1|PopID), family=poisson, data=modeldata)
+anova(modelL, model2)
+
+# modelS0<-lmer(GermCount ~ Origin + (1|PopID), family=poisson, data=modeldata)
+# anova(modelS0, model2)
 # 
-# # names(alLR) <- names(al)[11:13]
-# # alLR #check out LRs of models. Model progression logical?
-# # almodels <- CGtrait.models("CrownDiam.mmA",al)
-# # almodels
-# 
-# str(mom)
-# modeldata<-mom[!is.na(mom$Sdwt.log),]
-# # xtabs(~Origin+SeedAgeYrs, modeldata)
-# 
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# 
-# model2<-lmer(Sdwt.log ~ Origin +Latitude+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3<-lmer(Sdwt.log ~ Origin +Latitude+(1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(Sdwt.log ~ Origin + (1|PopID), family=gaussian, data=modeldata)
-# anova(modelL, model2)
-# 
-# modelO<-lmer(Sdwt.log ~ (1|PopID), family=gaussian,data=modeldata)
-# anova(modelO,modelL) #test for significance of origin - origin not sig....?
-# 
-# ####Mom, germ count###
-# str(mom)
-# modeldata<-mom[!is.na(mom$GermCount),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# 
-# model2<-lmer(GermCount ~ Origin + Latitude+ SeedCount +(1|PopID), family=poisson, data=modeldata)
-# model3<-lmer(GermCount ~ Origin + Latitude+SeedCount + (1|blank), family=poisson, data=modeldata)
-# anova(model3, model2)
-# 
-# modelL<-lmer(GermCount ~ Origin +SeedCount+ (1|PopID), family=poisson, data=modeldata)
-# anova(modelL, model2)
+# # modelW<-lmer(GermCount ~ Origin + SeedCount +SeedWt+(1|PopID), family=poisson, data=modeldata)
+# # anova(modelW, model2)
 # 
 # modelO<-lmer(GermCount ~ SeedCount + (1|PopID), family=poisson, data=modeldata)
-# anova(modelO, modelL)
-# 
-# modelL
-# int<- -0.42767
+# anova(modelO, model2)
+# model2
+# int<-1.103892
 # #inv mean
-# B<-0.52217
+# B<--0.299416
 # #Originnat estimate from model summary
 # pI<-exp(int)
 # pN<-exp(int+B)
 # pI
 # pN
+
+####Mom, germ date####avg, so can't use poisson
+modeldata<-mfmom.dk[!is.na(mfmom.dk$GermAvgDate),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+
+model1<-lmer(GermAvgDate ~ Origin + Latitude +(1|PopID/MomID), family=gaussian,data=modeldata)
+model2<-lmer(GermAvgDate ~ Origin + Latitude+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(GermAvgDate ~ Origin + Latitude+(1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2, model1)
+anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelL <- lmer(GermAvgDate ~ Origin +(1|PopID), family=gaussian,data=modeldata)
+anova(modelL, model2)
+# # modelW<-lmer(GermAvgDate ~ Origin +SeedWt+(1|PopID), family=gaussian,data=modeldata)
+# # anova(model2, modelW)
 # 
-# ####Mom, germ date####avg, so can't use poisson
-# str(mom)
-# modeldata<-mom[!is.na(mom$AvgGermDate.log),]
-# modeldata$blank<-1
-# modeldata$blank<-as.factor(modeldata$blank)
-# 
-# model2<-lmer(AvgGermDate.log ~ Origin +Latitude+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3<-lmer(AvgGermDate.log ~ Origin +Latitude+(1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 
-# modelL<-lmer(AvgGermDate.log ~ Origin +(1|PopID), family=, data=modeldata)
-# anova(modelL,model2)
-# 
-# modelO<-lmer(AvgGermDate.log ~ (1|PopID), family=gaussian,data=modeldata)
-# anova(modelO,modelL) #test for significance of origin - origin not sig....?
-# 
-# modelL
+# modelO<-lmer(GermAvgDate ~ (1|PopID), family=gaussian,data=modeldata)
+# anova(modelO,model2) #test for significance of origin - origin not sig....?
