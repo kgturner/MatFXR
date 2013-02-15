@@ -1,4 +1,4 @@
-PopID	CrossID	CrossNum	SeedCount	GermCount	GermAvgDate	MomID	MomFam	MomIndiv	DadID	DadFam	DadIndiv	Origin	BegCrossDate	WtCount	TotSeedWt	SeedWt	GermPercent	Latitude	Longitude
+PopID	CrossID	CrossNum	SeedCount	GermCount	GermAvgDate	Mom	MomFam	MomIndiv	DadID	DadFam	DadIndiv	Origin	BegCrossDate	WtCount	TotSeedWt	SeedWt	GermPercent	Latitude	Longitude
 1	BG001	BG001-1	1	2	2	2	29M	29	M	25L	25	L	nat	1/18/2010	2	0.0038	0.0019	100	43.3819444444444	28.4575
 2	BG001	BG001-2	2	1	1	2	29M	29	M	25N	25	N	nat	1/14/2010	1	0.0014	0.0014	100	43.3819444444444	28.4575
 3	BG001	BG001-3	3	4	4	3.5	16N	16	N	25L	25	L	nat	1/18/2010	2	0.0034	0.0017	100	43.3819444444444	28.4575

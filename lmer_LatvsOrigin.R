@@ -5,7 +5,6 @@ library(lme4)
 
 #REWRITE FOR MAT FX FILES#
 
-mfmom.dk<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #mom, dk only
 
 
 # #for each normal trait, compare this general set of models
@@ -52,10 +51,10 @@ almodels <- CGtrait.models("CrownDiam.mmA",mfallo.dk)
 almodels
 
 # #####m1, Origin + Lat#####
-mfcom1<-read.table("MF bonus control m1.txt", header=T, sep="\t", quote='"', row.names=1) #m1 all plants in analysis, balanced, dk only
+mfcom1<-read.table("MatFxBonusCtrlM1.txt", header=T, sep="\t", quote='"', row.names=1) #m1 all plants in analysis, balanced, dk only
 head(mfcom1)
 mfcom1$lxw <- mfcom1$LfLgth1*mfcom1$LfWdth1
-write.table(mfcom1, file="MF bonus control m1.txt", sep="\t", quote=F)
+write.table(mfcom1, file="MatFxBonusCtrlM1.txt", sep="\t", quote=F)
 m1lxw <- CGtrait.LR("lxw", mfcom1)
 m1lf <- CGtrait.LR("LfCount1", mfcom1, family=poisson)#poisson distribution
 
@@ -97,7 +96,7 @@ anova(modelL, model1)
 # anova(modelO,model1) #test for significance of origin - origin only marginally sig....!
 
 ####Control, Origin + Lat####
-mfco.dk1<-read.table("Mat fx bonus control.txt", header=T, sep="\t", quote='"', row.names=1) #m1 all plants in analysis, balanced, dk only
+mfco.dk1<-read.table("MatFxBonusCtrl.txt", header=T, sep="\t", quote='"', row.names=1) #largest balanced control
 head(mfco.dk1)
 mfco.dk1$lxwH <- mfco.dk1$LfLgthH * mfco.dk1$LfWdthH
 coLR <- lapply(names(mfco.dk1)[c(12:13,21:22,41, 44)],function(n) CGtrait.LR(n,mfco.dk1)) #crow, shoot, root, RootH.log, lxw, all gaussian
@@ -106,7 +105,7 @@ coLR #check out LRs of models. Model progression logical?
 
 mfco.dk1$bolt.bin <- as.numeric(mfco.dk1$BoltedatH)-1
 mfco.dk1$BoltDay.adj <- mfco.dk1$BoltDay + 3
-write.table(mfco.dk1, file="Mat fx bonus control.txt", sep="\t", quote=F)
+write.table(mfco.dk1, file="MatFxBonusCtrl.txt", sep="\t", quote=F)
 coBatH <- CGtrait.LR("bolt.bin", mfco.dk1, family=binomial)
 coP <- lapply(names(mfco.dk1)[c(11,46)],function(n) CGtrait.LR(n,mfco.dk1, family=poisson)) #lfcountH, boltdate, all poisson
 
@@ -212,14 +211,14 @@ anova(modelL, model1raw)
 # anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
 
 ####Nut def, Origin + Lat####
-mfn.dk<-read.table("Mat fx nut def.dk.txt", header=T, sep="\t", quote='"', row.names=1) #nut, dk only
+mfn.dk<-read.table("MatFxNut.dk.txt", header=T, sep="\t", quote='"', row.names=1) #nut, dk only
 head(mfn.dk)
 xtabs(~Origin+BoltedatH, mfn.dk) # only one bolter... leaving in
 # modeldata<-modeldata[modeldata$BoltedatH!="y",]#remove 7 bolted plants from nat SHOULD I???
 mfn.dk$lxwH <- mfn.dk$LfLgthH * mfn.dk$LfWdthH
 # mfn.dk$bolt.bin <- as.numeric(mfn.dk$BoltedatH)-1
 # mfn.dk$BoltDay.adj <- mfco.dk1$BoltDay + 3
-write.table(mfn.dk, file="Mat fx nut def.dk.txt", sep="\t", quote=F)
+write.table(mfn.dk, file="MatFxNut.dk.txt", sep="\t", quote=F)
 
 nLR <- lapply(names(mfn.dk)[c(20:21,27:28, 36)],function(n) CGtrait.LR(n, mfn.dk)) 
 #lflgthH, lfwdthH, crown, shoot, lxwH, all gaussian
@@ -243,13 +242,13 @@ nlfcount <- CGtrait.LR("LfCountH",mfn.dk, family=poisson) #lfcountH, all poisson
 
 
 ####Cut, Origin + Lat####
-mfcu.dk<-read.table("Mat fx cut.dk.txt", header=T, sep="\t", quote='"', row.names=1) #cut, dk only
+mfcu.dk<-read.table("MatFxCut.dk.txt", header=T, sep="\t", quote='"', row.names=1) #cut, dk only
 head(mfcu.dk)
 cuLR <- CGtrait.LR("CrownDiam.mm",mfcu.dk) #crown all gaussian
 
 #non-gaussian?
 mfcu.dk<- cbind(mfcu.dk, bolt.bin=as.numeric(mfcu.dk$BoltedatH)-1)
-write.table(mfcu.dk, file="Mat fx cut.dk.txt", sep="\t", quote=F)
+write.table(mfcu.dk, file="MatFxCut.dk.txt", sep="\t", quote=F)
 xtabs(~Origin+BoltedatH, mfcu.dk)
 cuBatH <- CGtrait.LR("bolt.bin", mfcu.dk, family=binomial)
 cuP <- lapply(names(mfcu.dk)[c(19,34)],function(n) CGtrait.LR(n,mfcu.dk, family=poisson)) #lfcountH, boltdate, all poisson
@@ -284,7 +283,7 @@ anova(modelOraw,model1raw) #test for significance of origin
 
 
 ####Drought, Origin + Lat####
-mfd.dk<-read.table("Mat fx drought.dk.txt", header=T, sep="\t", quote='"', row.names=1) #drought, dk only
+mfd.dk<-read.table("MatFxDrought.dk.txt", header=T, sep="\t", quote='"', row.names=1) #drought, dk only
 head(mfd.dk)
 #no gaussian
 dLR <- lapply(names(mfd.dk)[17:19],function(n) CGtrait.LR(n,mfd.dk, family=poisson)) #wilt, totwilt, death, all poisson
@@ -303,7 +302,7 @@ names(dLR) <- names(d)[17:19]
 # summary(d[d$Origin=="nat",]$TotWilt)
 
 ####Flood, Origin + Lat####
-mff.dk<-read.table("Mat fx flood.dk.txt", header=T, sep="\t", quote='"', row.names=1) #flood, dk only
+mff.dk<-read.table("MatFxFlood.dk.txt", header=T, sep="\t", quote='"', row.names=1) #flood, dk only
 head(mff.dk)
 #no gaussian
 fLR <- lapply(names(mff.dk)[17:19],function(n) CGtrait.LR(n,mff.dk, family=poisson)) #wilt, totwilt, death, all poisson
@@ -348,7 +347,7 @@ modelOraw<-lmer(FloatDay ~ Latitude + (1|PopID/CrossNum), family=poisson,data=mo
 anova(modelOraw,model1raw) #test for significance of origin 
 
 ####Mom, Origin + Lat####
-mfmom.dk<-read.table("Mat fx mom.dk.txt", header=T, sep="\t", quote='"', row.names=1) 
+mfmom.dk<-read.table("MatFxMom.dk.txt", header=T, sep="\t", quote='"', row.names=1) 
 head(mfmom.dk)
 
 

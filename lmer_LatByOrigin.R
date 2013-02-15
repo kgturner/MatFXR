@@ -3,7 +3,7 @@
 #mixed effect models 
 library(lme4)
 
-#REWRITE FOR MAT FX FILES#
+#REWRITE FOR MAT FX FILES????#
 
 mfcom1<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #m1 all plants in analysis, balanced, dk only
 
