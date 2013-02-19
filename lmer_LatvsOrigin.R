@@ -3,10 +3,6 @@
 #mixed effect models 
 library(lme4)
 
-#REWRITE FOR MAT FX FILES#
-
-
-
 # #for each normal trait, compare this general set of models
 # model1<-lmer(trait  ~ Origin+ Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
 # model2<-lmer(trait  ~ Origin+ Latitude + (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect

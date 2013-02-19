@@ -65,6 +65,9 @@ modelO<-lmer(mass.log ~ (1|PopID), family=gaussian,data=modeldata)
 anova(modelO,model2) #test for significance of origin - origin sig!
 model2
 
+qqnorm(resid(model2), main="Q-Q plot for residuals")
+qqline(resid(model2))
+
 ####allo, crown diam#####
 modeldata<-mfallo.dk[!is.na(mfallo.dk$Crown.mmA),]
 modeldata$blank<-1
@@ -135,6 +138,26 @@ anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you wan
 modelO<-lmer(lxw ~ (1|PopID/CrossNum), family=gaussian,data=modeldata)
 anova(modelO,model1) #test for significance of origin - origin not sig....?
 model1
+
+#transformed m1, lxw#
+modeldata<-mfcom1[!is.na(mfcom1$lxw),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$lxw.log<-log(mfcom1$lxw)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1<-lmer(lxw.log ~ Origin +(1|PopID/CrossNum), family=gaussian,data=modeldata)
+model2<-lmer(lxw.log ~ Origin + (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(lxw.log ~ Origin + (1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2,model1) # mom is sig!
+anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelO<-lmer(lxw.log ~ (1|PopID/CrossNum), family=gaussian,data=modeldata)
+anova(modelO,model1) #test for significance of origin - origin not sig....?
+model1
+
+qqnorm(resid(model1), main="Q-Q plot for residuals")
+qqline(resid(model1))
 
 ####CONTROL####
 #include BoltedatH!
@@ -697,6 +720,25 @@ anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you wan
 
 modelO<-lmer(lxw ~ (1|PopID), family=gaussian,data=modeldata)
 anova(modelO,modelB0)
+
+#tranformed, nut, lxwh#
+modeldata<-mfn.dk[!is.na(mfn.dk$lxwH),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$lxw.log<-log(modeldata$lxwH)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1<-lmer(lxw.log ~ Origin +(1|PopID/CrossNum), family=gaussian,data=modeldata)
+model2<-lmer(lxw.log ~ Origin +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(lxw.log ~ Origin +(1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2,model1) # mom is sig!
+anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelO<-lmer(lxw.log ~ (1|PopID), family=gaussian,data=modeldata)
+anova(modelO,model2)
+
+qqnorm(resid(model2), main="Q-Q plot resid MF nut lxwH")
+qqline(resid(model2))
 
 #################CUT#######################3
 ####cut, crown#####
