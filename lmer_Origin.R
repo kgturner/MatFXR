@@ -95,6 +95,7 @@ coLR <- lapply(names(mfco.dk1)[c(12:13,21:22,41, 44)],function(n) CGtrait.LR.O(n
 # names(coLR) <- names(mfco.dk1)[c(15:17,52:53)]
 coLR #check out LRs of models. Model progression logical?
 
+
 # comodels <- lapply(names(mfco.dk1)[c(12:13,21:22,41, 44)],function(n) CGtrait.models.O(n,mfco.dk1))
 # m1lxw.lmer <- m1lxwMod$model1
 # qqnorm(resid(m1lxw.lmer), main="Q-Q plot for residuals")
@@ -192,7 +193,7 @@ anova(model2raw,model1raw) # mom not sig
 anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 
 modelOraw<-lmer(CrownDiam.mm ~ (1|PopID/CrossNum), family=gaussian,data=modeldata)
-anova(modelOraw,model1raw) #test for significance of origin - origin NOT sig....!
+anova(model1raw,modelOraw) #test for significance of origin - origin NOT sig....!
 
 ###control, sla, cross sig, do by hand###
 modeldata<-mfco.dk1[!is.na(mfco.dk1$sla),]
@@ -404,17 +405,20 @@ head(mfd.dk)
 dLR <- lapply(names(mfd.dk)[17:19],function(n) CGtrait.LR.O(n,mfd.dk, family=poisson)) #wilt, totwilt, death, all poisson
 names(dLR) <- names(d)[17:19]
 
-# dmodels <- lapply(names(d)[8:9],function(n) CGtrait.models(n,d))
-# dmodels
+#drought, tot wilt
+modeldata<-mfd.dk[!is.na(mfd.dk$TotWiltDay),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
 
-# int<-10.69128#inv mean
-# B<-0.28995#Originnat estimate from model summary
-# pI<-exp(int)
-# pN<-exp(int+B)
-# pI
-# pN
-# summary(d[d$Origin=="inv",]$TotWilt)
-# summary(d[d$Origin=="nat",]$TotWilt)
+model1raw<-lmer(TotWiltDay ~ Origin + (1|PopID/CrossNum), family=poisson,data=modeldata)
+model2raw<-lmer(TotWiltDay ~ Origin  + (1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(TotWiltDay ~ Origin + (1|blank), family=poisson,data=modeldata) # Test population effect
+anova(model1raw,model2raw) # mom not sig
+anova(model2raw,model3raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelOraw<-lmer(TotWiltDay ~ (1|blank), family=poisson,data=modeldata)
+anova(model3raw,modelOraw) #test for significance of origin 
 
 ####Flood, Origin only####
 mff.dk<-read.table("MatFxFlood.dk.txt", header=T, sep="\t", quote='"', row.names=1) #flood, dk only
@@ -425,6 +429,22 @@ fLR <- lapply(names(mff.dk)[17:19],function(n) CGtrait.LR.O(n,mff.dk, family=poi
 # 
 # fmodels <- lapply(names(f)[20:21],function(n) CGtrait.models(n,f))
 # fmodels
+
+#flood, death
+modeldata<-mff.dk[!is.na(mff.dk$DeathDay),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+
+model1raw<-lmer(DeathDay ~ Origin + (1|PopID/CrossNum), family=poisson,data=modeldata)
+model2raw<-lmer(DeathDay ~ Origin  + (1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(DeathDay ~ Origin + (1|blank), family=poisson,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelOraw<-lmer(DeathDay ~ (1|blank), family=poisson,data=modeldata)
+anova(model3raw,modelOraw) #test for significance of origin 
+
 
 ####Mom, Origin only####
 mfmom.dk<-read.table("MatFxMom.dk.txt", header=T, sep="\t", quote='"', row.names=1) 
