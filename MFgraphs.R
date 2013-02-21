@@ -128,6 +128,27 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   }
 }
 
+####combined lfchoice###
+modeldata<-lf[!is.na(lf$Eaten.mm),]
+modeldata<-modeldata[modeldata$eat.bin<2,]#exclude ties and failed trials
+is.na(modeldata$Eaten.mm)
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+plot(modeldata$Eaten.mm)
+ag <- aggregate(Eaten.mm ~ defense, data= modeldata, FUN = "mean")
+plot(ag)
+
+# p <- tapply(modeldata$Eaten.mm,modeldata$defense, mean)
+# plot(p, xlab=levels(modeldata$defense))
+
+#mf lf choice, double check trend.... huh
+modeldata<-mflf[!is.na(mflf$Eaten.mm),]
+modeldata<-modeldata[modeldata$eat.bin<2,]#exclude ties and failed trials
+is.na(modeldata$Eaten.mm)
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+ag2 <- aggregate(Eaten.mm ~ defense, data= modeldata, FUN = "mean")
+plot(ag2)
 #######################
 #france graphing
 

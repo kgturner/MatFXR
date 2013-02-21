@@ -1,5 +1,4 @@
 # Leaf choice
-jhggkjg
 
 ######ST######
 #arrange data
@@ -81,7 +80,7 @@ lfcon$defense<-"const"
 lfind$defense<-"ind"
 colnames(lfcon)[8]<-"Remains.pro"
 colnames(lfcon)[9]<-"Eaten.pro"
-lfcon<-cbind(lfcon,Eaten.mm=lfcon$Eaten.pro*7.7)
+lfcon$Eaten.mm <- lfcon$Eaten.pro*pi*(7.7/2)^2
 colnames(lfind)[8]<-"Remains.pro"
 colnames(lfind)[9]<-"Eaten.pro"
 lfind$Eaten.mm<-lfind$Eaten.pro*6.3
@@ -111,6 +110,37 @@ write.table(lf, file="STleafdisclong.txt", sep="\t", quote=F)
 lat<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #popcoord.txt
 colnames(lat)[3]<-"PopID"
 lf<-merge(lf,lat, all.x=TRUE)
+
+#fix eaten.mm, change eaten.log
+#subset(lf,subset=defense=="const", select=Eaten.mm) <- lf$Eaten.pro*pi*(7.7/2)^2
+lfcon<-lf[lf$defense=="const",]
+lfind<-lf[lf$defense=="ind",]
+lfcon$Eaten.mm <- lfcon$Eaten.pro*pi*(7.7/2)^2
+lfind$Eaten.mm<-lfind$Eaten.pro*pi*(6.3/2)^2
+lf<-rbind(lfcon, lfind)
+lf$Eaten.log<-log(lf$Eaten.mm+1)
+
+#fix mosteat.scan: inv-nat>0 means inv most eaten
+lf$MostEat.Scan <- "tie"
+lf$MostEat.Scan <- ifelse(lf$EatDiffI.N <0,
+                              "nat", lf$MostEat.Scan)
+lf$MostEat.Scan <- ifelse(lf$EatDiffI.N >0 ,
+                              "inv", lf$MostEat.Scan)
+lf$MostEat.Scan<-as.factor(lf$MostEat.Scan)
+#also eat.bin
+lf$eat.bin <- 2
+lfI<-lf[lf$Origin=="inv",]
+lfN<-lf[lf$Origin=="nat",]
+lftie<-lf[lf$MostEat.Scan=="tie",]
+lfIw<-lfI[lfI$MostEat.Scan=="inv",]
+lfIl<-lfI[lfI$MostEat.Scan=="nat",]
+lfNw<-lfN[lfN$MostEat.Scan=="nat",]
+lfNl<-lfN[lfI$MostEat.Scan=="inv",]
+lfIw$eat.bin<-1
+lfIl$eat.bin<-0
+lfNw$eat.bin<-1
+lfNl$eat.bin<-0
+lf<-rbind(lfIw, lfIl, lfNw, lfNl, lftie)
 
 write.table(lf, file="STleafdisclong.txt", sep="\t", quote=F)
 
@@ -247,113 +277,85 @@ mfl<-read.table(file.choose(), header=T, sep="\t", quote='"', row.names=1) #MFle
 
 #####MERGE ST AND MF###########
 #FOR ULTIMATE POWER#
+#tidy columns
+lf<-subset(lf,select=-c(mom.indiv,Eaten.arsq, EatenRatioI.N, Eatenlog,def.round.tray, def.round.tray.or))
+lf$Exp<-"st"
+colnames(lf)[4]<-"TrayPos"#changed from TrayID
+colnames(lf)[7]<-"Rem.pro"#changed from Remains.pro
 
+mfl$Exp<-droplevels(mfl$Exp)
+mfl$Trt<-droplevels(mfl$Trt)
+mfl <- subset(mfl, select=-c(LfCount1, LfLgth1, LfWdth1, comments,def.ro.tray.or))
+
+totlf<-merge(lf,mfl, all=TRUE )
+subset(totlf, subset=PopID=="")
+totlf<-totlf[totlf$PopID!="",]
+
+write.table(totlf, file="ST&MFleaf.txt", sep="\t", quote=F)
+lf<-read.table("ST&MFleaf.txt", header=T, sep="\t", quote='"', row.names=1) 
+mflf<-read.table("MFleafchoicelong.txt", header=T, sep="\t", quote='"', row.names=1) 
+
+lf[lf$defense=="Induced 1",]$defense <- "ind"
+lf$defense <- droplevels(lf$defense)
 
 
 #######LEAF DISC ANALYSIS#########
 #using lmer
 library(lme4)
-####ST lf disc, most eaten, from scan, binomial####
+
+####lf disc, most eaten with defense as covar, from scan, binomial####
 str(lf)
-modeldata<-lf[lf$eat.bin!=2,]#exclude ties and failed trials
+modeldata<-lf[lf$eat.bin<2,]#exclude ties and failed trials
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 xtabs(~Origin+eat.bin, modeldata)
-modeldata$Mom<-as.factor(modeldata$Mom)
-
-model1<-lmer(eat.bin ~ Origin +(1|PopID/Mom), family=binomial,data=modeldata)
-model2<-lmer(eat.bin ~ Origin +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(eat.bin ~ Origin +(1|blank), family=binomial,data=modeldata) # Test population effect
-anova(model2,model1) # mom sig
+# modeldata$Mom<-as.factor(modeldata$Mom) #mom and cross number not really equivalent...
+# 
+# model1<-lmer(eat.bin ~ Origin +(1|PopID/Mom), family=binomial,data=modeldata)
+model2<-lmer(eat.bin ~ Origin + defense +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(eat.bin ~ Origin + defense +(1|blank), family=binomial,data=modeldata) # Test population effect
+# anova(model2,model1) # mom sig
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelD <- lmer(eat.bin ~ Origin +(1|PopID), family=binomial,data=modeldata)
+anova(model2, modelD)
 
 modelO<-lmer(eat.bin ~ (1|PopID), family=binomial,data=modeldata)
 anova(modelO,model2) #test for significance of origin - origin sig!
 
 ####lf disc, area eaten, gaussian####
-#modeldata<-lf[!is.na(lf$Eaten.mm),]
-modeldata<-lf[lf$eat.bin!=2,]#exclude ties and failed trials
+modeldata<-lf[!is.na(lf$Eaten.mm),]
+modeldata<-modeldata[modeldata$eat.bin<2,]#exclude ties and failed trials
+is.na(modeldata$Eaten.mm)
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
-modeldata$Mom<-as.factor(modeldata$Mom)
+# modeldata$Mom<-as.factor(modeldata$Mom)
 
-
-model1<-lmer(Eaten.mm ~ Origin + (1|TrayID) + (1|PopID/Mom), family = gaussian, data=modeldata)
-model2<-lmer(Eaten.mm ~ Origin + (1|TrayID)+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(Eaten.mm ~ Origin + (1|TrayID)+(1|blank), family=gaussian,data=modeldata) # Test population effect
-anova(model2, model1)
+# model1<-lmer(Eaten.mm ~ Origin +defense + (1|PopID/Mom), family = gaussian, data=modeldata)
+model2<-lmer(Eaten.mm ~ Origin + defense+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(Eaten.mm ~ Origin + defense+(1|blank), family=gaussian,data=modeldata) # Test population effect
+# anova(model2, model1)
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 
-modelT<-lmer(Eaten.mm ~ Origin + (1|PopID/Mom), family=gaussian, data=modeldata)
-anova(modelT, model1)
+modelD<-lmer(Eaten.mm ~ Origin + (1|PopID), family=gaussian, data=modeldata)
+anova(model2, modelD)
 
-modelO<-lmer(Eaten.mm ~ (1|PopID/Mom), family=gaussian,data=modeldata)
-anova(modelO,model1) #test for significance of origin - origin not sig....?
+modelO<-lmer(Eaten.mm ~ defense + (1|PopID), family=gaussian,data=modeldata)
+anova(modelO,model2) #test for significance of origin - origin not sig....?
 
 #transformed
-model1<-lmer(Eaten.log ~ Origin + (1|TrayID) + (1|PopID/Mom), family = gaussian, data=modeldata)
-model2<-lmer(Eaten.log ~ Origin + (1|TrayID)+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(Eaten.log ~ Origin + (1|TrayID)+(1|blank), family=gaussian,data=modeldata) # Test population effect
-anova(model2, model1)
+is.na(modeldata$Eaten.log)
+# model1<-lmer(Eaten.log ~ Origin +defense + (1|PopID/Mom), family = gaussian, data=modeldata)
+model2<-lmer(Eaten.log ~ Origin + defense+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(Eaten.log ~ Origin + defense+(1|blank), family=gaussian,data=modeldata) # Test population effect
+# anova(model2, model1)
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 
-modelT<-lmer(Eaten.log ~ Origin + (1|PopID/Mom), family=gaussian, data=modeldata)
-anova(modelT, model1)
+modelD<-lmer(Eaten.log ~ Origin + (1|PopID), family=gaussian, data=modeldata)
+anova(modelD, model2)
 
-modelO<-lmer(Eaten.log ~ (1|PopID/Mom), family=gaussian,data=modeldata)
-anova(model1,modelO) #test for significance of origin - origin not sig....?
+modelO<-lmer(Eaten.log ~ defense + (1|PopID), family=gaussian,data=modeldata)
+anova(model2,modelO) #test for significance of origin - origin not sig....?
 
-#######MF LEAF DISC#########
-####lf disc, most eaten, from scan, binomial####
-str(mfl)
-mfl$CrossNum<-as.factor(mfl$CrossNum)
-#modeldata<-mfl[mfl$eat.bin!=2,]#exclude sk
-modeldata<-mfl[mfl$eat.bin!=3,]#exclude ties and failed trials
-modeldata$blank<-1
-modeldata$blank<-as.factor(modeldata$blank)
-xtabs(~Origin+eat.bin, modeldata)
-
-model1<-lmer(eat.bin ~ Origin +defense+(1|PopID/CrossNum), family=binomial,data=modeldata)
-model2<-lmer(eat.bin ~ Origin +defense+(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(eat.bin ~ Origin +defense+(1|blank), family=binomial,data=modeldata) # Test population effect
-anova(model2,model1) # mom sig
-anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-
-modelD0<-lmer(eat.bin ~ Origin +(1|PopID), family=binomial,data=modeldata)
-anova(modelD0, model2)
-
-modelO<-lmer(eat.bin ~ (1|PopID), family=binomial,data=modeldata)
-anova(modelO,modelD0) #test for significance of origin - origin sig!
-
-####lf disc, area eaten, gaussian####
-modeldata<-mfl[!is.na(mfl$Eaten.mm),]
-modeldata$blank<-1
-modeldata$blank<-as.factor(modeldata$blank)
-
-model1<-lmer(Eaten.mm ~ Origin + defense+(1|TrayPos) + (1|PopID/CrossNum), family = gaussian, data=modeldata)
-model2<-lmer(Eaten.mm ~ Origin + defense+(1|TrayPos)+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(Eaten.mm ~ Origin + defense+(1|TrayPos)+(1|blank), family=gaussian,data=modeldata) # Test population effect
-anova(model2, model1)
-anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-
-modelT<-lmer(Eaten.mm ~ Origin + defense+(1|PopID), family=gaussian, data=modeldata)
-anova(modelT, model2)
-
-modelD0<-lmer(Eaten.mm ~ Origin +(1|PopID), family=gaussian,data=modeldata)
-anova(modelD0, modelT)
-
-modelO<-lmer(Eaten.mm ~ defense+(1|PopID), family=gaussian,data=modeldata)
-anova(modelO,modelT) #test for significance of origin - origin not sig....?
-
-#transformed
-model1<-lmer(Eaten.log ~ Origin + (1|TrayID) + (1|PopID/Mom), family = gaussian, data=modeldata)
-model2<-lmer(Eaten.log ~ Origin + (1|TrayID)+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(Eaten.log ~ Origin + (1|TrayID)+(1|blank), family=gaussian,data=modeldata) # Test population effect
-anova(model2, model1)
-anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-
-modelT<-lmer(Eaten.log ~ Origin + (1|PopID/Mom), family=gaussian, data=modeldata)
-anova(modelT, model1)
-
-modelO<-lmer(Eaten.log ~ (1|PopID/Mom), family=gaussian,data=modeldata)
-anova(model1,modelO) #test for significance of origin - origin not sig....?
+qqnorm(resid(model2), main="Q-Q plot for residuals")
+qqline(resid(model2))

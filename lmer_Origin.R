@@ -470,6 +470,9 @@ anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you wan
 modelO<-lmer(SeedWt ~ (1|PopID), family=gaussian,data=modeldata)
 anova(modelO,model2) #test for significance of origin - origin not sig....?
 
+qqnorm(resid(modelO), main="Q-Q plot for residuals")
+qqline(resid(modelO))
+
 ####Mom, germ count###
 modeldata<-mfmom.dk[!is.na(mfmom.dk$GermCount),]
 modeldata$blank<-1
