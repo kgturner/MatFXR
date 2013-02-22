@@ -306,22 +306,29 @@ library(lme4)
 ####lf disc, most eaten with defense as covar, from scan, binomial####
 str(lf)
 modeldata<-lf[lf$eat.bin<2,]#exclude ties and failed trials
+is.na(modeldata$eat.bin)
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 xtabs(~Origin+eat.bin, modeldata)
 # modeldata$Mom<-as.factor(modeldata$Mom) #mom and cross number not really equivalent...
 # 
 # model1<-lmer(eat.bin ~ Origin +(1|PopID/Mom), family=binomial,data=modeldata)
-model2<-lmer(eat.bin ~ Origin + defense +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(eat.bin ~ Origin + defense +(1|blank), family=binomial,data=modeldata) # Test population effect
+model2<-lmer(eat.bin ~ Origin * Latitude + defense +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(eat.bin ~ Origin * Latitude + defense +(1|blank), family=binomial,data=modeldata) # Test population effect
 # anova(model2,model1) # mom sig
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 
+modelI <- lmer(eat.bin ~ Origin + Latitude + defense +(1|PopID), family=binomial,data=modeldata)
+anova(model2, modelI)
+
+modelL <- lmer(eat.bin ~ Origin + defense +(1|PopID), family=binomial,data=modeldata)
+anova(modelL, modelI)
+
 modelD <- lmer(eat.bin ~ Origin +(1|PopID), family=binomial,data=modeldata)
-anova(model2, modelD)
+anova(modelD, modelL)
 
 modelO<-lmer(eat.bin ~ (1|PopID), family=binomial,data=modeldata)
-anova(modelO,model2) #test for significance of origin - origin sig!
+anova(modelO,modelD) #test for significance of origin - origin sig!
 
 ####lf disc, area eaten, gaussian####
 modeldata<-lf[!is.na(lf$Eaten.mm),]
@@ -332,30 +339,44 @@ modeldata$blank<-as.factor(modeldata$blank)
 # modeldata$Mom<-as.factor(modeldata$Mom)
 
 # model1<-lmer(Eaten.mm ~ Origin +defense + (1|PopID/Mom), family = gaussian, data=modeldata)
-model2<-lmer(Eaten.mm ~ Origin + defense+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(Eaten.mm ~ Origin + defense+(1|blank), family=gaussian,data=modeldata) # Test population effect
+model2<-lmer(Eaten.mm ~ Origin *Latitude + defense+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(Eaten.mm ~ Origin *Latitude + defense+(1|blank), family=gaussian,data=modeldata) # Test population effect
 # anova(model2, model1)
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 
-modelD<-lmer(Eaten.mm ~ Origin + (1|PopID), family=gaussian, data=modeldata)
+modelI <- lmer(Eaten.mm ~ Origin + Latitude + defense +(1|PopID), family=gaussian,data=modeldata)
+anova(model2, modelI)
+
+modelL <- lmer(Eaten.mm ~ Origin + defense +(1|PopID), family=gaussian,data=modeldata)
+anova(modelL, model2)
+
+modelD<-lmer(Eaten.mm ~ Origin * Latitude + (1|PopID), family=gaussian, data=modeldata)
 anova(model2, modelD)
 
-modelO<-lmer(Eaten.mm ~ defense + (1|PopID), family=gaussian,data=modeldata)
+modelO<-lmer(Eaten.mm ~ Latitude + defense + (1|PopID), family=gaussian,data=modeldata)
 anova(modelO,model2) #test for significance of origin - origin not sig....?
+
+anova(modelI, modelO)
 
 #transformed
 is.na(modeldata$Eaten.log)
 # model1<-lmer(Eaten.log ~ Origin +defense + (1|PopID/Mom), family = gaussian, data=modeldata)
-model2<-lmer(Eaten.log ~ Origin + defense+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(Eaten.log ~ Origin + defense+(1|blank), family=gaussian,data=modeldata) # Test population effect
+model2<-lmer(Eaten.log ~ Origin *Latitude + defense+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(Eaten.log ~ Origin *Latitude + defense+(1|blank), family=gaussian,data=modeldata) # Test population effect
 # anova(model2, model1)
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 
+modelI <- lmer(Eaten.log ~ Origin + Latitude + defense +(1|PopID), family=gaussian,data=modeldata)
+anova(model2, modelI)
+
+modelL <- lmer(Eaten.log ~ Origin + defense +(1|PopID), family=gaussian,data=modeldata)
+anova(modelL, modelI)
+
 modelD<-lmer(Eaten.log ~ Origin + (1|PopID), family=gaussian, data=modeldata)
-anova(modelD, model2)
+anova(modelD, modelL)
 
 modelO<-lmer(Eaten.log ~ defense + (1|PopID), family=gaussian,data=modeldata)
-anova(model2,modelO) #test for significance of origin - origin not sig....?
+anova(modelL,modelO) #test for significance of origin - origin not sig....?
 
 qqnorm(resid(model2), main="Q-Q plot for residuals")
 qqline(resid(model2))
