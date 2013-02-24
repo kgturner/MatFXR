@@ -92,7 +92,10 @@ modelI <- lmer(LfCount1  ~ Origin + Latitude + (1|PopID/CrossNum), family=poisso
 anova(modelI,model1raw)
 
 modelL<-lmer(LfCount1 ~ Origin +(1|PopID/CrossNum), family=poisson,data=modeldata)
-anova(modelL, model1raw)
+anova(modelL, modelI)
+
+modelO<-lmer(LfCount1 ~ (1|PopID/CrossNum), family=poisson,data=modeldata)
+anova(modelL, modelO)
 
 modelOraw<-lmer(LfCount1 ~ Latitude+(1|PopID/CrossNum), family=poisson,data=modeldata)
 anova(modelOraw,model1raw) #test for significance of origin - origin NOT sig....!
@@ -111,6 +114,7 @@ head(mfco.dk1)
 coLR <- lapply(names(mfco.dk1)[c(12:13,21:22,41, 44)],function(n) CGtrait.LR.int(n,mfco.dk1)) #crow, shoot, root, RootH.log, lxw, all gaussian
 #names(coLR) <- names(mfco.dk1)[c(15:17,52:53)]
 coLR #check out LRs of models. Model progression logical?
+xtabs(~Origin+BoltedatH, mfco.dk1)
 
 # mfco.dk1$bolt.bin <- as.numeric(mfco.dk1$BoltedatH)-1
 # mfco.dk1$BoltDay.adj <- mfco.dk1$BoltDay + 3
