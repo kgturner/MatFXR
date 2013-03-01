@@ -149,6 +149,25 @@ modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 ag2 <- aggregate(Eaten.mm ~ defense, data= modeldata, FUN = "mean")
 plot(ag2)
+##################
+#generation effects
+graphdata <- gen[!is.na(gen$LfCountH),]
+graphdata$Generation <- as.factor(graphdata$Generation)
+# ggplot(graphdata, aes(x = Generation, y = LfCountH, group = Origin, color = Origin)) + geom_line(data=graphdata, aes(group=Origin))
+# qplot(Generation, LfCountH, data=graphdata, geom = "boxplot", color = Origin) + geom_path()+theme_bw()+aes(group = Origin)
+
+# fake <- data.frame(or=c("i","n","i","n"), gen=c(0,0,1,1), lf=c(17,13,20,16))
+# fake$or <- as.factor(fake$or)
+# fake$gen <- as.factor(fake$gen)
+# fake$lf <- as.integer(fake$lf)
+# ggplot(fake, aes(x = gen, y = lf, group = or, color = or)) + geom_path(aes(group=or))
+
+interaction.plot(graphdata$Generation, graphdata$Origin, graphdata$LfCountH, fun=mean)
+interaction.plot(fake$gen, fake$or, fake$lf, fun=mean)
+
+# thedata <- data.frame(predict(thelm), thelm$model$x, thelm$model$f)
+# y = trait, x = origin, f=generation
+# ggplot(thedata, aes(x = x, y = yhat, group = f, color = f)) + geom_line()
 #######################
 #france graphing
 
