@@ -275,29 +275,30 @@ str(mfco.dk1)
 modeldata<-mfco.dk1[!is.na(mfco.dk1$LfCountH),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
-modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+modeldata$Mom<-as.factor(modeldata$Mom)
 
-model1<-lmer(LfCountH ~ Origin * BoltedatH+(BoltedatH|PopID/CrossNum), family=poisson,data=modeldata)
+model1<-lmer(LfCountH ~ Origin * BoltedatH+(BoltedatH|PopID/Mom), family=poisson,data=modeldata)
 model2<-lmer(LfCountH ~ Origin * BoltedatH+(BoltedatH|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(LfCountH ~ Origin * BoltedatH+(BoltedatH|blank), family=poisson,data=modeldata) # Test population effect
 anova(model2,model1)
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 
-modelInt<-lmer(LfCountH ~ Origin + BoltedatH+(BoltedatH|PopID/CrossNum), family=poisson,data=modeldata)
+modelInt<-lmer(LfCountH ~ Origin + BoltedatH+(BoltedatH|PopID/Mom), family=poisson,data=modeldata)
 anova(modelInt,model1) #test for significant interaction btw Origin and Bolted - not sig
 
-modelB0<-lmer(LfCountH ~ Origin + (1|PopID/CrossNum), family=poisson,data=modeldata)
-modelB1<-lmer(LfCountH ~ Origin * BoltedatH+(1|PopID/CrossNum), family=poisson,data=modeldata)
-modelB2<-lmer(LfCountH ~ Origin + (BoltedatH|PopID/CrossNum), family=poisson,data=modeldata)
+modelB0<-lmer(LfCountH ~ Origin + (1|PopID/Mom), family=poisson,data=modeldata)
+modelB1<-lmer(LfCountH ~ Origin * BoltedatH+(1|PopID/Mom), family=poisson,data=modeldata)
+modelB2<-lmer(LfCountH ~ Origin + (BoltedatH|PopID/Mom), family=poisson,data=modeldata)
 anova(modelB0, model1)#test for sig of bolting - bolting not sig
 anova(modelB1, model1)#test for sig of bolting - bolting not sig
 anova(modelB2, model1)#test for sig of bolting - bolting not sig
 #
-modelO<-lmer(LfCountH ~ BoltedatH+(BoltedatH|PopID/CrossNum), family=poisson,data=modeldata)
+modelO<-lmer(LfCountH ~ BoltedatH+(BoltedatH|PopID/Mom), family=poisson,data=modeldata)
 anova(modelO,model1) #test for significance of origin - origin IS sig....!
+anova(modelO, modelInt)
 model1
-int<-2.95190#inv mean
-B<--0.02217#Originnat estimate from model summary
+int<-2.94019#inv mean
+B<--0.00942#Originnat estimate from model summary
 pI<-exp(int)
 pN<-exp(int+B)
 pI
@@ -309,22 +310,22 @@ str(mfco.dk1)
 modeldata<-mfco.dk1[!is.na(mfco.dk1$BoltDay.adj),] 
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
-modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+modeldata$Mom<-as.factor(modeldata$Mom)
 
-model1<-lmer(BoltDay.adj ~ Origin *CrownDiam.mm+(CrownDiam.mm|PopID/CrossNum), family=poisson,data=modeldata)
+model1<-lmer(BoltDay.adj ~ Origin *CrownDiam.mm+(CrownDiam.mm|PopID/Mom), family=poisson,data=modeldata)
 model2<-lmer(BoltDay.adj ~ Origin *CrownDiam.mm+(CrownDiam.mm|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(BoltDay.adj ~ Origin *CrownDiam.mm+(CrownDiam.mm|blank), family=poisson,data=modeldata) # Test population effect
 anova(model2,model1) # mom sig
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 
-modelInt<-lmer(BoltDay.adj ~ Origin + CrownDiam.mm+(CrownDiam.mm|PopID/CrossNum), family=poisson,data=modeldata)
+modelInt<-lmer(BoltDay.adj ~ Origin + CrownDiam.mm+(CrownDiam.mm|PopID/Mom), family=poisson,data=modeldata)
 anova(modelInt,model1) #test for significant interaction btw Origin and Bolted - not sig
-modelC0<-lmer(BoltDay.adj ~ Origin * CrownDiam.mm+(1|PopID/CrossNum), family=poisson,data=modeldata)
+modelC0<-lmer(BoltDay.adj ~ Origin * CrownDiam.mm+(1|PopID/Mom), family=poisson,data=modeldata)
 anova(modelC0, model1)#test for sig of crown - crown not sig
-modelC1<-lmer(BoltDay.adj ~ Origin +(CrownDiam.mm|PopID/CrossNum), family=poisson,data=modeldata)
+modelC1<-lmer(BoltDay.adj ~ Origin +(CrownDiam.mm|PopID/Mom), family=poisson,data=modeldata)
 anova(modelC1,model1)
 
-modelO<-lmer(BoltDay.adj ~ (CrownDiam.mm|PopID/CrossNum), family=poisson,data=modeldata)
+modelO<-lmer(BoltDay.adj ~ (CrownDiam.mm|PopID/Mom), family=poisson,data=modeldata)
 anova(modelO,modelC1) #test for significance of origin - origin not sig!
 modelC1
 

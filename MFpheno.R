@@ -521,6 +521,30 @@ write.table(mfcom1, file="MF bonus control m1.txt", sep="\t", quote=F)
 write.table(mfco.dk1, file="Mat fx bonus control.txt", sep="\t", quote=F)
 write.table(mfallo.dk, file="MFallo.dk.txt", sep="\t", quote=F)
 
+
+#####################
+#add mom info to data sets
+mominfo <- data.frame(PopID=mfmom.dk$PopID, CrossNum = as.factor(mfmom.dk$CrossNum), Mom = as.factor(mfmom.dk$Mom), 
+                         MomFam = mfmom.dk$MomFam, MomIndiv = mfmom.dk$MomIndiv, DadID = mfmom.dk$DadID, 
+                         DadFam = mfmom.dk$DadFam, DadIndiv = mfmom.dk$DadIndiv)
+
+
+mfco.dk1<-merge(mfco.dk1,mominfo, all.x=TRUE)
+
+mfallo.dk<-merge(mfallo.dk,mominfo, all.x=TRUE)
+mfcom1<-merge(mfcom1,mominfo, all.x=TRUE)
+mfn.dk<-merge(mfn.dk,mominfo, all.x=TRUE)
+mfcu.dk<-merge(mfcu.dk,mominfo, all.x=TRUE)
+mfd.dk<-merge(mfd.dk,mominfo, all.x=TRUE)
+mff.dk<-merge(mff.dk,mominfo, all.x=TRUE)
+
+write.table(mff.dk, file="Mat fx flood.dk.txt", sep="\t", quote=F)
+write.table(mfd.dk, file="Mat fx drought.dk.txt", sep="\t", quote=F)
+write.table(mfn.dk, file="Mat fx nut def.dk.txt", sep="\t", quote=F)
+write.table(mfcu.dk, file="Mat fx cut.dk.txt", sep="\t", quote=F)
+write.table(mfcom1, file="MF bonus control m1.txt", sep="\t", quote=F)
+write.table(mfco.dk1, file="Mat fx bonus control.txt", sep="\t", quote=F)
+write.table(mfallo.dk, file="MFallo.dk.txt", sep="\t", quote=F)
 ##############################
 #pop ranks
 

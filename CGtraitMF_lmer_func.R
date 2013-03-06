@@ -1,7 +1,7 @@
 ####Common Garden trait analysis####FOR MAT FX
 #using lmer, REML mixed models#
 library(lme4)
-#with Origin and latitude as fixed effects, population and CrossNum as random effects#
+#with Origin and latitude as fixed effects, population and Mom as random effects#
 #custom functions
 
 #####function######
@@ -9,13 +9,13 @@ library(lme4)
 CGtrait.LR<- function(trait,df,family=gaussian){
   modeldata<-df[!is.na(df[[trait]]),]
   modeldata$blank <- as.factor(rep("A",times=nrow(modeldata)))
-  modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+  modeldata$Mom<-as.factor(modeldata$Mom)
   #browser()
   
-  model1<-lmer(modeldata[[trait]]  ~ Origin+ Latitude +(1|PopID/CrossNum), family=family,data=modeldata)
+  model1<-lmer(modeldata[[trait]]  ~ Origin+ Latitude +(1|PopID/Mom), family=family,data=modeldata)
   model2<-lmer(modeldata[[trait]]  ~ Origin+ Latitude + (1|PopID), family=family,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
   model3<-lmer(modeldata[[trait]]  ~ Origin+ Latitude + (1|blank), family=family,data=modeldata) # Test population effect
-  a1 <- anova(model2,model1) # CrossNum is sig!
+  a1 <- anova(model2,model1) # Mom is sig!
   a2 <- anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
   
   modelL<-lmer(modeldata[[trait]]  ~ Origin + (1|PopID), family=family,data=modeldata)
@@ -43,13 +43,13 @@ shootLR<- CGtrait.LR("ShootMass.gA",al, family=gaussian)
 CGtrait.models <- function(trait, df,family=gaussian){
   modeldata<-df[!is.na(df[[trait]]),]
   modeldata$blank <- as.factor(rep("A",times=nrow(modeldata)))
-  modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+  modeldata$Mom<-as.factor(modeldata$Mom)
   #browser()
   
-  model1<-lmer(modeldata[[trait]]  ~ Origin+ Latitude +(1|PopID/CrossNum), family=family,data=modeldata)
+  model1<-lmer(modeldata[[trait]]  ~ Origin+ Latitude +(1|PopID/Mom), family=family,data=modeldata)
   model2<-lmer(modeldata[[trait]]  ~ Origin+ Latitude + (1|PopID), family=family,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
   model3<-lmer(modeldata[[trait]]  ~ Origin+ Latitude + (1|blank), family=family,data=modeldata) # Test population effect
-  a1 <- anova(model2,model1) # CrossNum is sig!
+  a1 <- anova(model2,model1) # Mom is sig!
   a2 <- anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
   
   modelL<-lmer(modeldata[[trait]]  ~ Origin + (1|PopID), family=family,data=modeldata)
@@ -81,23 +81,23 @@ names(almodels) <- names(al)[8:13]
 CGtrait.LR.int<- function(trait,df,family=gaussian){
   modeldata<-df[!is.na(df[[trait]]),]
   modeldata$blank <- as.factor(rep("A",times=nrow(modeldata)))
-  modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+  modeldata$Mom<-as.factor(modeldata$Mom)
   #browser()
   
-  model1<-lmer(modeldata[[trait]]  ~ Origin * Latitude +(1|PopID/CrossNum), family=family,data=modeldata)
+  model1<-lmer(modeldata[[trait]]  ~ Origin * Latitude +(1|PopID/Mom), family=family,data=modeldata)
   model2<-lmer(modeldata[[trait]]  ~ Origin * Latitude + (1|PopID), family=family,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
   model3<-lmer(modeldata[[trait]]  ~ Origin * Latitude + (1|blank), family=family,data=modeldata) # Test population effect
-  a1 <- anova(model2,model1) # CrossNum is sig!
+  a1 <- anova(model2,model1) # Mom is sig!
   a2 <- anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
   
   modelI <- lmer(modeldata[[trait]]  ~ Origin + Latitude + (1|PopID), family=family,data=modeldata)
   a3 <- anova(modelI,model2)
   
   modelL<-lmer(modeldata[[trait]]  ~ Origin + (1|PopID), family=family,data=modeldata)
-  a4 <- anova(modelL, model2)
+  a4 <- anova(modelL, modelI)
   
   modelO<-lmer(modeldata[[trait]] ~ Latitude +(1|PopID), family=family,data=modeldata)
-  a5 <- anova(modelO,model2) #test for significance of origin - origin only marginally sig....!
+  a5 <- anova(modelO,modelI) #test for significance of origin - origin only marginally sig....!
   
   aovs <- list(a1,a2,a3,a4,a5)
   names(aovs) <- c(paste(trait,"a1"), paste(trait,"a2"),paste(trait,"a3"),paste(trait, "a4"),paste(trait, "a5"))
@@ -112,23 +112,23 @@ CGtrait.LR.int<- function(trait,df,family=gaussian){
 CGtrait.models.int <- function(trait, df,family=gaussian){
   modeldata<-df[!is.na(df[[trait]]),]
   modeldata$blank <- as.factor(rep("A",times=nrow(modeldata)))
-  modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+  modeldata$Mom<-as.factor(modeldata$Mom)
   #browser()
   
-  model1<-lmer(modeldata[[trait]]  ~ Origin * Latitude +(1|PopID/CrossNum), family=family,data=modeldata)
+  model1<-lmer(modeldata[[trait]]  ~ Origin * Latitude +(1|PopID/Mom), family=family,data=modeldata)
   model2<-lmer(modeldata[[trait]]  ~ Origin * Latitude + (1|PopID), family=family,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
   model3<-lmer(modeldata[[trait]]  ~ Origin * Latitude + (1|blank), family=family,data=modeldata) # Test population effect
-  a1 <- anova(model2,model1) # CrossNum is sig!
+  a1 <- anova(model2,model1) # Mom is sig!
   a2 <- anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
   
   modelI <- lmer(modeldata[[trait]]  ~ Origin + Latitude + (1|PopID), family=family,data=modeldata)
   a3 <- anova(modelI,model2)
   
   modelL<-lmer(modeldata[[trait]]  ~ Origin + (1|PopID), family=family,data=modeldata)
-  a4 <- anova(modelL, model2)
+  a4 <- anova(modelL, modelI)
   
   modelO<-lmer(modeldata[[trait]] ~ Latitude +(1|PopID), family=family,data=modeldata)
-  a5 <- anova(modelO,model2) #test for significance of origin - origin only marginally sig....!
+  a5 <- anova(modelO,modelI) #test for significance of origin - origin only marginally sig....!
   
   aovs <- list(a1,a2,a3,a4,a5)
   names(aovs) <- c(paste(trait,"a1"), paste(trait,"a2"),paste(trait,"a3"),paste(trait, "a4"),paste(trait, "a5"))
@@ -142,13 +142,13 @@ CGtrait.models.int <- function(trait, df,family=gaussian){
 CGtrait.LR.O<- function(trait,df,family=gaussian){
   modeldata<-df[!is.na(df[[trait]]),]
   modeldata$blank <- as.factor(rep("A",times=nrow(modeldata)))
-  modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+  modeldata$Mom<-as.factor(modeldata$Mom)
   #browser()
   
-  model1<-lmer(modeldata[[trait]]  ~ Origin +(1|PopID/CrossNum), family=family,data=modeldata)
+  model1<-lmer(modeldata[[trait]]  ~ Origin +(1|PopID/Mom), family=family,data=modeldata)
   model2<-lmer(modeldata[[trait]]  ~ Origin + (1|PopID), family=family,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
   model3<-lmer(modeldata[[trait]]  ~ Origin + (1|blank), family=family,data=modeldata) # Test population effect
-  a1 <- anova(model2,model1) # CrossNum is sig!
+  a1 <- anova(model2,model1) # Mom is sig!
   a2 <- anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
   
   modelO<-lmer(modeldata[[trait]] ~ (1|PopID), family=family,data=modeldata)
@@ -167,13 +167,13 @@ CGtrait.LR.O<- function(trait,df,family=gaussian){
 CGtrait.models.O <- function(trait, df,family=gaussian){
   modeldata<-df[!is.na(df[[trait]]),]
   modeldata$blank <- as.factor(rep("A",times=nrow(modeldata)))
-  modeldata$CrossNum<-as.factor(modeldata$CrossNum)
+  modeldata$Mom<-as.factor(modeldata$Mom)
   #browser()
   
-  model1<-lmer(modeldata[[trait]]  ~ Origin +(1|PopID/CrossNum), family=family,data=modeldata)
+  model1<-lmer(modeldata[[trait]]  ~ Origin +(1|PopID/Mom), family=family,data=modeldata)
   model2<-lmer(modeldata[[trait]]  ~ Origin + (1|PopID), family=family,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
   model3<-lmer(modeldata[[trait]]  ~ Origin + (1|blank), family=family,data=modeldata) # Test population effect
-  a1 <- anova(model2,model1) # CrossNum is sig!
+  a1 <- anova(model2,model1) # Mom is sig!
   a2 <- anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
   
   modelO<-lmer(modeldata[[trait]] ~ (1|PopID), family=family,data=modeldata)
