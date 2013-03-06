@@ -316,6 +316,33 @@ anova(modelI, modelL)
 modelO<-lmer(GermAvgDate ~ Generation +(1|PopID/MomFam), family=gaussian,data=modeldata)
 anova(modelO,modelL)
 
+qqnorm(resid(modelL), main="Q-Q plot for residuals")
+qqline(resid(modelL))
+
+#transformed
+modeldata<-gen[!is.na(gen$GermAvgDate),]
+modeldata$GermAvgDate.log <- log(modeldata$GermAvgDate)
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$MomFam<-as.factor(modeldata$MomFam)
+
+model1<-lmer(GermAvgDate.log  ~ Origin* Generation +Latitude +(1|PopID/MomFam), family=gaussian,data=modeldata)
+model2<-lmer(GermAvgDate.log  ~ Origin* Generation +Latitude+ (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(GermAvgDate.log  ~ Origin* Generation +Latitude+ (1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2,model1) # MomFam is sig!
+anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+modelI <- lmer(GermAvgDate.log  ~ Origin + Generation +Latitude+ (1|PopID/MomFam), family=gaussian,data=modeldata)
+anova(modelI,model1)
+modelG<-lmer(GermAvgDate.log  ~ Origin + Latitude+ (1|PopID/MomFam), family=gaussian,data=modeldata)
+anova(modelG, modelI)
+modelL<-lmer(GermAvgDate.log ~ Origin +Generation + (1|PopID/MomFam), family=gaussian,data=modeldata)
+anova(modelI, modelL)
+modelO<-lmer(GermAvgDate.log ~ Generation +(1|PopID/MomFam), family=gaussian,data=modeldata)
+anova(modelO,modelL)
+
+qqnorm(resid(modelL), main="Q-Q plot for residuals")
+qqline(resid(modelL))
+
 ###GermCount, gaussian
 modeldata<-gen[!is.na(gen$GermCount),]
 modeldata$blank<-1

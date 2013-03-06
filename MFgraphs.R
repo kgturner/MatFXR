@@ -162,12 +162,16 @@ graphdata$Generation <- as.factor(graphdata$Generation)
 # fake$lf <- as.integer(fake$lf)
 # ggplot(fake, aes(x = gen, y = lf, group = or, color = or)) + geom_path(aes(group=or))
 
-interaction.plot(graphdata$Generation, graphdata$Origin, graphdata$LfCountH, fun=mean)
+interaction.plot(graphdata$Generation, graphdata$Origin, graphdata$LfCountH, fun=mean,main = "Interaction plot of number of basal leaves at harvest")
 interaction.plot(fake$gen, fake$or, fake$lf, fun=mean)
 
 # thedata <- data.frame(predict(thelm), thelm$model$x, thelm$model$f)
 # y = trait, x = origin, f=generation
 # ggplot(thedata, aes(x = x, y = yhat, group = f, color = f)) + geom_line()
+
+graphdata <- gen[!is.na(gen$BoltDay.adj),]
+interaction.plot(graphdata$Generation, graphdata$Origin, graphdata$BoltDay.adj, fun=mean, main = "Interaction plot of bolting date")
+
 #######################
 #france graphing
 

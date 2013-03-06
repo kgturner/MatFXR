@@ -266,7 +266,7 @@ nLR #check out LRs of models. Model progression logical?
 # #nBatH <- CGtrait.LR.int("bolt.bin", mfn.dk, family=binomial)# no invasive bolted!
 nlfcount <- CGtrait.LR.int("LfCountH",mfn.dk, family=poisson) #lfcountH, all poisson
 
-####Cut, Origin + Lat####
+####Cut, Origin * Lat####
 mfcu.dk<-read.table("MatFxCut.dk.txt", header=T, sep="\t", quote='"', row.names=1) #cut, dk only
 head(mfcu.dk)
 cuLR <- CGtrait.LR.int("CrownDiam.mm",mfcu.dk) #crown all gaussian
@@ -310,6 +310,9 @@ anova(modelI,model1raw)
 # 
 # modelOraw<-lmer(LfCountH ~ Latitude + (1|PopID/CrossNum), family=poisson,data=modeldata)
 # anova(modelOraw,model1raw) #test for significance of origin 
+
+####cut, bolt.bin
+
 
 ####Drought, Origin * Lat####
 mfd.dk<-read.table("MatFxDrought.dk.txt", header=T, sep="\t", quote='"', row.names=1) #drought, dk only
