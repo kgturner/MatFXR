@@ -153,14 +153,65 @@ plot(ag2)
 #generation effects
 graphdata <- gen[!is.na(gen$LfCountH),]
 graphdata$Generation <- as.factor(graphdata$Generation)
-# ggplot(graphdata, aes(x = Generation, y = LfCountH, group = Origin, color = Origin)) + geom_line(data=graphdata, aes(group=Origin))
-# qplot(Generation, LfCountH, data=graphdata, geom = "boxplot", color = Origin) + geom_path()+theme_bw()+aes(group = Origin)
 
+ggplot(graphdata, aes(x = Generation, y = LfCountH, group = Origin, color = Origin)) + geom_line(data=graphdata, aes(group=Origin))
+ggplot(graphdata, aes(x = Generation, y = LfCountH, color = Origin)) + stat_summary(fun.y=mean)+geom_line( aes(x=as.numeric(Generation), y=LfCountH))
+#geom_path()+theme_bw(
+
+lfmean <- tapply(graphdata$LfCountH,graphdata$Origin, mean)
+ggplot(graphdata, aes(x = Generation, y = lfmean, group = Origin, color = Origin)) + geom_point() +geom_line(data=graphdata, aes(group=Origin))
+# ggplot(d, aes(x = hp, y = mpg)) +
+#   geom_point() +
+#   geom_line(aes(x = x, y = y, colour = g))
+
+fake <- data.frame(or=c("i","n","i","n","i","n"), gen=c(0,0,1,1,0,1), lf=c(17,13,20,16,2,2))
 # fake <- data.frame(or=c("i","n","i","n"), gen=c(0,0,1,1), lf=c(17,13,20,16))
-# fake$or <- as.factor(fake$or)
-# fake$gen <- as.factor(fake$gen)
-# fake$lf <- as.integer(fake$lf)
-# ggplot(fake, aes(x = gen, y = lf, group = or, color = or)) + geom_path(aes(group=or))
+# fake$lf <- fake$lf + 1
+
+fake$or <- as.factor(fake$or)
+fake$gen <- as.factor(fake$gen)
+fake$lf <- as.integer(fake$lf)
+fakeI <- fake[fake$Origin=="i",]
+fakeN <- fake[fake$Origin=="n",]
+#lfmean <- tapply(fake$lf,fake$or, mean)
+ggplot(fakeI, aes(x = gen, y = lf, color = "red")) +geom_path( aes(x=as.numeric(gen), y=lf))
+qplot(gen, lf, data = fake, colour = or,
+      stat = "summary", fun.y = "mean", geom = "line")
+
+# If you just want to represent one value for each gen and or combination then it would be easier to calculate mean values before plotting. 
+# That can be achieved with function ddply() from library plyr.
+
+library(plyr)    
+fake.sum<-ddply(fake,.(or,gen), summarize, lf = mean(lf))
+fake.sum
+
+# Now with this new data frame you just have to give x and y values. 
+# or should be used in colour= and group= to ensure that each group has different color and that lines are connected.
+
+ggplot(fake.sum,aes(x=gen,y=lf,colour=or,group=or))+
+  geom_point()+geom_line()
+
+se <- function(x) sqrt(var(x, na.rm=TRUE)/(length(na.omit(x))-1))
+graphdata.sum <- ddply(graphdata, .(Origin, Generation),summarize, LfCountH = mean(LfCountH), lfse=se(graphdata$LfCountH))
+se(graphdata$LfCountH)
+tapply(graphdata$LfCountH,graphdata$, max)
+
+
+graphdata.sum
+graphdata.sum$Generation <- as.factor(graphdata.sum$Generation)
+ggplot(graphdata.sum, aes(x=Generation, y=LfCountH, color=Origin, group=Origin))+geom_line()
+# intplot +geom_boxplot(graphdata,aes(x=Generation, y=LfCountH, color=Origin, group=Origin))
+# ggplot(graphdata, aes(x=Generation, y=LfCountH, color=Origin, group=Origin))+geom_boxplot()
+#+geom_boxplot(group=Generation)
+
+
+# #qplot(Session, DEs2mPre, data = Dummy.Data, colour = Drug, facets = Group~.,
+# stat = "summary", fun.y = "mean", geom = "line")
+# # ggplot(data1, aes(x=group, y=estimate)) + 
+#   geom_errorbar(aes(ymin=estimate-SE, ymax=estimate+SE), 
+#                 colour="black", width=.1, position=pd) +
+#   geom_line( aes(x=as.numeric(group), y=estimate)) + 
+#   geom_point(position=pd, size=4)
 
 interaction.plot(graphdata$Generation, graphdata$Origin, graphdata$LfCountH, fun=mean,main = "Interaction plot of number of basal leaves at harvest")
 interaction.plot(fake$gen, fake$or, fake$lf, fun=mean)

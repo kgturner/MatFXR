@@ -125,8 +125,11 @@ anova(modelO,modelL)
 modelInt<-lmer(LfCountH  ~ Origin* Generation +(1|PopID/MomFam), family=poisson,data=modeldata)
 anova(modelInt, modelL)
 modelInt
-int<-2.75258#inv mean
-B<--0.24940#Originnat estimate from model summary
+int<-2.75258
+# -0.10115
+#inv mean
+B<--0.24940-0.14393
+#Originnat estimate from model summary
 pI<-exp(int)
 pN<-exp(int+B)
 pI
