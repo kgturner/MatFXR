@@ -204,7 +204,7 @@ ggplot(graphdata.sum, aes(x=Generation, y=LfCountH, color=Origin, group=Origin))
 # ggplot(graphdata, aes(x=Generation, y=LfCountH, color=Origin, group=Origin))+geom_boxplot()
 #+geom_boxplot(group=Generation)
 
-
+#int plot with SEs
 # #qplot(Session, DEs2mPre, data = Dummy.Data, colour = Drug, facets = Group~.,
 # stat = "summary", fun.y = "mean", geom = "line")
 # # ggplot(data1, aes(x=group, y=estimate)) + 
@@ -213,8 +213,17 @@ ggplot(graphdata.sum, aes(x=Generation, y=LfCountH, color=Origin, group=Origin))
 #   geom_line( aes(x=as.numeric(group), y=estimate)) + 
 #   geom_point(position=pd, size=4)
 
-interaction.plot(graphdata$Generation, graphdata$Origin, graphdata$LfCountH, fun=mean,main = "Interaction plot of number of basal leaves at harvest")
-interaction.plot(fake$gen, fake$or, fake$lf, fun=mean)
+#jitter in boxplots
+# dat <- data.frame(group=c('a', 'b', 'c'), values = runif(90))
+# 
+# ggplot(dat, aes(group, values)) + 
+#   geom_boxplot(outlier.size = 0) + 
+#   geom_jitter(position=position_jitter(width=0), aes(colour=group), alpha=0.7) + 
+#   ylim(0, 1) + stat_summary(fun.y=mean, shape=3, col='red', geom='point') +
+#   opts(legend.position = "right") + ylab("values") + xlab("group")
+# 
+# interaction.plot(graphdata$Generation, graphdata$Origin, graphdata$LfCountH, fun=mean,main = "Interaction plot of number of basal leaves at harvest")
+# interaction.plot(fake$gen, fake$or, fake$lf, fun=mean)
 
 # thedata <- data.frame(predict(thelm), thelm$model$x, thelm$model$f)
 # y = trait, x = origin, f=generation
