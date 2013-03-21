@@ -33,6 +33,68 @@ p2 <- p2 +  annotate('point',x = "Control", y = 30, pch=8, color="red",parse=T, 
 multiplot(p1,p2, cols=2)
 dev.off()
 
+#######bolted mosaic plot###
+#control, cut, nut
+grdatB <- merge(mfco.dk1,mfcu.dk, all=TRUE)
+grdatB <- merge(grdatB,mfn.dk, all=TRUE )
+
+#grB<- ddply(grdatB, .(Trt, Origin, BoltedatH), summarize, count = length(BoltedatH))
+
+grB2 <- ddply(grdatB, .(Trt, Origin), summarize, totcount = length(BoltedatH))
+grB3 <- ddply(grdatB, .(Trt, Origin, BoltedatH), summarize, count = length(BoltedatH))
+grB <- merge(grB2,grB3, all.y=TRUE)
+grB$Treatment <- paste(grB$Trt, grB$Origin, grB$BoltedatH)
+
+grB$xmin <- 0
+grB$xmax <- 96
+grB[1:2,]$xmax<- 16
+grB[3:4,]$xmin<- 16
+grB[3:4,]$xmax<- 32
+grB[5:6,]$xmin<- 32
+grB[5:6,]$xmax<- 48
+grB[7:8,]$xmin<- 48
+grB[7:8,]$xmax<- 64
+grB[9:10,]$xmin<- 64
+grB[9:10,]$xmax<- 80
+grB[11,]$xmin<- 80
+
+#percentages, here for y and n
+grBn <- grB[grB$BoltedatH=="n",]
+grBn<- ddply(grBn, .(Treatment), transform, ymax = cumsum(count/totcount*100))
+grBn <- ddply(grBn, .(Treatment), transform,
+                 ymin = ymax-(count/totcount*100))
+
+grBy <- grB[grB$BoltedatH=="y",]
+grBy<- ddply(grBy, .(Treatment), transform, ymax = 100)
+grBy <- ddply(grBy, .(Treatment), transform,
+                 ymin = ymax-cumsum(count/totcount*100))
+
+grBatH1 <- merge(grBn, grBy, all=TRUE)
+
+#labels and tidying
+levels(grBatH1$Origin)[levels(grBatH1$Origin)=="inv"] <- "Invasive"
+levels(grBatH1$Origin)[levels(grBatH1$Origin)=="nat"] <- "Native"
+# grBatH1[grBatH1$xmax==100,]$xmax <- 96
+levels(grBatH1$BoltedatH)[levels(grBatH1$BoltedatH)=="n"] <- "Not Bolted"
+levels(grBatH1$BoltedatH)[levels(grBatH1$BoltedatH)=="y"] <- "Bolted"
+# origins <- c("Invasive", "Native","Invasive", "Native","Invasive", "Native")
+
+pdf("MF bolted mosaic.pdf", useDingbats=FALSE)
+p1 <- ggplot(grBatH1, aes(ymin = ymin, ymax = ymax, xmin=xmin, xmax=xmax, fill=Treatment))+ geom_rect(colour = I("grey"), size=1.5)+
+  scale_x_continuous(breaks=seq(16,80,32),labels=c("Control", "Herbivory", "Nutrient"), name="Stress Treatments")+
+  scale_y_continuous(name="Percent Bolted at Harvest")
+
+p1 + annotate(geom="text", x=grBatH1$xmin+8, y=105, label=grBatH1$Origin, size=3) +
+  annotate(geom="text", x=grBatH1$xmin+8, y=grBatH1$ymin+2, label=grBatH1$BoltedatH, size=2)+ 
+  theme(legend.position="none", axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
+        axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=15 ))+ 
+  annotate('point',x = 16, y = 101, pch=8, color="red",parse=T, size=3)
+  
+dev.off()
+
+
+
+
 #########generation effects###########
 #lfcount
 graphdata <- gen[!is.na(gen$LfCountH),]
