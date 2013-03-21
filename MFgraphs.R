@@ -192,7 +192,8 @@ ggplot(fake.sum,aes(x=gen,y=lf,colour=or,group=or))+
   geom_point()+geom_line()
 
 se <- function(x) sqrt(var(x, na.rm=TRUE)/(length(na.omit(x))-1))
-graphdata.sum <- ddply(graphdata, .(Origin, Generation),summarize, LfCountH = mean(LfCountH), lfse=se(graphdata$LfCountH))
+graphdata.sum <- ddply(graphdata, .(Origin, Generation),summarize, LfCountH = mean(LfCountH))
+
 se(graphdata$LfCountH)
 tapply(graphdata$LfCountH,graphdata$, max)
 

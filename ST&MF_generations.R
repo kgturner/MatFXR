@@ -108,6 +108,7 @@ modeldata<-gen[!is.na(gen$LfCountH),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$MomFam<-as.factor(modeldata$MomFam)
+modeldata$Generation <- as.factor(modeldata$Generation)
 
 model1<-lmer(LfCountH  ~ Origin* Generation +Latitude +(1|PopID/MomFam), family=poisson,data=modeldata)
 model2<-lmer(LfCountH  ~ Origin* Generation+ Latitude + (1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
@@ -125,16 +126,19 @@ anova(modelO,modelL)
 modelInt<-lmer(LfCountH  ~ Origin* Generation +(1|PopID/MomFam), family=poisson,data=modeldata)
 anova(modelInt, modelL)
 modelInt
-int<-2.75258
+int<-2.75258+0.29199
 # -0.10115
 #inv mean
-B<--0.24940-0.14393
+B<--0.24940+0.29199
 #Originnat estimate from model summary
 pI<-exp(int)
 pN<-exp(int+B)
 pI
 pN
 
+model1L<-lmer(LfCountH  ~ Origin* Generation +(1|PopID/MomFam), family=poisson,data=modeldata)
+modelIL <- lmer(LfCountH  ~ Origin + Generation + (1|PopID/MomFam), family=poisson,data=modeldata)
+anova(modelIL,model1L)
 
 ###ShootMass.g, gaussian... log?
 modeldata<-gen[!is.na(gen$ShootMass.g),]
@@ -269,6 +273,10 @@ pI<-exp(int)
 pN<-exp(int+B)
 pI
 pN
+
+model1L<-lmer(BoltDay.adj  ~ Origin* Generation  +(1|PopID/MomFam), family=poisson,data=modeldata)
+modelIL <- lmer(BoltDay.adj  ~ Origin + Generation + (1|PopID/MomFam), family=poisson,data=modeldata)
+anova(modelIL,model1L)
 
 ###bolt.bin, binomial
 modeldata<-gen[!is.na(gen$bolt.bin),]
