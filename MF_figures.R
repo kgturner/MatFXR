@@ -1,4 +1,5 @@
 ####MF figures#####
+gen<-read.table("ST&MFgenerations.txt", header=T, sep="\t", quote='"', row.names=1) #allo, dk only
 
 ##box whisker plotof size trait###
 #make dataframe
@@ -6,7 +7,8 @@ grdat <- mfcom1[,c(1:12,55:56,58:63)]
 grdat <- merge(grdat, mfallo.dk,all=TRUE)
 grdat$Trt <- as.factor("Early Control")
 colnames(grdat)[10]<-"LfCountH"
-colnames(grdat)[24]<-"lxwH"
+grdat$lxwH <- grdat$LfLgth1*grdat$LfWdth1
+#colnames(grdat)[24]<-"lxwH"
 
 grdat <- merge(grdat, mfco.dk1, all=TRUE)
 grdat <- merge(grdat,mfcu.dk, all=TRUE)
