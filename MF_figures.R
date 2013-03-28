@@ -328,6 +328,7 @@ dev.off()
 ###bolt date####
 #base graphics
 graphdata <- gen[!is.na(gen$BoltDay.adj),]
+summary(graphdata)
 interaction.plot(graphdata$Generation, graphdata$Origin, graphdata$BoltDay.adj, fun=mean, main = "Interaction plot of bolting date")
 
 #make graphdata

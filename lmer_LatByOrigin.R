@@ -42,7 +42,7 @@ str(mfallo.dk)
 alLR <- lapply(names(mfallo.dk)[c(10:11)],function(n) CGtrait.LR.int(n,mfallo.dk)) #crow, shoot, all gaussian
 #names(alLR) <- names(mfallo.dk)[c(11:13, 20)]
 alLR #check out LRs of models. Model progression logical?
-almodels <- CGtrait.models.int("CrownDiam.mmA",mfallo.dk)
+almodels <- CGtrait.models.int("Mass.gA",mfallo.dk)
 almodels
 
 # #####m1, Origin * Lat#####
