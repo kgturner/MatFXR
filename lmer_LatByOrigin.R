@@ -45,6 +45,29 @@ alLR #check out LRs of models. Model progression logical?
 almodels <- CGtrait.models.int("Mass.gA",mfallo.dk)
 almodels
 
+#allo, shoot mass
+modeldata<-mfallo.dk[!is.na(mfallo.dk$Mass.gA),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$Mom<-as.factor(modeldata$Mom)
+
+model1<-lmer(Mass.gA ~ Origin *Latitude+(1|PopID/Mom), family=gaussian,data=modeldata)
+model2<-lmer(Mass.gA ~ Origin *Latitude+ (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(Mass.gA ~ Origin *Latitude+ (1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2,model1) # Mom is sig!
+anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+
+modelI <- lmer(Mass.gA  ~ Origin + Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelI,model1)
+
+modelL<-lmer(Mass.gA ~ Origin +(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelL, modelI)
+
+modelO<-lmer(Mass.gA ~ (1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelO,modelL) #test for significance of origin - origin not sig....?
+#Mom and popID sig, but not Origin! for either log or raw data
+
+
 # #####m1, Origin * Lat#####
 mfcom1<-read.table("MatFxBonusCtrlM1.txt", header=T, sep="\t", quote='"', row.names=1) #m1 all plants in analysis, balanced, dk only
 head(mfcom1)
@@ -128,6 +151,15 @@ pI<-exp(int)/(exp(int)+1) # Introduced (B=0)
 pI 
 pN 
 
+#control, bolt.bin
+modeldata<-mfco.dk1[!is.na(mfco.dk1$bolt.bin),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$Mom<-as.factor(modeldata$Mom)
+
+model1raw<-lmer(bolt.bin ~ Origin *Latitude +(1|PopID/Mom), family=binomial,data=modeldata)
+model2raw<-lmer(bolt.bin ~ Origin *Latitude +(1|PopID), family=binomial,data=modeldata)
+
 coP <- lapply(names(mfco.dk1)[c(11,46)],function(n) CGtrait.LR.int(n,mfco.dk1, family=poisson)) #lfcountH, boltdate, all poisson
 
 ####control, lxw, mom sig, so do by hand####
@@ -179,6 +211,9 @@ pI<-exp(int)
 pN<-exp(int+B)
 pI
 pN
+
+anova(model1raw,ddf="Kenward-Roger")
+
 
 ###control, boltday.adj, cross sig, do by hand###
 #only bolters
