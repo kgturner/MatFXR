@@ -275,8 +275,8 @@ anova(modelL, modelI)
 modelOraw<-lmer(lxwH ~ (1|PopID/Mom), family=gaussian,data=modeldata)
 anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
 
-# ####control, lf count, mom sig so do by hand#####
-# #poisson on raw data
+####control, lf count, mom sig so do by hand#####
+#poisson on raw data
 modeldata<-totmf[!is.na(totmf$LfCountH),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
@@ -694,7 +694,7 @@ model2raw<-lmer(LfCountH ~ Origin * Latitude + (1|PopID), family=poisson,data=mo
 model3raw<-lmer(LfCountH ~ Origin * Latitude + (1|blank), family=poisson,data=modeldata) # Test population effect
 anova(model2raw,model1raw) # Mom not sig
 anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-
+1-pchisq(16.177,1)
 modelI <- lmer(LfCountH ~ Origin + Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
 anova(modelI,model1raw)
 
@@ -703,8 +703,6 @@ anova(modelL,modelI)
 
 modelOraw<-lmer(LfCountH ~ (1|PopID/Mom), family=poisson,data=modeldata)
 anova(modelOraw,modelL) #test for significance of origin 
-
-####cut, bolt.bin
 
 ##cut, crown
 modeldata<-totmfcu[!is.na(totmfcu$CrownDiam.mm),]
@@ -734,15 +732,15 @@ anova(modelOraw,modelL)
 modelg <- glm(CrownDiam.mm ~ Origin*Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(CrownDiam.mm ~ Origin+Latitude, family=gaussian,data=modeldata)
 anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(0.069898, 1)
+1-pchisq(1.0027, 1)
 
 modelg3<- glm(CrownDiam.mm ~ Origin, family=gaussian,data=modeldata)
 anova(modelg3,modelg1)
-1-pchisq(30.827, 1)
+1-pchisq(1.4052, 1)
 anova(modelg3)
 # modelg2<- glm(CrownDiam.mm ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
-1-pchisq(0.063137, 1)
+1-pchisq(30.827, 1)
 
 ####Drought, Origin * Lat####
 mfd.dk<-read.table("MatFxDrought.dk.txt", header=T, sep="\t", quote='"', row.names=1) #drought, dk only
