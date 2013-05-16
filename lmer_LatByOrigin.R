@@ -761,6 +761,117 @@ names(dLR) <- names(d)[17:19]
 # summary(d[d$Origin=="inv",]$TotWilt)
 # summary(d[d$Origin=="nat",]$TotWilt)
 
+#drought, death
+modeldata<-mfd.dk[!is.na(mfd.dk$DeathDay),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+model1raw<-lmer(DeathDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+model2raw<-lmer(DeathDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(DeathDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
+print(anova(model2raw,model1raw), digits=22) # mom not sig
+(lambda <- (-2)*(-1.913311475677763828784 - (-1.913311474508387233229)))
+1-pchisq(2.338753e-09,1)
+print(anova(model3raw,model2raw), digits = 22)
+(lambda <- (-2)*(-1.913311474517363830472 - (-1.913311475677763828784)))
+1-pchisq(-2.3208e-09,1)
+
+modelI<-lmer(DeathDay ~ Origin + Latitude+(1|blank), family=poisson,data=modeldata)
+anova(modelI, model3raw)
+
+modelL<-lmer(DeathDay ~ Origin +(1|blank), family=poisson,data=modeldata)
+anova(modelL, modelI)
+
+modelOraw<-lmer(DeathDay ~ (1|blank), family=poisson,data=modeldata)
+anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+
+#try glm
+modelg <- glm(DeathDay ~ Origin*Latitude, family=poisson,data=modeldata)
+modelg1 <- glm(DeathDay ~ Origin+Latitude, family=poisson,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(0.57219, 1)
+
+modelg3<- glm(DeathDay ~ Origin, family=poisson,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(2.2441, 1)
+# modelg2<- glm(DeathDay ~ Latitude, family=poisson,data=modeldata)
+# anova(modelg2,modelg1)
+anova(modelg3)
+1-pchisq(1.078, 1)
+
+#drought, tot wilt
+modeldata<-mfd.dk[!is.na(mfd.dk$TotWiltDay),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+model1raw<-lmer(TotWiltDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+model2raw<-lmer(TotWiltDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(TotWiltDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
+print(anova(model2raw,model1raw), digits=22) # mom not sig
+(lambda <- (-2)*(-6.385330357455019090196 - (-6.385485092397927608943)))
+1-pchisq(-0.0003094699,1)
+print(anova(model3raw,model2raw), digits = 22)
+(lambda <- (-2)*(-6.385330358488191748734 - (-6.385330357455019090196)))
+1-pchisq(2.066345e-09,1)
+
+modelI<-lmer(TotWiltDay ~ Origin + Latitude+(1|blank), family=poisson,data=modeldata)
+anova(modelI, model3raw)
+
+modelL<-lmer(TotWiltDay ~ Origin +(1|blank), family=poisson,data=modeldata)
+anova(modelL, modelI)
+
+modelOraw<-lmer(TotWiltDay ~ (1|blank), family=poisson,data=modeldata)
+anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+
+#try glm
+modelg <- glm(TotWiltDay ~ Origin*Latitude, family=poisson,data=modeldata)
+modelg1 <- glm(TotWiltDay ~ Origin+Latitude, family=poisson,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(0.57219, 1)
+
+modelg3<- glm(TotWiltDay ~ Origin, family=poisson,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(2.2441, 1)
+# modelg2<- glm(TotWiltDay ~ Latitude, family=poisson,data=modeldata)
+# anova(modelg2,modelg1)
+anova(modelg3)
+1-pchisq(1.078, 1)
+
+#drought, 1st wilt
+modeldata<-mfd.dk[!is.na(mfd.dk$WiltDay),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+model1raw<-lmer(WiltDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+model2raw<-lmer(WiltDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(WiltDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
+print(anova(model2raw,model1raw), digits=22) # mom not sig
+(lambda <- (-2)*(-4.306174387866642305767 - (-4.306174388680275022523)))
+1-pchisq(-1.627265e-09,1)
+print(anova(model3raw,model2raw), digits = 22)
+(lambda <- (-2)*(-4.306174387612385245916 - (-4.306174387866642305767)))
+1-pchisq(-5.085141e-10,1)
+
+modelI<-lmer(WiltDay ~ Origin + Latitude+(1|blank), family=poisson,data=modeldata)
+anova(modelI, model3raw)
+
+modelL<-lmer(WiltDay ~ Origin +(1|blank), family=poisson,data=modeldata)
+anova(modelL, modelI)
+
+modelOraw<-lmer(WiltDay ~ (1|blank), family=poisson,data=modeldata)
+anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+
+#try glm
+modelg <- glm(WiltDay ~ Origin*Latitude, family=poisson,data=modeldata)
+modelg1 <- glm(WiltDay ~ Origin+Latitude, family=poisson,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(0.57219, 1)
+
+modelg3<- glm(WiltDay ~ Origin, family=poisson,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(2.2441, 1)
+# modelg2<- glm(WiltDay ~ Latitude, family=poisson,data=modeldata)
+# anova(modelg2,modelg1)
+anova(modelg3)
+1-pchisq(2.0958, 1)
+
 ####Flood, Origin + Lat####
 mff.dk<-read.table("MatFxFlood.dk.txt", header=T, sep="\t", quote='"', row.names=1) #flood, dk only
 head(mff.dk)
@@ -770,6 +881,119 @@ fLR <- lapply(names(mff.dk)[17:19],function(n) CGtrait.LR.int(n,mff.dk, family=p
 # 
 # fmodels <- lapply(names(f)[20:21],function(n) CGtrait.models.int(n,f))
 # fmodels
+
+#flood, death
+modeldata<-mff.dk[!is.na(mff.dk$DeathDay),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+model1raw<-lmer(DeathDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+model2raw<-lmer(DeathDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(DeathDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
+print(anova(model2raw,model1raw), digits=22) # mom not sig
+(lambda <- (-2)*(-1.844905329599548560182 - (-1.844905329460677645415)))
+1-pchisq(2.777418e-10,1)
+print(anova(model3raw,model2raw), digits = 22)
+(lambda <- (-2)*(-1.844905329532508853063 - (-1.844905329599548560182)))
+1-pchisq(-1.340794e-10,1)
+
+modelI<-lmer(DeathDay ~ Origin + Latitude+(1|blank), family=poisson,data=modeldata)
+anova(modelI, model3raw)
+
+modelL<-lmer(DeathDay ~ Origin +(1|blank), family=poisson,data=modeldata)
+anova(modelL, modelI)
+
+modelOraw<-lmer(DeathDay ~ (1|blank), family=poisson,data=modeldata)
+anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+
+#try glm
+modelg <- glm(DeathDay ~ Origin*Latitude, family=poisson,data=modeldata)
+modelg1 <- glm(DeathDay ~ Origin+Latitude, family=poisson,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(0.57219, 1)
+
+modelg3<- glm(DeathDay ~ Origin, family=poisson,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(2.2441, 1)
+# modelg2<- glm(DeathDay ~ Latitude, family=poisson,data=modeldata)
+# anova(modelg2,modelg1)
+anova(modelg3)
+1-pchisq(1.078, 1)
+
+#flood, root death
+modeldata<-mff.dk[!is.na(mff.dk$FloatDay),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+model1raw<-lmer(FloatDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+model2raw<-lmer(FloatDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(FloatDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
+print(anova(model2raw,model1raw), digits=22) # mom not sig
+(lambda <- (-2)*(-1.117466617470247447486 - (-1.117466617475713519525)))
+1-pchisq(-1.093214e-11,1)
+print(anova(model3raw,model2raw), digits = 22)
+(lambda <- (-2)*(-1.117466617605779255484 - (-1.117466617470247447486)))
+1-pchisq(2.710636e-10,1)
+
+modelI<-lmer(FloatDay ~ Origin + Latitude+(1|blank), family=poisson,data=modeldata)
+anova(modelI, model3raw)
+
+modelL<-lmer(FloatDay ~ Origin +(1|blank), family=poisson,data=modeldata)
+anova(modelL, modelI)
+
+modelOraw<-lmer(FloatDay ~ (1|blank), family=poisson,data=modeldata)
+anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+
+#try glm
+modelg <- glm(FloatDay ~ Origin*Latitude, family=poisson,data=modeldata)
+modelg1 <- glm(FloatDay ~ Origin+Latitude, family=poisson,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(0.57219, 1)
+
+modelg3<- glm(FloatDay ~ Origin, family=poisson,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(2.2441, 1)
+# modelg2<- glm(FloatDay ~ Latitude, family=poisson,data=modeldata)
+# anova(modelg2,modelg1)
+anova(modelg3)
+1-pchisq(1.078, 1)
+
+#flood, yellow
+modeldata<-mff.dk[!is.na(mff.dk$YellowDay),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+model1raw<-lmer(YellowDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+model2raw<-lmer(YellowDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(YellowDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
+print(anova(model2raw,model1raw), digits=22) # mom not sig
+(lambda <- (-2)*(-3.771305061738555064466 - (-3.771305061690886528680)))
+1-pchisq(9.533707e-11,1)
+print(anova(model3raw,model2raw), digits = 22)
+(lambda <- (-2)*(-3.771305061749520071146 - (-3.771305061738555064466)))
+1-pchisq(2.193001e-11,1)
+
+modelI<-lmer(YellowDay ~ Origin + Latitude+(1|blank), family=poisson,data=modeldata)
+print(anova(modelI, model3raw), digits = 22)
+(lambda <- (-2)*(-3.771305241910035910280 - (-3.771305061749520071146)))
+1-pchisq(3.60321e-07,1)
+
+modelL<-lmer(YellowDay ~ Origin +(1|blank), family=poisson,data=modeldata)
+anova(modelL, modelI)
+
+modelOraw<-lmer(YellowDay ~ (1|blank), family=poisson,data=modeldata)
+anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+
+#try glm
+modelg <- glm(YellowDay ~ Origin*Latitude, family=poisson,data=modeldata)
+modelg1 <- glm(YellowDay ~ Origin+Latitude, family=poisson,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(0.57219, 1)
+
+modelg3<- glm(YellowDay ~ Origin, family=poisson,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(2.2441, 1)
+# modelg2<- glm(YellowDay ~ Latitude, family=poisson,data=modeldata)
+# anova(modelg2,modelg1)
+anova(modelg3)
+1-pchisq(1.078, 1)
 
 ####Mom, Origin + Lat####
 mfmom.dk<-read.table("MatFxMom.dk.txt", header=T, sep="\t", quote='"', row.names=1) 
