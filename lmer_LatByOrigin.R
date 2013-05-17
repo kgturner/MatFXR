@@ -68,6 +68,26 @@ modelO<-lmer(Mass.gA ~ (1|blank), family=gaussian,data=modeldata)
 anova(modelO,modelL) #test for significance of origin - origin not sig....?
 #Mom and popID sig, but not Origin! for either log or raw data
 
+#try glm
+modelg <- glm(Mass.gA ~ Origin*Latitude, family=gaussian,data=modeldata)
+modelg1 <- glm(Mass.gA ~ Origin+Latitude, family=gaussian,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(chisq, df)
+
+modelg3<- glm(Mass.gA ~ Origin, family=gaussian,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(0.75479, 1)
+anova(modelg3)
+# modelg2<- glm(Mass.gA ~ Latitude, family=gaussian,data=modeldata)
+# anova(modelg2,modelg1)
+# 1-pchisq(9.0533, 1)
+
+p1 <- ggplot(modeldata,aes(Trt, Mass.gA, fill=Origin))+
+  geom_boxplot()+xlab("Stress Treatment")+
+  ylab("shoot mass")+ 
+  theme(legend.justification=c(1,1), legend.position=c(1,1))
+p1
+
 #allo, root crown
 modeldata<-mfallo.dk[!is.na(mfallo.dk$Crown.mmA),]
 modeldata$blank<-1
@@ -104,9 +124,10 @@ anova(modelg1, modelg) #'Deviance' is chisq value
 modelg3<- glm(Crown.mmA ~ Origin, family=gaussian,data=modeldata)
 anova(modelg3,modelg1)
 1-pchisq(0.1535, 1)
-modelg2<- glm(Crown.mmA ~ Latitude, family=gaussian,data=modeldata)
-anova(modelg2,modelg1)
-1-pchisq(0.34079, 1)
+anova(modelg3)
+# modelg2<- glm(Crown.mmA ~ Latitude, family=gaussian,data=modeldata)
+# anova(modelg2,modelg1)
+# 1-pchisq(0.34079, 1)
 
 # #####m1, Origin * Lat#####
 mfcom1<-read.table("MatFxBonusCtrlM1.txt", header=T, sep="\t", quote='"', row.names=1) #m1 all plants in analysis, balanced, dk only
@@ -140,7 +161,6 @@ anova(modelL, modelI)
 modelO<-lmer(lxw ~ (1|PopID/Mom), family=gaussian,data=modeldata)
 anova(modelO,modelL) #test for significance of origin - origin not sig....?
 #Mom and popID sig, but not Origin! for either log or raw data
-
 
 ###m1, lfcount, mom sig, do by hand###
 modeldata<-mfcom1[!is.na(mfcom1$LfCount1),]
@@ -238,7 +258,7 @@ modelg3<- glm(ShootMass.g ~ Origin, family=gaussian,data=modeldata)
 anova(modelg3,modelg1)
 1-pchisq(2.919, 1)
 modelg2<- glm(ShootMass.g ~ Latitude, family=gaussian,data=modeldata)
-anova(modelg2)
+anova(modelg3)
 1-pchisq(7.3647, 1)
 
 #control, bolt.bin
@@ -304,7 +324,6 @@ pN<-exp(int+B)
 pI
 pN
 
-<<<<<<< HEAD
 ###control, BatH###
 modeldata<-totmf[!is.na(totmf$bolt.bin),]
 modeldata$blank<-1
@@ -332,8 +351,21 @@ anova(modelL, modelI)
 modelO<-lmer(bolt.bin ~  (1|blank), family=binomial,data=modeldata)
 anova(modelO,modelL) #test for significance of origin - origin not sig!
 modelL
-=======
-anova(model1raw,ddf="Kenward-Roger")
+# anova(model1raw,ddf="Kenward-Roger")
+
+#try glm
+modelg <- glm(bolt.bin ~ Origin*Latitude, family=binomial,data=modeldata)
+modelg1 <- glm(bolt.bin ~ Origin+Latitude, family=binomial,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(chisq, df)
+
+modelg3<- glm(bolt.bin ~ Origin, family=binomial,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(5.5154, 1)
+anova(modelg3)
+# modelg2<- glm(bolt.bin ~ Latitude, family=binomial,data=modeldata)
+# anova(modelg2,modelg1)
+# 1-pchisq(9.0533, 1)
 
 ###control, boltday.adj, cross sig, do by hand###
 #only bolters
@@ -414,6 +446,19 @@ anova(modelL, modelI)
 modelOraw<-lmer(sla.log ~ (1|blank), family=gaussian,data=modeldata)
 anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
 
+#try glm
+modelg <- glm(sla.log ~ Origin*Latitude, family=gaussian,data=modeldata)
+modelg1 <- glm(sla.log ~ Origin+Latitude, family=gaussian,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(chisq, df)
+
+modelg3<- glm(sla.log ~ Origin, family=gaussian,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(5.5154, 1)
+anova(modelg3)
+# modelg2<- glm(sla.log ~ Latitude, family=gaussian,data=modeldata)
+# anova(modelg2,modelg1)
+# 1-pchisq(9.0533, 1)
 
 
 ####Nut def, Origin + Lat####
@@ -517,7 +562,6 @@ anova(modelL, modelI)
 
 modelOraw<-lmer(ShootMass.g ~ (1|blank), family=gaussian,data=modeldata)
 anova(modelOraw,modelL)
-
 
 #try glm
 modelg <- glm(ShootMass.g ~ Origin*Latitude, family=gaussian,data=modeldata)
@@ -1024,14 +1068,15 @@ anova(modelL, modelI)
 modelO<-lmer(SeedWt ~ (1|blank), family=gaussian,data=modeldata)
 anova(modelO,modelL) #test for significance of origin - origin not sig....?
 
-# #try glm
-# modelg <- glm(SeedWt ~ Origin*Latitude, family=gaussian,data=modeldata)
-# modelg1 <- glm(SeedWt ~ Origin+Latitude, family=gaussian,data=modeldata)
-# anova(modelg1, modelg) #'Deviance' is chisq value
-# 1-pchisq(3.0924e-07, 1)
-# modelg3<- glm(SeedWt ~ Origin, family=gaussian,data=modeldata)
-# anova(modelg3,modelg1)
-# 1-pchisq(2.897e-07, 1)
+#try glm
+modelg <- glm(SeedWt ~ Origin*Latitude, family=gaussian,data=modeldata)
+modelg1 <- glm(SeedWt ~ Origin+Latitude, family=gaussian,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(3.0924e-07, 1)
+modelg3<- glm(SeedWt ~ Origin, family=gaussian,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(2.897e-07, 1)
+anova(modelg3)
 # modelg2<- glm(SeedWt ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
 # 1-pchisq(1.614e-07, 1)
@@ -1067,6 +1112,18 @@ anova(modelO, modelL)
 # pN<-exp(int+B)
 # pI
 # pN
+#try glm
+modelg <- glm(GermCount ~ Origin*Latitude + SeedCount, family=poisson,data=modeldata)
+modelg1 <- glm(GermCount ~ Origin+Latitude +SeedCount, family=poisson,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(chisq, df)
+
+modelg3<- glm(GermCount ~ Origin+ SeedCount, family=poisson,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(5.5154, 1)
+modelg2<- glm(GermCount ~ SeedCount, family=poisson,data=modeldata)
+anova(modelg2,modelg3)
+1-pchisq(9.0533, 1)
 
 ####Mom, germ date####avg, so can't use poisson
 modeldata<-mfmom.dk[!is.na(mfmom.dk$GermAvgDate),]
