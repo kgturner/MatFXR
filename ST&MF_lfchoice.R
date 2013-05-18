@@ -303,80 +303,124 @@ lf$defense <- droplevels(lf$defense)
 #using lmer
 library(lme4)
 
-####lf disc, most eaten with defense as covar, from scan, binomial####
+#merge lf and mom df
+str(mfmom.dk)
 str(lf)
-modeldata<-lf[lf$eat.bin<2,]#exclude ties and failed trials
-is.na(modeldata$eat.bin)
+lf$CrossNum <- as.factor(lf$CrossNum)
+lf$CrossID <- as.factor(paste0(lf$PopID,"-",lf$CrossNum))
+totlf <- merge(mfmom.dk, lf, all=TRUE )
+str(totlf)
+totlf <- totlf[!is.na(totlf$defense),]
+# #tidy
+# totmf <- totmf[,-c(16:18,26,29:30, 32:38, 40:44, 46:57)]
+# totmf <- totmf[!is.na(totmf$Trt),]
+totlf$Exp<-droplevels(totlf$Exp)
+totlf$Trt<-droplevels(totlf$Trt)
+levels(totlf$PopID)
+
+####lf disc, most eaten with defense as covar, from scan, binomial####
+str(totlf)
+modeldata<-totlf[totlf$eat.bin<2,]#exclude ties and failed trials
+# is.na(modeldata$eat.bin)
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 xtabs(~Origin+eat.bin, modeldata)
-# modeldata$Mom<-as.factor(modeldata$Mom) #mom and cross number not really equivalent...
-# 
-# model1<-lmer(eat.bin ~ Origin +(1|PopID/Mom), family=binomial,data=modeldata)
-model2<-lmer(eat.bin ~ Origin * Latitude + defense +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(eat.bin ~ Origin * Latitude + defense +(1|blank), family=binomial,data=modeldata) # Test population effect
-# anova(model2,model1) # mom sig
+modeldata$Mom<-as.factor(modeldata$Mom) 
+
+model1<-lmer(eat.bin ~ Origin + Latitude + defense+(1|PopID/Mom), family=binomial,data=modeldata)
+model2<-lmer(eat.bin ~ Origin + Latitude + defense +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(eat.bin ~ Origin + Latitude + defense +(1|blank), family=binomial,data=modeldata) # Test population effect
+anova(model2,model1) # mom sig
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+(lambda <- (-2)*(-221.90 - (-528.38)))
+1-pchisq(-612.96,1)
+modelI <- lmer(eat.bin ~ Origin + Latitude + defense +(1|blank), family=binomial,data=modeldata)
+anova(model3, modelI)
 
-modelI <- lmer(eat.bin ~ Origin + Latitude + defense +(1|PopID), family=binomial,data=modeldata)
-anova(model2, modelI)
-
-modelL <- lmer(eat.bin ~ Origin + defense +(1|PopID), family=binomial,data=modeldata)
+modelL <- lmer(eat.bin ~ Origin + defense +(1|blank), family=binomial,data=modeldata)
 anova(modelL, modelI)
 
-modelD <- lmer(eat.bin ~ Origin +(1|PopID), family=binomial,data=modeldata)
+modelD <- lmer(eat.bin ~ Origin +(1|blank), family=binomial,data=modeldata)
 anova(modelD, modelL)
 
-modelO<-lmer(eat.bin ~ (1|PopID), family=binomial,data=modeldata)
+modelO<-lmer(eat.bin ~ (1|blank), family=binomial,data=modeldata)
 anova(modelO,modelD) #test for significance of origin - origin sig!
 
+#try glm
+modelg <- glm(eat.bin ~ Origin +defense+Latitude, family=binomial,data=modeldata)
+modelg1 <- glm(eat.bin ~ Origin+defense, family=binomial,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(chisq, df)
+
+modelg3<- glm(eat.bin ~ Origin, family=binomial,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(5.5154, 1)
+anova(modelg3)
+# modelg2<- glm(eat.bin ~ Latitude, family=binomial,data=modeldata)
+# anova(modelg2,modelg1)
+# 1-pchisq(9.0533, 1)
+
+
 ####lf disc, area eaten, gaussian####
-modeldata<-lf[!is.na(lf$Eaten.mm),]
+modeldata<-totlf[!is.na(totlf$Eaten.mm),]
 modeldata<-modeldata[modeldata$eat.bin<2,]#exclude ties and failed trials
-is.na(modeldata$Eaten.mm)
+# is.na(modeldata$Eaten.mm)
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
-# modeldata$Mom<-as.factor(modeldata$Mom)
+modeldata$Mom<-as.factor(modeldata$Mom)
 
-# model1<-lmer(Eaten.mm ~ Origin +defense + (1|PopID/Mom), family = gaussian, data=modeldata)
-model2<-lmer(Eaten.mm ~ Origin *Latitude + defense+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(Eaten.mm ~ Origin *Latitude + defense+(1|blank), family=gaussian,data=modeldata) # Test population effect
+# model1<-lmer(Eaten.mm ~ Origin  + Latitude +defense+(1|PopID/Mom), family = gaussian, data=modeldata)
+# model2<-lmer(Eaten.mm ~ Origin  +Latitude+ defense+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+# model3<-lmer(Eaten.mm ~ Origin  +Latitude+ defense+(1|blank), family=gaussian,data=modeldata) # Test population effect
 # anova(model2, model1)
-anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-
-modelI <- lmer(Eaten.mm ~ Origin + Latitude + defense +(1|PopID), family=gaussian,data=modeldata)
-anova(model2, modelI)
-
-modelL <- lmer(Eaten.mm ~ Origin + defense +(1|PopID), family=gaussian,data=modeldata)
-anova(modelL, model2)
-
-modelD<-lmer(Eaten.mm ~ Origin * Latitude + (1|PopID), family=gaussian, data=modeldata)
-anova(model2, modelD)
-
-modelO<-lmer(Eaten.mm ~ Latitude + defense + (1|PopID), family=gaussian,data=modeldata)
-anova(modelO,model2) #test for significance of origin - origin not sig....?
-
-anova(modelI, modelO)
+# anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+# 1-pchisq(2.5958, 1)
+# modelI <- lmer(Eaten.mm ~ Origin + Latitude + defense +(1|blank), family=gaussian,data=modeldata)
+# anova(model2, modelI)
+# 
+# modelL <- lmer(Eaten.mm ~ Origin + defense +(1|blank), family=gaussian,data=modeldata)
+# anova(modelL, model2)
+# 
+# modelD<-lmer(Eaten.mm ~ Origin * Latitude + (1|blank), family=gaussian, data=modeldata)
+# anova(model2, modelD)
+# 
+# modelO<-lmer(Eaten.mm ~ Latitude + defense + (1|blank), family=gaussian,data=modeldata)
+# anova(modelO,model2) #test for significance of origin - origin not sig....?
+# 
+# anova(modelI, modelO)
 
 #transformed
 is.na(modeldata$Eaten.log)
-# model1<-lmer(Eaten.log ~ Origin +defense + (1|PopID/Mom), family = gaussian, data=modeldata)
-model2<-lmer(Eaten.log ~ Origin *Latitude + defense+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3<-lmer(Eaten.log ~ Origin *Latitude + defense+(1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2, model1)
+model1<-lmer(Eaten.log ~ Origin +Latitude+defense + (1|PopID/Mom), family = gaussian, data=modeldata)
+model2<-lmer(Eaten.log ~ Origin +Latitude + defense+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3<-lmer(Eaten.log ~ Origin +Latitude + defense+(1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2, model1)
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+1-pchisq(1.0428, 1)
+# modelI <- lmer(Eaten.log ~ Origin + Latitude + defense +(1|PopID), family=gaussian,data=modeldata)
+# anova(model2, modelI)
 
-modelI <- lmer(Eaten.log ~ Origin + Latitude + defense +(1|PopID), family=gaussian,data=modeldata)
-anova(model2, modelI)
+modelL <- lmer(Eaten.log ~ Origin + defense +(1|blank), family=gaussian,data=modeldata)
+anova(modelL, model3)
 
-modelL <- lmer(Eaten.log ~ Origin + defense +(1|PopID), family=gaussian,data=modeldata)
-anova(modelL, modelI)
-
-modelD<-lmer(Eaten.log ~ Origin + (1|PopID), family=gaussian, data=modeldata)
+modelD<-lmer(Eaten.log ~ Origin + (1|blank), family=gaussian, data=modeldata)
 anova(modelD, modelL)
 
-modelO<-lmer(Eaten.log ~ defense + (1|PopID), family=gaussian,data=modeldata)
+modelO<-lmer(Eaten.log ~ defense + (1|blank), family=gaussian,data=modeldata)
 anova(modelL,modelO) #test for significance of origin - origin not sig....?
 
 qqnorm(resid(model2), main="Q-Q plot for residuals")
 qqline(resid(model2))
+
+#try glm
+modelg <- glm(Eaten.log ~ Origin+defense+Latitude, family=gaussian,data=modeldata)
+modelg1 <- glm(Eaten.log ~ Origin+defense, family=gaussian,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(chisq, df)
+
+modelg3<- glm(Eaten.log ~ Origin, family=gaussian,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(71.724, 3)
+modelg2<- glm(Eaten.log ~ defense, family=gaussian,data=modeldata)
+anova(modelg2,modelg1)
+1-pchisq(9.0533, 1)

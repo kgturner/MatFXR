@@ -130,7 +130,8 @@ p1 +theme(panel.grid.minor.y=element_blank(), panel.grid.major.y=element_blank()
   annotate(geom="text", x=(grBatH1$xmax-grBatH1$xmin)/2 + grBatH1$xmin, y=grBatH1$ymin+2, label=grBatH1$BoltedatH, size=4)+ 
   theme(legend.position="none", axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=15 ))+ 
-  annotate('point',x = 55, y = 102, pch=8, color="red",parse=T, size=3)
+  annotate('point',x = 55, y = 102, pch=8, color="red",parse=T, size=3)+
+  annotate('point',x = 123, y = 102, pch=8, color="red",parse=T, size=3)
 dev.off()
 
 ###b&w plot###
@@ -151,7 +152,8 @@ p1 +theme(panel.grid.minor.y=element_blank(), panel.grid.major.y=element_blank()
   annotate(geom="text", x=(grBatH1$xmax-grBatH1$xmin)/2 + grBatH1$xmin, y=grBatH1$ymin+2, label=grBatH1$BoltedatH, size=4)+ 
   theme(legend.position="none", axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=15 ))+ 
-  annotate('point',x = 55, y = 102, pch=8, color="black",parse=T, size=3)
+  annotate('point',x = 55, y = 102, pch=8, color="black",parse=T, size=3)+
+  annotate('point',x = 123, y = 102, pch=8, color="black",parse=T, size=3)
 dev.off()
 
 
@@ -369,7 +371,7 @@ p1 <- ggplot(genb, aes(x=Generation, y=boltmean, color=Origin, group=Origin, yma
         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13),
         axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=15 ))
-p1 +  annotate('point',x = 1, y = 80, pch=8, color="red",parse=T,size=3)+
+p1 +  annotate('point',x = 1, y = 80, pch=16, color="red",parse=T,size=3)+
   annotate(geom="text", x=1, y=82, label="Origin",fontface="italic", size=5) +
   annotate(geom="text", x=0, y=60, label="Origin",fontface="italic", size=5)+
   annotate(geom="text", x=0, y=58, label="NS",fontface="italic", size=5)+
@@ -377,7 +379,8 @@ p1 +  annotate('point',x = 1, y = 80, pch=8, color="red",parse=T,size=3)+
   annotate(geom="text", x=0.5, y=80, label="Origin", size=5)+ 
   annotate(geom="text", x=0.5, y=76, label="Origin*Generation", size=5)+
   annotate('point',x = 0.48, y = 74, pch=8, color="red",parse=T,size=3)+
-  annotate('point',x = 0.52, y = 74, pch=8, color="red",parse=T,size=3)
+  annotate('point',x = 0.52, y = 74, pch=8, color="red",parse=T,size=3)+
+  annotate(geom="text", x=0, y=56, label="Full data set", fontface="italic",size=5)
 dev.off()
 
 ###bw plot###
@@ -391,7 +394,7 @@ p1 <- ggplot(genb, aes(x=Generation, y=boltmean, group=Origin, ymax=90))+theme_b
         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13),
         axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=15 ))
-p1 +  annotate('point',x = 1, y = 80, pch=8, color="black",parse=T,size=3)+
+p1 +  annotate('point',x = 1, y = 80, pch=16, color="black",parse=T,size=3)+
   annotate(geom="text", x=1, y=82, label="Origin",fontface="italic", size=5) +
   annotate(geom="text", x=0, y=60, label="Origin",fontface="italic", size=5)+
   annotate(geom="text", x=0, y=58, label="NS",fontface="italic", size=5)+
@@ -399,5 +402,6 @@ p1 +  annotate('point',x = 1, y = 80, pch=8, color="black",parse=T,size=3)+
   annotate(geom="text", x=0.5, y=80, label="Origin", size=5)+ 
   annotate(geom="text", x=0.5, y=76, label="Origin*Generation", size=5)+
   annotate('point',x = 0.48, y = 74, pch=8, color="black",parse=T,size=3)+
-  annotate('point',x = 0.52, y = 74, pch=8, color="black",parse=T,size=3)
+  annotate('point',x = 0.52, y = 74, pch=8, color="black",parse=T,size=3)+
+  annotate(geom="text", x=0, y=56, label="Full data set", fontface="italic",size=5)
 dev.off()
