@@ -353,6 +353,19 @@ anova(modelO,modelL) #test for significance of origin - origin not sig!
 modelL
 # anova(model1raw,ddf="Kenward-Roger")
 
+int<--1.7707 #inv mean
+B<-2.2060#Originnat estimate from model summary
+pN<-exp(int+B)/(exp(int+B)+1) # Native
+# Note that if Origin was a continuous variable you would substitute B with B*Origin
+pI<-exp(int)/(exp(int)+1)# Introduced (B=0)
+pI # 14.5% 
+pN # 60%
+#report effect size as separate percentages, difference in percentage, or log-odds ratio: log(pI/pN)
+#could also include the standard errors in equations to add upper/lower confidence intervals.
+#check by looking at percentages
+summary(mfco.dk1[mfco.dk1$Origin=="nat",]) #56 rows, 34 boltedatH = 60%
+summary(mfco.dk1[mfco.dk1$Origin=="inv",]) #55 rows, 8 boltedatH = 14.5%
+
 #try glm
 modelg <- glm(bolt.bin ~ Origin*Latitude, family=binomial,data=modeldata)
 modelg1 <- glm(bolt.bin ~ Origin+Latitude, family=binomial,data=modeldata)
@@ -706,6 +719,19 @@ anova(modelL, modelI)
 modelO<-lmer(bolt.bin ~  (1|blank), family=binomial,data=modeldata)
 anova(modelO,modelL) #test for significance of origin - origin not sig!
 modelL
+
+int<--2.398 #inv mean
+B<-2.061 #Originnat estimate from model summary
+pN<-exp(int+B)/(exp(int+B)+1) # Native
+# Note that if Origin was a continuous variable you would substitute B with B*Origin
+pI<-exp(int)/(exp(int)+1)# Introduced (B=0)
+pI # 14.5% 
+pN # 60%
+#report effect size as separate percentages, difference in percentage, or log-odds ratio: log(pI/pN)
+#could also include the standard errors in equations to add upper/lower confidence intervals.
+#check by looking at percentages
+summary(mfco.dk1[totmfcu$Origin=="nat",]) #56 rows, 34 boltedatH = 60%
+summary(mfco.dk1[totmfcu$Origin=="inv",]) #55 rows, 8 boltedatH = 14.5%
 
 # modelI.2<-lmer(bolt.bin ~ Origin + Latitude +(1|PopID), family=binomial,data=modeldata)
 # modelL.2<-lmer(bolt.bin ~ Origin + (1|PopID), family=binomial,data=modeldata)
