@@ -82,6 +82,8 @@ anova(modelg3)
 # anova(modelg2,modelg1)
 # 1-pchisq(9.0533, 1)
 
+lsmeans(modelg3, ~Origin, conf=95)
+
 p1 <- ggplot(modeldata,aes(Trt, Mass.gA, fill=Origin))+
   geom_boxplot()+xlab("Stress Treatment")+
   ylab("shoot mass")+ 
@@ -128,6 +130,7 @@ anova(modelg3)
 # modelg2<- glm(Crown.mmA ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
 # 1-pchisq(0.34079, 1)
+lsmeans(modelg3, ~Origin, conf=95)
 
 # #####m1, Origin * Lat#####
 mfcom1<-read.table("MatFxBonusCtrlM1.txt", header=T, sep="\t", quote='"', row.names=1) #m1 all plants in analysis, balanced, dk only
@@ -161,6 +164,7 @@ anova(modelL, modelI)
 modelO<-lmer(lxw ~ (1|PopID/Mom), family=gaussian,data=modeldata)
 anova(modelO,modelL) #test for significance of origin - origin not sig....?
 #Mom and popID sig, but not Origin! for either log or raw data
+lsmeans(modelL, ~Origin, conf=95)
 
 ###m1, lfcount, mom sig, do by hand###
 modeldata<-mfcom1[!is.na(mfcom1$LfCount1),]
@@ -192,6 +196,8 @@ pI<-exp(int)
 pN<-exp(int+B)
 pI
 pN
+
+CI.LS.poisson(model1raw)
 
 ####Control, Origin * Lat####
 mfco.dk1<-read.table("MatFxBonusCtrl.txt", header=T, sep="\t", quote='"', row.names=1) #largest balanced control
@@ -225,7 +231,9 @@ B<--39.8539 #Originnat estimate from model summary
 pN<-exp(int+B)/(exp(int+B)+1) # Native
 pI<-exp(int)/(exp(int)+1) # Introduced (B=0)
 pI 
-pN 
+pN
+
+coP <- lapply(names(mfco.dk1)[c(11,46)],function(n) CGtrait.LR.int(n,mfco.dk1, family=poisson)) #lfcountH, boltdate, all poisson
 
 #control, shootmass
 modeldata<-mfco.dk1[!is.na(mfco.dk1$ShootMass.g),]
@@ -261,16 +269,7 @@ modelg2<- glm(ShootMass.g ~ Latitude, family=gaussian,data=modeldata)
 anova(modelg3)
 1-pchisq(7.3647, 1)
 
-#control, bolt.bin
-modeldata<-mfco.dk1[!is.na(mfco.dk1$bolt.bin),]
-modeldata$blank<-1
-modeldata$blank<-as.factor(modeldata$blank)
-modeldata$Mom<-as.factor(modeldata$Mom)
-
-model1raw<-lmer(bolt.bin ~ Origin *Latitude +(1|PopID/Mom), family=binomial,data=modeldata)
-model2raw<-lmer(bolt.bin ~ Origin *Latitude +(1|PopID), family=binomial,data=modeldata)
-
-coP <- lapply(names(mfco.dk1)[c(11,46)],function(n) CGtrait.LR.int(n,mfco.dk1, family=poisson)) #lfcountH, boltdate, all poisson
+lsmeans(modelg3, ~Origin, conf=95)
 
 ####control, lxw, mom sig, so do by hand####
 modeldata<-mfco.dk1[!is.na(mfco.dk1$lxwH),]
@@ -294,6 +293,8 @@ anova(modelL, modelI)
 
 modelOraw<-lmer(lxwH ~ (1|PopID/Mom), family=gaussian,data=modeldata)
 anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+
+lsmeans(modelL,~Origin, conf=95)
 
 ####control, lf count, mom sig so do by hand#####
 #poisson on raw data
@@ -323,6 +324,7 @@ pI<-exp(int)
 pN<-exp(int+B)
 pI
 pN
+CI.LS.poisson(modelL)
 
 ###control, BatH###
 modeldata<-totmf[!is.na(totmf$bolt.bin),]
@@ -380,6 +382,8 @@ anova(modelg3)
 # anova(modelg2,modelg1)
 # 1-pchisq(9.0533, 1)
 
+CI.LS.binomial(modelg)
+
 ###control, boltday.adj, cross sig, do by hand###
 #only bolters
 modeldata<-mfco.dk1[!is.na(mfco.dk1$BoltDay.adj),]
@@ -410,7 +414,7 @@ pI<-exp(int)
 pN<-exp(int+B)
 pI
 pN
-
+CI.LS.poisson(modelL)
 
 # ###control, crown, cross sig, do by hand###
 modeldata<-mfco.dk1[!is.na(mfco.dk1$CrownDiam.mm),]
@@ -433,6 +437,8 @@ anova(modelL, modelI)
 
 modelOraw<-lmer(CrownDiam.mm ~ (1|PopID/Mom), family=gaussian,data=modeldata)
 anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+
+lsmeans(modelL, ~Origin, conf=95)
 
 ###control, sla, cross sig, do by hand###
 #ratios should be log transformed
@@ -472,7 +478,7 @@ anova(modelg3)
 # modelg2<- glm(sla.log ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
 # 1-pchisq(9.0533, 1)
-
+CI.LS.poisson(modelg3)
 
 ####Nut def, Origin + Lat####
 mfn.dk<-read.table("MatFxNut.dk.txt", header=T, sep="\t", quote='"', row.names=1) #nut, dk only
@@ -552,6 +558,8 @@ modelg2<- glm(lxwH ~ Latitude, family=gaussian,data=modeldata)
 anova(modelg2,modelg1)
 1-pchisq(3059.3, 1)
 
+lsmeans(modelg, ~Origin, conf=95)
+
 ##nut, shoot mass
 modeldata<-totmfn[!is.na(totmfn$ShootMass.g),]
 modeldata$blank<-1
@@ -589,6 +597,8 @@ anova(modelg3)
 # modelg2<- glm(ShootMass.g ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
 1-pchisq(0.19174, 1)
+
+lsmeans(modelg3, ~Origin, conf=95)
 
 ##nut, root crown
 modeldata<-totmfn[!is.na(totmfn$CrownDiam.mm),]
@@ -628,6 +638,8 @@ anova(modelg3)
 # anova(modelg2,modelg1)
 1-pchisq(0.063137, 1)
 
+lsmeans(modelg3, ~Origin, conf=95)
+
 ##nut lf count
 modeldata<-totmfn[!is.na(totmfn$LfCountH),]
 modeldata$blank<-1
@@ -651,6 +663,8 @@ anova(modelL, modelI)
 
 modelOraw<-lmer(LfCountH ~ (1|PopID), family=poisson,data=modeldata)
 anova(modelOraw,modelL)
+
+CI.LS.poisson(modelL)
 
 ####Cut, Origin * Lat####
 mfcu.dk<-read.table("MatFxCut.dk.txt", header=T, sep="\t", quote='"', row.names=1) #cut, dk only
@@ -753,6 +767,9 @@ modelg2<- glm(bolt.bin ~ Latitude, family=binomial,data=modeldata)
 anova(modelg2,modelg1)
 1-pchisq(9.0533, 1)
 
+CI.LS.binomial(modelg)
+CI.LS.binomial(modelg1)
+
 ####cut, lf count, harvest, mom is sig, do by hand###
 modeldata<-mfcu.dk[!is.na(mfcu.dk$LfCountH),]
 modeldata$blank<-1
@@ -773,6 +790,8 @@ anova(modelL,modelI)
 
 modelOraw<-lmer(LfCountH ~ (1|PopID/Mom), family=poisson,data=modeldata)
 anova(modelOraw,modelL) #test for significance of origin 
+
+CI.LS.poisson(modelL)
 
 ##cut, crown
 modeldata<-totmfcu[!is.na(totmfcu$CrownDiam.mm),]
@@ -811,6 +830,10 @@ anova(modelg3)
 # modelg2<- glm(CrownDiam.mm ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
 1-pchisq(30.827, 1)
+
+lsmeans(modelg3, ~Origin, conf=95)
+
+lsmeans(modelg1, ~Origin, conf=95)
 
 ####Drought, Origin * Lat####
 mfd.dk<-read.table("MatFxDrought.dk.txt", header=T, sep="\t", quote='"', row.names=1) #drought, dk only
@@ -868,6 +891,8 @@ anova(modelg3,modelg1)
 anova(modelg3)
 1-pchisq(1.078, 1)
 
+CI.LS.poisson(modelg3)
+
 #drought, tot wilt
 modeldata<-mfd.dk[!is.na(mfd.dk$TotWiltDay),]
 modeldata$blank<-1
@@ -905,6 +930,8 @@ anova(modelg3,modelg1)
 anova(modelg3)
 1-pchisq(1.078, 1)
 
+CI.LS.poisson(modelg3)
+
 #drought, 1st wilt
 modeldata<-mfd.dk[!is.na(mfd.dk$WiltDay),]
 modeldata$blank<-1
@@ -941,6 +968,8 @@ anova(modelg3,modelg1)
 # anova(modelg2,modelg1)
 anova(modelg3)
 1-pchisq(2.0958, 1)
+
+CI.LS.poisson(modelg3)
 
 ####Flood, Origin + Lat####
 mff.dk<-read.table("MatFxFlood.dk.txt", header=T, sep="\t", quote='"', row.names=1) #flood, dk only
@@ -988,6 +1017,7 @@ anova(modelg3,modelg1)
 # anova(modelg2,modelg1)
 anova(modelg3)
 1-pchisq(1.078, 1)
+CI.LS.poisson(modelg3)
 
 #flood, root death
 modeldata<-mff.dk[!is.na(mff.dk$FloatDay),]
@@ -1025,6 +1055,8 @@ anova(modelg3,modelg1)
 # anova(modelg2,modelg1)
 anova(modelg3)
 1-pchisq(1.078, 1)
+
+CI.LS.poisson(modelg3)
 
 #flood, yellow
 modeldata<-mff.dk[!is.na(mff.dk$YellowDay),]
@@ -1064,6 +1096,8 @@ anova(modelg3,modelg1)
 # anova(modelg2,modelg1)
 anova(modelg3)
 1-pchisq(1.078, 1)
+
+CI.LS.poisson(modelg3)
 
 ####Mom, Origin + Lat####
 mfmom.dk<-read.table("MatFxMom.dk.txt", header=T, sep="\t", quote='"', row.names=1) 
@@ -1106,6 +1140,8 @@ anova(modelg3)
 # modelg2<- glm(SeedWt ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
 # 1-pchisq(1.614e-07, 1)
+
+CI.LS.poisson(modelg3)
 
 ####Mom, germ count###
 modeldata<-mfmom.dk[!is.na(mfmom.dk$GermCount),]
@@ -1150,6 +1186,15 @@ anova(modelg3,modelg1)
 modelg2<- glm(GermCount ~ SeedCount, family=poisson,data=modeldata)
 anova(modelg2,modelg3)
 1-pchisq(9.0533, 1)
+
+CI.LS.poisson(modelg3)
+
+3.9003268057357/6.59*100
+3.36395583408704/6.59*100
+4.52222024956194/6.59*100
+5.26181515938283/6.59*100
+4.68924819994306/6.59*100
+5.90429373558156/6.59*100
 
 ####Mom, germ date####avg, so can't use poisson
 modeldata<-mfmom.dk[!is.na(mfmom.dk$GermAvgDate),]
