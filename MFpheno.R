@@ -545,6 +545,14 @@ write.table(mfcu.dk, file="Mat fx cut.dk.txt", sep="\t", quote=F)
 write.table(mfcom1, file="MF bonus control m1.txt", sep="\t", quote=F)
 write.table(mfco.dk1, file="Mat fx bonus control.txt", sep="\t", quote=F)
 write.table(mfallo.dk, file="MFallo.dk.txt", sep="\t", quote=F)
+
+#####
+#correct outlier
+head(mfcu.dk)
+mfcu.dk[24,"CrownDiam.mm"] <- 2.8
+
+mfn.dk[mfn.dk$lxwH>100,]
+
 ##############################
 #pop ranks
 
