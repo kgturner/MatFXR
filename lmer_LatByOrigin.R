@@ -1288,7 +1288,7 @@ anova(modelg3)
 # anova(modelg2,modelg1)
 # 1-pchisq(9.0533, 1)
 
-
+lsmeans(modelg3, ~Origin, conf=95)
 
 
 ###################################
