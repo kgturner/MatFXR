@@ -234,7 +234,7 @@ pN<-exp(int+B)
 pI
 pN
 
-CI.LS.poisson(model1raw)
+CI.LS.poisson(modelI) #exclude sig interactions
 
 ####Control, Origin * Lat####
 mfco.dk1<-read.table("MatFxBonusCtrl.txt", header=T, sep="\t", quote='"', row.names=1) #largest balanced control
@@ -419,7 +419,7 @@ anova(modelg3)
 # anova(modelg2,modelg1)
 # 1-pchisq(9.0533, 1)
 
-CI.LS.binomial(modelg)
+CI.LS.binomial(modelg1) #exclude sig int
 
 ###control, boltday.adj, cross sig, do by hand###
 #only bolters
@@ -597,7 +597,7 @@ modelg2<- glm(lxwH ~ Latitude, family=gaussian,data=modeldata)
 anova(modelg2,modelg1)
 1-pchisq(3059.3, 1)
 
-lsmeans(modelg, ~Origin, conf=95)
+lsmeans(modelg1, ~Origin, conf=95)
 
 # checking the normality of residuals e_i:
 qqnorm(resid(modelg), main="Q-Q plot for residuals")
