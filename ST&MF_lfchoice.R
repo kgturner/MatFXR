@@ -350,7 +350,7 @@ anova(modelO,modelD) #test for significance of origin - origin sig!
 modelg <- glm(eat.bin ~ Origin +defense+Latitude, family=binomial,data=modeldata)
 modelg1 <- glm(eat.bin ~ Origin+defense, family=binomial,data=modeldata)
 anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(chisq, df)
+1-pchisq(1.0021, 1)
 
 modelg3<- glm(eat.bin ~ Origin, family=binomial,data=modeldata)
 anova(modelg3,modelg1)
@@ -416,11 +416,11 @@ qqline(resid(model2))
 modelg <- glm(Eaten.log ~ Origin+defense+Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(Eaten.log ~ Origin+defense, family=gaussian,data=modeldata)
 anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(chisq, df)
+1-pchisq(2.1713, 1)
 
 modelg3<- glm(Eaten.log ~ Origin, family=gaussian,data=modeldata)
 anova(modelg3,modelg1)
 1-pchisq(71.724, 3)
 modelg2<- glm(Eaten.log ~ defense, family=gaussian,data=modeldata)
 anova(modelg2,modelg1)
-1-pchisq(9.0533, 1)
+1-pchisq(0.061952, 1)

@@ -209,17 +209,20 @@ anova(modelO,modelI)
 modelg <- glm(LfCount1 ~ Origin*Generation, family=poisson,data=modeldata)
 modelg1 <- glm(LfCount1 ~ Origin+Generation, family=poisson,data=modeldata)
 anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(chisq, df)
+1-pchisq( 0.78597, 1)
 
 modelg3<- glm(LfCount1 ~ Origin, family=poisson,data=modeldata)
 anova(modelg3,modelg1)
-1-pchisq(5.5154, 1)
+1-pchisq(44.724, 1)
 modelg2<- glm(LfCount1 ~ Generation, family=poisson,data=modeldata)
 anova(modelg2,modelg1)
-1-pchisq(9.0533, 1)
+1-pchisq(0.32473, 1)
 
 ###lxwH, gaussian
 modeldata<-gen[!is.na(gen$lxwH),]
+# modeldata <- modeldata[modeldata$lxwH>0,]
+modeldata <- modeldata[modeldata$lxwH>3,] #drop unlikely outlier
+
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$MomFam<-as.factor(modeldata$MomFam)
@@ -229,7 +232,7 @@ model2<-lmer(lxwH  ~ Origin* Generation  + (1|PopID), family=gaussian,data=model
 model3<-lmer(lxwH  ~ Origin* Generation  + (1|blank), family=gaussian,data=modeldata) # Test population effect
 anova(model2,model1) # CrossNum is sig!
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-1-pchisq(1.5137, 1)
+1-pchisq(1.2993, 1)
 modelI <- lmer(lxwH  ~ Origin + Generation  + (1|blank), family=gaussian,data=modeldata)
 anova(modelI,model3)
 modelG<-lmer(lxwH  ~ Origin  + (1|blank), family=gaussian,data=modeldata)
@@ -246,14 +249,19 @@ anova(modelO,modelI)
 modelg <- glm(lxwH ~ Origin*Generation, family=gaussian,data=modeldata)
 modelg1 <- glm(lxwH ~ Origin+Generation, family=gaussian,data=modeldata)
 anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(chisq, df)
+1-pchisq(38.483, 1)
 
 modelg3<- glm(lxwH ~ Origin, family=gaussian,data=modeldata)
 anova(modelg3,modelg1)
-1-pchisq(5.5154, 1)
+1-pchisq(79170, 1)
 modelg2<- glm(lxwH ~ Generation, family=gaussian,data=modeldata)
 anova(modelg2,modelg1)
-1-pchisq(9.0533, 1)
+1-pchisq(32830, 1)
+
+# checking the normality of residuals e_i:
+qqnorm(resid(modelg), main="Q-Q plot for residuals")
+qqline(resid(modelg))
+
 
 # #transformed
 # modeldata$lxwH.log <- log(modeldata$lxwH)
@@ -263,17 +271,23 @@ anova(modelg2,modelg1)
 # model3<-lmer(lxwH.log  ~ Origin* Generation  + (1|blank), family=gaussian,data=modeldata) # Test population effect
 # anova(model2,model1) # CrossNum is sig!
 # anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# modelI <- lmer(lxwH.log  ~ Origin + Generation+Latitude + (1|PopID), family=gaussian,data=modeldata)
-# anova(modelI,model2)
-# modelG<-lmer(lxwH.log  ~ Origin  + (1|PopID), family=gaussian,data=modeldata)
-# anova(modelG, modelI)
-# modelL<-lmer(lxwH.log  ~ Origin + Generation+ (1|PopID), family=gaussian,data=modeldata)
-# anova(modelL, modelI)
-# modelO<-lmer(lxwH.log ~ Generation +(1|PopID), family=gaussian,data=modeldata)
-# anova(modelO,modelL)
-# modelL
-# qqnorm(resid(modelL), main="Q-Q plot for residuals")
-# qqline(resid(modelL))
+# 
+# #try glm
+# modelg <- glm(lxwH.log ~ Origin*Generation, family=gaussian,data=modeldata)
+# modelg1 <- glm(lxwH.log ~ Origin+Generation, family=gaussian,data=modeldata)
+# anova(modelg1, modelg) #'Deviance' is chisq value
+# 1-pchisq(111.09, 1)
+# 
+# modelg3<- glm(lxwH.log ~ Origin, family=gaussian,data=modeldata)
+# anova(modelg3,modelg1)
+# 1-pchisq(3.4843, 1)
+# # modelg2<- glm(lxwH.log ~ Generation, family=gaussian,data=modeldata)
+# # anova(modelg2,modelg1)
+# anova(modelg3)
+# 1-pchisq(2.4098, 1)
+# 
+# qqnorm(resid(modelg3), main="Q-Q plot for residuals")
+# qqline(resid(modelg3))
 
 ###BoltDay.adj, poisson
 modeldata<-gen[!is.na(gen$BoltDay.adj),]
@@ -342,7 +356,7 @@ anova(modelO,modelG)
 modelg <- glm(bolt.bin ~ Origin*Generation, family=binomial,data=modeldata)
 modelg1 <- glm(bolt.bin ~ Origin+Generation, family=binomial,data=modeldata)
 anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(chisq, df)
+1-pchisq(0.22414, 1)
 
 modelg3<- glm(bolt.bin ~ Origin, family=binomial,data=modeldata)
 anova(modelg3,modelg1)
