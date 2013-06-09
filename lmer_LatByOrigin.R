@@ -310,6 +310,7 @@ lsmeans(modelg3, ~Origin, conf=95)
 
 ####control, lxw, mom sig, so do by hand####
 modeldata<-mfco.dk1[!is.na(mfco.dk1$lxwH),]
+modeldata <- modeldata[modeldata$lxwH>0,]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
@@ -319,8 +320,8 @@ model2raw<-lmer(lxwH ~ Origin *Latitude +(1|PopID), family=gaussian,data=modelda
 model3raw<-lmer(lxwH ~ Origin *Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
 anova(model2raw,model1raw) # Mom not sig
 print(anova(model3raw,model2raw), digits=22) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-(lambda <- (-2)*(-571.8468485550226887426 - (-571.2004667420127361765)))
-1-pchisq(1.292764,1)
+# (lambda <- (-2)*(-571.8468485550226887426 - (-571.2004667420127361765)))
+1-pchisq(1.298289999999999944084,1)
 
 modelI <- lmer(lxwH ~ Origin +Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
 anova(modelI, model1raw)
@@ -331,7 +332,20 @@ anova(modelL, modelI)
 modelOraw<-lmer(lxwH ~ (1|PopID/Mom), family=gaussian,data=modeldata)
 anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
 
-lsmeans(modelL,~Origin, conf=95)
+#try glm
+modelg <- glm(lxwH ~ Origin*Latitude, family=gaussian,data=modeldata)
+modelg1 <- glm(lxwH ~ Origin+Latitude, family=gaussian,data=modeldata)
+anova(modelg1, modelg) #'Deviance' is chisq value
+1-pchisq(7206.9, 1)
+
+modelg3<- glm(lxwH ~ Origin, family=gaussian,data=modeldata)
+anova(modelg3,modelg1)
+1-pchisq(5.5154, 1)
+modelg2<- glm(lxwH ~ Latitude, family=gaussian,data=modeldata)
+anova(modelg2,modelg1)
+1-pchisq(9.0533, 1)
+
+lsmeans(modelg1,~Origin, conf=95)
 
 ####control, lf count, mom sig so do by hand#####
 #poisson on raw data

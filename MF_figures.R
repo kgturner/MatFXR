@@ -24,6 +24,11 @@ levels(grdat$Origin)[levels(grdat$Origin)=="inv"] <- "Invasive"
 levels(grdat$Origin)[levels(grdat$Origin)=="nat"] <- "Native"
 grdat$Trt <- factor(grdat$Trt, c("Early Control", "Control", "Nutrient", "Herbivory"))
 
+summary(grdat)
+levels(grdat$PopID)
+grdat <- grdat[grdat$PopID!="<NA>",]
+grdat[grdat$lxwH %in% 0,]$lxwH <- NA
+
 ###color plot###
 pdf("MF size box_color.pdf", useDingbats=FALSE)
 p1 <- ggplot(grdat[grdat$Trt!="Herbivory",],aes(Trt, lxwH, fill=Origin))+geom_boxplot()+xlab("Stress Treatment")+ylab("Approximate area of longest leaf (cm2)")+ theme(legend.justification=c(1,1), legend.position=c(1,1))
@@ -44,19 +49,22 @@ p1 <- ggplot(grdat[grdat$Trt!="Herbivory",],aes(Trt, lxwH, fill=Origin))+theme_b
         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13))+
   scale_fill_manual(values=c("grey51","grey84"))
 p1 <- p1 + annotate('point',x = "Early Control", y = 110, pch=8, color="black",parse=T, size=4)+
-  annotate('point',x = "Nutrient", y = 110, pch=8, color="black",parse=T, size=4)+
+  annotate('point',x = "Control", y = 160, pch=8, color="black",parse=T, size=4)+annotate('point',x = "Control", y = 170, pch=8, color="black",parse=T, size=4)+annotate('point',x = "Control", y = 180, pch=8, color="black",parse=T, size=4)+
+  annotate('point',x = "Nutrient", y = 110, pch=8, color="black",parse=T, size=4)+annotate('point',x = "Nutrient", y = 120, pch=8, color="black",parse=T, size=4)+annotate('point',x = "Nutrient", y = 130, pch=8, color="black",parse=T, size=4)+
   theme(axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=12 ))
 # p1
+
 p2 <- ggplot(grdat, aes(Trt, LfCountH, fill=Origin))+ theme_bw()+
   geom_boxplot()+xlab("Stress Treatment")+ylab("Number of basal leaves")+
   theme(legend.position="none")+
-  scale_fill_manual(values=c("grey51","grey84"))
+#   scale_fill_manual(values=c("grey51","grey84"))
 #legend position(left/right,top/bottom)
 p2 <- p2 +  annotate('point',x = "Control", y = 30, pch=8, color="black",parse=T, size=4)+
   theme(axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=12 ))
 # p2
+
 multiplot(p1,p2, cols=2)
 dev.off()
 
@@ -160,7 +168,7 @@ dev.off()
 col= with( grBatH1, interaction(Origin, Trt, BoltedatH))
 
 colors()[c(312,336,350,366,1,176)]
-colorset <- c("white","white","white","white","white","white","grey50","grey80", "grey50", "grey50","grey80","grey50")
+colorset <- c("white","white","white","white","white","white","grey51","grey84", "grey51", "grey51","grey84","grey51")
 cscale = scale_fill_manual(values=colorset)
 
 grBatHStd <- grBatH1
