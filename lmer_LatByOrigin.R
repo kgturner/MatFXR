@@ -236,6 +236,11 @@ pN
 
 CI.LS.poisson(modelI) #exclude sig interactions
 
+interaction.plot(response = modeldata$LfCount1, x.factor = modeldata$Latitude, trace.factor = modeldata$Origin)
+plot(modeldata$Latitude, modeldata$Origin)
+modelI2 <- lmer(LfCount1  ~ Latitude+ Origin + (1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelI, modelI2)
+
 ####Control, Origin * Lat####
 mfco.dk1<-read.table("MatFxBonusCtrl.txt", header=T, sep="\t", quote='"', row.names=1) #largest balanced control
 head(mfco.dk1)
@@ -346,6 +351,7 @@ anova(modelg2,modelg1)
 1-pchisq(9.0533, 1)
 
 lsmeans(modelg1,~Origin, conf=95)
+interaction.plot(response = modeldata$lxwH, x.factor = modeldata$Latitude, trace.factor = modeldata$Origin)
 
 ####control, lf count, mom sig so do by hand#####
 #poisson on raw data
@@ -594,6 +600,8 @@ anova(modelL, modelI)
 
 modelOraw<-lmer(lxwH ~ (1|blank), family=gaussian,data=modeldata)
 anova(modelOraw,modelL)
+
+interaction.plot(response = modeldata$lxwH, x.factor = modeldata$Latitude, trace.factor = modeldata$Origin)
 
 #try glm
 # modeldata <- modeldata[modeldata$lxwH<111,] #try without outlier
