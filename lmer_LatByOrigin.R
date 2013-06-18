@@ -313,6 +313,13 @@ anova(modelg3)
 
 lsmeans(modelg3, ~Origin, conf=95)
 
+#lat confounded?
+modelg4 <- glm(ShootMass.g ~ Latitude +Origin, family=gaussian,data=modeldata)
+anova(modelg1, modelg4)
+anova(modelg3, modelg4)
+anova(modelg2, modelg4)
+anova(modelg2)
+
 ####control, lxw, mom sig, so do by hand####
 modeldata<-mfco.dk1[!is.na(mfco.dk1$lxwH),]
 modeldata <- modeldata[modeldata$lxwH>0,]
