@@ -137,6 +137,9 @@ pN<-exp(int+B)
 pI
 pN
 
+modelI
+CI.LS.poisson(modelI, conf = 95)
+
 # model1L<-lmer(LfCountH  ~ Origin* Generation +(1|PopID/MomFam), family=poisson,data=modeldata)
 # modelIL <- lmer(LfCountH  ~ Origin + Generation + (1|PopID/MomFam), family=poisson,data=modeldata)
 # anova(modelIL,model1L)
@@ -233,14 +236,14 @@ model3<-lmer(lxwH  ~ Origin* Generation  + (1|blank), family=gaussian,data=model
 anova(model2,model1) # CrossNum is sig!
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 1-pchisq(1.2993, 1)
-modelI <- lmer(lxwH  ~ Origin + Generation  + (1|blank), family=gaussian,data=modeldata)
-anova(modelI,model3)
-modelG<-lmer(lxwH  ~ Origin  + (1|blank), family=gaussian,data=modeldata)
-anova(modelG, modelI)
-# modelL<-lmer(lxwH  ~ Origin + Generation+ (1|blank), family=gaussian,data=modeldata)
-# anova(modelL, modelI)
-modelO<-lmer(lxwH ~ Generation +(1|blank), family=gaussian,data=modeldata)
-anova(modelO,modelI)
+# modelI <- lmer(lxwH  ~ Origin + Generation  + (1|blank), family=gaussian,data=modeldata)
+# anova(modelI,model3)
+# modelG<-lmer(lxwH  ~ Origin  + (1|blank), family=gaussian,data=modeldata)
+# anova(modelG, modelI)
+# # modelL<-lmer(lxwH  ~ Origin + Generation+ (1|blank), family=gaussian,data=modeldata)
+# # anova(modelL, modelI)
+# modelO<-lmer(lxwH ~ Generation +(1|blank), family=gaussian,data=modeldata)
+# anova(modelO,modelI)
 # modelL
 # qqnorm(resid(modelL), main="Q-Q plot for residuals")
 # qqline(resid(modelL))
@@ -262,7 +265,7 @@ anova(modelg2,modelg1)
 qqnorm(resid(modelg), main="Q-Q plot for residuals")
 qqline(resid(modelg))
 
-
+interaction.plot(x.factor=modeldata$Generation, response=modeldata$lxwH, trace.factor=modeldata$Origin, fun = sd)
 # #transformed
 # modeldata$lxwH.log <- log(modeldata$lxwH)
 # 
