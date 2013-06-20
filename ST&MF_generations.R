@@ -138,7 +138,10 @@ pI
 pN
 
 modelI
+
+ls <- as.data.frame(lsmeans(modelI, ~ Origin+Generation, conf=95))
 CI.LS.poisson(modelI, conf = 95)
+CI.LS.poisson.2term(modelI, conf = 95)
 
 # model1L<-lmer(LfCountH  ~ Origin* Generation +(1|PopID/MomFam), family=poisson,data=modeldata)
 # modelIL <- lmer(LfCountH  ~ Origin + Generation + (1|PopID/MomFam), family=poisson,data=modeldata)

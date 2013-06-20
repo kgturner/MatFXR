@@ -238,6 +238,7 @@ CI.LS.poisson(modelI) #exclude sig interactions
 
 interaction.plot(response = modeldata$LfCount1, x.factor = modeldata$Latitude, trace.factor = modeldata$Origin)
 plot(modeldata$Latitude, modeldata$Origin)
+qplot(data=modeldata, Latitude, LfCount1, color=Origin, geom = "jitter")
 modelI2 <- lmer(LfCount1  ~ Latitude+ Origin + (1|PopID/Mom), family=poisson,data=modeldata)
 anova(modelI, modelI2)
 
@@ -609,7 +610,7 @@ modelOraw<-lmer(lxwH ~ (1|blank), family=gaussian,data=modeldata)
 anova(modelOraw,modelL)
 
 interaction.plot(response = modeldata$lxwH, x.factor = modeldata$Latitude, trace.factor = modeldata$Origin)
-
+qplot(data=modeldata, Latitude, lxwH, color=Origin, geom="jitter")
 #try glm
 # modeldata <- modeldata[modeldata$lxwH<111,] #try without outlier
 modelg <- glm(lxwH ~ Origin*Latitude, family=gaussian,data=modeldata)

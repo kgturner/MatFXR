@@ -309,37 +309,45 @@ library(plyr)
 
 
 #make graph dataframe
-#####IDK, maybe???cls mean +/- 1.96*sqrt(mean/count)
-#mean:inv, gen0 : intercept, inv gen1: int+gen, nat gen0: int-nat, nat gen1: int-nat:gen
-#SEs: inv gen0: int +SE, 
-#     inv gen1:int+gen+gen1SE, 
-#     nat gen0:int-nat+natSE, 
-#     nat gen1:int-nat:gen+nat:genSE
-#SE
-int<-2.75258
-#inv mean
-B<--0.36134-0.09134
-#Originnat estimate from model summary
-pI<-exp(int)
-pN<-exp(int+B)
-pI
-pN
-#from modelInt:LfCountH ~ Origin * Generation + (1 | PopID/MomFam) , poisson
-# Fixed effects:
-#                       Estimate Std. Error z value Pr(>|z|)    
-# (Intercept)            2.75258    0.10115  27.213  < 2e-16 ***
-#   Originnat            -0.24940    0.14393  -1.733   0.0831 .  
-# Generation1            0.29199    0.05519   5.290 1.22e-07 ***
-# Originnat:Generation1 -0.36134    0.09134  -3.956 7.62e-05 ***
+# #####IDK, maybe???cls mean +/- 1.96*sqrt(mean/count)
+# #mean:inv, gen0 : intercept, inv gen1: int+gen, nat gen0: int-nat, nat gen1: int-nat:gen
+# #SEs: inv gen0: int +SE, 
+# #     inv gen1:int+gen+gen1SE, 
+# #     nat gen0:int-nat+natSE, 
+# #     nat gen1:int-nat:gen+nat:genSE
+# #SE
+# int<-2.75258
+# #inv mean
+# B<--0.36134-0.09134
+# #Originnat estimate from model summary
+# pI<-exp(int)
+# pN<-exp(int+B)
+# pI
+# pN
+# #from modelInt:LfCountH ~ Origin * Generation + (1 | PopID/MomFam) , poisson
+# # Fixed effects:
+# #                       Estimate Std. Error z value Pr(>|z|)    
+# # (Intercept)            2.75258    0.10115  27.213  < 2e-16 ***
+# #   Originnat            -0.24940    0.14393  -1.733   0.0831 .  
+# # Generation1            0.29199    0.05519   5.290 1.22e-07 ***
+# # Originnat:Generation1 -0.36134    0.09134  -3.956 7.62e-05 ***
+# 
+# genlf <- data.frame(Origin=c("Invasive","Invasive","Native","Native"), Generation=c(0,1,0,1), lfmean=c(15.68304,21.001,12.2213,10.92704), 
+#                     uSE=c(17.35239,22.19262,14.11319, 11.97211),lSE=c(14.17429, 19.87336, 10.58301,9.973185) )
+# genlf <- merge(genlf, ddply(graphdata, .(Generation, Origin), summarize, count = length(Origin)), all.x=TRUE)
 
-genlf <- data.frame(Origin=c("Invasive","Invasive","Native","Native"), Generation=c(0,1,0,1), lfmean=c(15.68304,21.001,12.2213,10.92704), 
-                    uSE=c(17.35239,22.19262,14.11319, 11.97211),lSE=c(14.17429, 19.87336, 10.58301,9.973185) )
+#or from lsmeans func 
+CI.LS.poisson.2term(modelI, conf=95)
+#use numbers to make table
+genlf <- data.frame(Origin=c("Invasive","Invasive","Native","Native"), Generation=c(0,1,0,1), lfmean=c( 16.8644751702832,19.853503740644,10.744764330338,12.649146603779), 
+                    uCL=c(20.3273419866068,23.8809334639403, 12.9296107445966, 15.1742043361559),lCL=c(13.9915254516056, 16.5052849117034, 8.9291133967626,10.5442701481656) )
 genlf <- merge(genlf, ddply(graphdata, .(Generation, Origin), summarize, count = length(Origin)), all.x=TRUE)
+
 
 ###color plot
 pdf("STMF Gen leaf_color.pdf", useDingbats=FALSE)
 p1 <- ggplot(genlf, aes(x=Generation, y=lfmean, color=Origin, group=Origin))+
-  geom_errorbar(aes(ymin=lSE, ymax=uSE),color="black", width=.1)+
+  geom_errorbar(aes(ymin=lCL, ymax=uCL),color="black", width=.1)+
   geom_line()+geom_point(size=5)+ylab("Mean Number of Basal Leaves")+
   scale_x_continuous(breaks=seq(0,1,1), name="Generation")+ 
   ggtitle("Number of basal leaves\nCross-generational analysis") + theme(plot.title = element_text(lineheight=.8, face="bold"))+
@@ -347,7 +355,7 @@ p1 <- ggplot(genlf, aes(x=Generation, y=lfmean, color=Origin, group=Origin))+
         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13),
         axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=15 ))
-p1 + annotate(geom="text", x=0, y=9.7, label="Full data set", fontface="italic",size=5) +
+p1 + annotate(geom="text", x=0, y=9.7, label="Broad CG", fontface="italic",size=5) +
   annotate(geom="text", x=0, y=10.3, label="Origin", fontface="italic",size=5) +
   annotate('point',x = -0.02, y = 9.1, pch=8, color="red",parse=T,size=3)+
   annotate('point',x = 0.02, y = 9.1, pch=8, color="red",parse=T,size=3)+
