@@ -1368,3 +1368,57 @@ lsmeans(modelg3, ~Origin, conf=95)
 # modeldata<-mom[!is.na(mom$AvgGermDate.log),]
 # modeldata$blank<-1
 # modeldata$blank<-as.factor(modeldata$blank)
+
+
+##seed count###########
+modeldata<-mfmom.dk[!is.na(mfmom.dk$SeedCount),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+
+model1<-lmer(SeedCount ~ Origin * Latitude+(1|PopID/Mom), family=poisson, data=modeldata)
+model2<-lmer(SeedCount ~ Origin * Latitude+ (1|PopID), family=poisson, data=modeldata)
+model3<-lmer(SeedCount ~ Origin * Latitude+ (1|blank), family=poisson, data=modeldata)
+anova(model1,model2)
+print(anova(model3, model2), digits=22)
+(lambda <- (-2)*(-60.04988021221652871873 - (-60.04988021182497703876)))
+1-pchisq(2.380729999999999790816,1)
+
+modelI <- lmer(SeedCount ~ Origin + Latitude+ (1|PopID/Mom), family=poisson, data=modeldata)
+anova(modelI, model1)
+
+modelL<-lmer(SeedCount ~ Origin + (1|PopID/Mom), family=poisson, data=modeldata)
+anova(modelL, modelI)
+
+modelO<-lmer(SeedCount ~ (1|PopID/Mom), family=poisson, data=modeldata)
+anova(modelO, modelL)
+
+modeldata$MomFam <- as.factor(modeldata$MomFam)
+modelM <- lmer(SeedCount ~ Origin + (1|PopID/MomFam), family=poisson, data=modeldata)
+anova(modelL, modelM)
+# # modelL
+# # int<- -0.42767
+# # #inv mean
+# # B<-0.52217
+# # #Originnat estimate from model summary
+# # pI<-exp(int)
+# # pN<-exp(int+B)
+# # pI
+# # pN
+# #try glm
+# modelg <- glm(SeedCount ~ Origin*Latitude , family=poisson,data=modeldata)
+# modelg1 <- glm(SeedCount ~ Origin+Latitude , family=poisson,data=modeldata)
+# anova(modelg1, modelg) #'Deviance' is chisq value
+# 1-pchisq(0.84755, 1)
+# 
+# modelg3<- glm(SeedCount ~ Origin, family=poisson,data=modeldata)
+# anova(modelg3,modelg1)
+# 1-pchisq(0.77593, 1)
+# modelg2<- glm(SeedCount ~ Latitude, family=poisson,data=modeldata)
+# anova(modelg2,modelg3)
+# 1-pchisq(9.0533, 1)
+
+CI.LS.poisson(modelL)
+
+
+modelg <- glm(seednum~Origin, family=poisson, data=seed)
+anova(modelg)
