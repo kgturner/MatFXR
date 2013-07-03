@@ -137,12 +137,26 @@ pN<-exp(int+B)
 pI
 pN
 
-modelI
+# #try glm
+# modelg <- glm(LfCountH ~ Origin*Generation, family=poisson,data=modeldata)
+# modelg1 <- glm(LfCountH ~ Origin+Generation, family=poisson,data=modeldata)
+# anova(modelg1, modelg) #'Deviance' is chisq value
+# 1-pchisq( 0.78597, 1)
+# 
+# modelg3<- glm(LfCountH ~ Origin, family=poisson,data=modeldata)
+# anova(modelg3,modelg1)
+# 1-pchisq(44.724, 1)
+# modelg2<- glm(LfCountH ~ Generation, family=poisson,data=modeldata)
+# anova(modelg2,modelg1)
+# 1-pchisq(0.32473, 1)
 
-ls <- as.data.frame(lsmeans(modelI, ~ Origin+Generation, conf=95))
+model1
+
+ls <- as.data.frame(lsmeans(model1, ~ Origin+Generation, conf=95))
+ls
 CI.LS.poisson(modelI, conf = 95)
-CI.LS.poisson.2term(modelI, conf = 95)
-
+CI.LS.poisson.2term(model1, conf = 95)
+interaction.plot(x.factor=modeldata$Generation, response=modeldata$LfCountH, trace.factor=modeldata$Origin, fun = mean)
 # model1L<-lmer(LfCountH  ~ Origin* Generation +(1|PopID/MomFam), family=poisson,data=modeldata)
 # modelIL <- lmer(LfCountH  ~ Origin + Generation + (1|PopID/MomFam), family=poisson,data=modeldata)
 # anova(modelIL,model1L)
@@ -224,6 +238,8 @@ modelg2<- glm(LfCount1 ~ Generation, family=poisson,data=modeldata)
 anova(modelg2,modelg1)
 1-pchisq(0.32473, 1)
 
+CI.LS.poisson.2term(modelI, conf=95)
+
 ###lxwH, gaussian
 modeldata<-gen[!is.na(gen$lxwH),]
 # modeldata <- modeldata[modeldata$lxwH>0,]
@@ -268,7 +284,7 @@ anova(modelg2,modelg1)
 qqnorm(resid(modelg), main="Q-Q plot for residuals")
 qqline(resid(modelg))
 
-interaction.plot(x.factor=modeldata$Generation, response=modeldata$lxwH, trace.factor=modeldata$Origin, fun = sd)
+interaction.plot(x.factor=modeldata$Generation, response=modeldata$lxwH, trace.factor=modeldata$Origin, fun = mean)
 # #transformed
 # modeldata$lxwH.log <- log(modeldata$lxwH)
 # 
@@ -300,6 +316,7 @@ modeldata<-gen[!is.na(gen$BoltDay.adj),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$MomFam<-as.factor(modeldata$MomFam)
+modeldata$Generation<-as.factor(modeldata$Generation)
 
 model1<-lmer(BoltDay.adj  ~ Origin* Generation  +(1|PopID/MomFam), family=poisson,data=modeldata)
 model2<-lmer(BoltDay.adj  ~ Origin* Generation  + (1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
@@ -327,6 +344,9 @@ anova(modelO,modelI)
 # model1L<-lmer(BoltDay.adj  ~ Origin* Generation  +(1|PopID/MomFam), family=poisson,data=modeldata)
 # modelIL <- lmer(BoltDay.adj  ~ Origin + Generation + (1|PopID/MomFam), family=poisson,data=modeldata)
 # anova(modelIL,model1L)
+
+model1
+CI.LS.poisson.2term(model1, conf=95)
 
 ###bolt.bin, binomial
 modeldata<-gen[!is.na(gen$bolt.bin),]

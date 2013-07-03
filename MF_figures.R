@@ -337,65 +337,78 @@ library(plyr)
 # genlf <- merge(genlf, ddply(graphdata, .(Generation, Origin), summarize, count = length(Origin)), all.x=TRUE)
 
 #or from lsmeans func 
-CI.LS.poisson.2term(modelI, conf=95)
-#use numbers to make table
-genlf <- data.frame(Origin=c("Invasive","Invasive","Native","Native"), Generation=c(0,1,0,1), lfmean=c( 16.8644751702832,19.853503740644,10.744764330338,12.649146603779), 
-                    uCL=c(20.3273419866068,23.8809334639403, 12.9296107445966, 15.1742043361559),lCL=c(13.9915254516056, 16.5052849117034, 8.9291133967626,10.5442701481656) )
-genlf <- merge(genlf, ddply(graphdata, .(Generation, Origin), summarize, count = length(Origin)), all.x=TRUE)
+modeldata<-gen[!is.na(gen$LfCountH),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$MomFam<-as.factor(modeldata$MomFam)
+modeldata$Generation <- as.factor(modeldata$Generation)
 
+model1<-lmer(LfCountH  ~ Origin* Generation  +(1|PopID/MomFam), family=poisson,data=modeldata)
+
+genlf <- CI.LS.poisson.2term(model1, conf=95)
+
+# #use numbers to make table
+# genlf <- data.frame(Origin=c("Invasive","Invasive","Native","Native"), Generation=c(0,1,0,1), lfmean=c( ), 
+#                     uCL=c(),lCL=c() )
 
 ###color plot
-pdf("STMF Gen leaf_color.pdf", useDingbats=FALSE)
-p1 <- ggplot(genlf, aes(x=Generation, y=lfmean, color=Origin, group=Origin))+
-  geom_errorbar(aes(ymin=lCL, ymax=uCL),color="black", width=.1)+
-  geom_line()+geom_point(size=5)+ylab("Mean Number of Basal Leaves")+
+pdf("STMFGenleaf_color.pdf", useDingbats=FALSE)
+# png("STMFGenleaf_color.png", height = 600, width = 600, pointsize = 16)
+p1 <- ggplot(genlf, aes(x=Generation, y=mean, color=Origin, group=Origin))+
+  geom_errorbar(aes(ymin=lCL, ymax=uCL),color="black", width=.1, position=position_dodge(0.1))+
+  geom_line(position=position_dodge(0.1))+geom_point(size=5, position=position_dodge(0.1))+
+  ylab("Mean Number of Basal Leaves")+
   scale_x_continuous(breaks=seq(0,1,1), name="Generation")+ 
-  ggtitle("Number of basal leaves\nCross-generational analysis") + theme(plot.title = element_text(lineheight=.8, face="bold"))+
-  theme(legend.justification=c(0,1), legend.position=c(0,1),
+  ggtitle("Number of basal leaves\nCross-generational analysis") + 
+  theme(plot.title = element_text(lineheight=.8, face="bold"),legend.justification=c(0,1), legend.position=c(0,1),
         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13),
         axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=15 ))
-p1 + annotate(geom="text", x=0, y=9.7, label="Broad CG", fontface="italic",size=5) +
-  annotate(geom="text", x=0, y=10.3, label="Origin", fontface="italic",size=5) +
-  annotate('point',x = -0.02, y = 9.1, pch=8, color="red",parse=T,size=3)+
-  annotate('point',x = 0.02, y = 9.1, pch=8, color="red",parse=T,size=3)+
-  annotate('point',x = 1, y = 16, pch=8, color="red",parse=T,size=3)+
+p1
+p1 + annotate(geom="text", x=0, y=21.2, label="Broad CG", fontface="italic",size=5) +
+  annotate(geom="text", x=0, y=22, label="Origin", fontface="italic",size=5) +
+  annotate('point',x = -0.02, y = 20.4, pch=8, color="red",parse=T,size=3)+
+  annotate('point',x = 0.02, y = 20.4, pch=8, color="red",parse=T,size=3)+
+  
+  annotate('point',x = 1, y = 15, pch=8, color="red",parse=T,size=3)+
   annotate(geom="text", x=1, y=16.6, label="Origin",fontface="italic", size=5) +
+  annotate(geom="text", x=1, y=15.8, label="Maternal CG", fontface="italic",size=5) +
+  
   annotate('point',x = 0.48, y = 16, pch=8, color="red",parse=T,size=3)+
   annotate('point',x = 0.52, y = 16, pch=8, color="red",parse=T,size=3)+
-  annotate(geom="text", x=0.5, y=16.6, label="Origin", size=5)+ 
-  annotate(geom="text", x=0.5, y=15.5, label="Origin*Generation", size=5)+
-  annotate('point',x = 0.5, y = 14.9, pch=8, color="red",parse=T,size=3)+
-  annotate('point',x = 0.54, y = 14.9, pch=8, color="red",parse=T,size=3)+
-  annotate('point',x = 0.46, y = 14.9, pch=8, color="red",parse=T,size=3)
+  annotate(geom="text", x=0.5, y=16.8, label="Origin", size=5)+ 
+  annotate(geom="text", x=0.5, y=15.2, label="Origin*Generation", size=5)+
+  annotate('point',x = 0.5, y = 14.4, pch=8, color="red",parse=T,size=3)+
+  annotate('point',x = 0.54, y = 14.4, pch=8, color="red",parse=T,size=3)+
+  annotate('point',x = 0.46, y = 14.4, pch=8, color="red",parse=T,size=3)
 dev.off()
 
 ###plot in bw####
-pdf("STMF Gen leaf_bw.pdf", useDingbats=FALSE)
-p1 <- ggplot(genlf, aes(x=Generation, y=lfmean, group=Origin))+theme_bw()+
-  geom_errorbar(aes(ymin=lSE, ymax=uSE),color="black", width=.1)+
-  geom_line()+geom_point(aes(shape=Origin),size=5)+ylab("Mean Number of Basal Leaves")+
-  scale_x_continuous(breaks=seq(0,1,1), name="Generation")+ 
-  ggtitle("Number of basal leaves\nCross-generational analysis") + theme(plot.title = element_text(lineheight=.8, face="bold"))+
-  theme(legend.justification=c(0,1), legend.position=c(0,1),
-        legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13),
-        axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
-        axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=15 ))+
-  scale_linetype_manual(values=c("grey51","grey84"))
-p1 + annotate(geom="text", x=0, y=9.7, label="Full data set", fontface="italic",size=5) +
-  annotate(geom="text", x=0, y=10.3, label="Origin", fontface="italic",size=5) +
-  annotate('point',x = -0.02, y = 9.1, pch=8, color="black",parse=T,size=3)+
-  annotate('point',x = 0.02, y = 9.1, pch=8, color="black",parse=T,size=3)+
-  annotate('point',x = 1, y = 16, pch=8, color="black",parse=T,size=3)+
-  annotate(geom="text", x=1, y=16.6, label="Origin",fontface="italic", size=5) +
-  annotate('point',x = 0.48, y = 16, pch=8, color="black",parse=T,size=3)+
-  annotate('point',x = 0.52, y = 16, pch=8, color="black",parse=T,size=3)+
-  annotate(geom="text", x=0.5, y=16.6, label="Origin", size=5)+ 
-  annotate(geom="text", x=0.5, y=15.5, label="Origin*Generation", size=5)+
-  annotate('point',x = 0.5, y = 14.9, pch=8, color="black",parse=T,size=3)+
-  annotate('point',x = 0.54, y = 14.9, pch=8, color="black",parse=T,size=3)+
-  annotate('point',x = 0.46, y = 14.9, pch=8, color="black",parse=T,size=3)
-dev.off()
+# pdf("STMF Gen leaf_bw.pdf", useDingbats=FALSE)
+# p1 <- ggplot(genlf, aes(x=Generation, y=lfmean, group=Origin))+theme_bw()+
+#   geom_errorbar(aes(ymin=lSE, ymax=uSE),color="black", width=.1)+
+#   geom_line()+geom_point(aes(shape=Origin),size=5)+ylab("Mean Number of Basal Leaves")+
+#   scale_x_continuous(breaks=seq(0,1,1), name="Generation")+ 
+#   ggtitle("Number of basal leaves\nCross-generational analysis") + theme(plot.title = element_text(lineheight=.8, face="bold"))+
+#   theme(legend.justification=c(0,1), legend.position=c(0,1),
+#         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13),
+#         axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
+#         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=15 ))+
+#   scale_linetype_manual(values=c("grey51","grey84"))
+# p1 + annotate(geom="text", x=0, y=9.7, label="Full data set", fontface="italic",size=5) +
+#   annotate(geom="text", x=0, y=10.3, label="Origin", fontface="italic",size=5) +
+#   annotate('point',x = -0.02, y = 9.1, pch=8, color="black",parse=T,size=3)+
+#   annotate('point',x = 0.02, y = 9.1, pch=8, color="black",parse=T,size=3)+
+#   annotate('point',x = 1, y = 16, pch=8, color="black",parse=T,size=3)+
+#   annotate(geom="text", x=1, y=16.6, label="Origin",fontface="italic", size=5) +
+#   annotate('point',x = 0.48, y = 16, pch=8, color="black",parse=T,size=3)+
+#   annotate('point',x = 0.52, y = 16, pch=8, color="black",parse=T,size=3)+
+#   annotate(geom="text", x=0.5, y=16.6, label="Origin", size=5)+ 
+#   annotate(geom="text", x=0.5, y=15.5, label="Origin*Generation", size=5)+
+#   annotate('point',x = 0.5, y = 14.9, pch=8, color="black",parse=T,size=3)+
+#   annotate('point',x = 0.54, y = 14.9, pch=8, color="black",parse=T,size=3)+
+#   annotate('point',x = 0.46, y = 14.9, pch=8, color="black",parse=T,size=3)
+# dev.off()
 
 
 # intplot +geom_boxplot(graphdata,aes(x=Generation, y=LfCountH, color=Origin, group=Origin))
@@ -436,53 +449,73 @@ summary(graphdata)
 interaction.plot(graphdata$Generation, graphdata$Origin, graphdata$BoltDay.adj, fun=mean, main = "Interaction plot of bolting date")
 
 #make graphdata
-#BoltDay.adj ~ Origin * Generation + (1 | PopID/MomFam), poisson
-# Fixed effects:
-#   Estimate Std. Error z value Pr(>|z|)    
-# (Intercept)           4.29826    0.10253   41.92  < 2e-16 ***
-#   Originnat           0.02222    0.11812    0.19  0.85081    
-# Generation           -0.04531    0.08147   -0.56  0.57812    
-# Originnat:Generation -0.27966    0.09620   -2.91  0.00365 ** 
-
-#mean:inv, gen0 : intercept, inv gen1: int+gen, nat gen0: int-nat, nat gen1: int-nat:gen
-#SEs: inv gen0: int +SE, 
-#     inv gen1:int+gen+gen1SE, 
-#     nat gen0:int-nat+natSE, 
-#     nat gen1:int-nat:gen+nat:genSE
-#SE
-int<-4.298261-0.04531-0.08147#inv mean
-B<-0.02222+0.11812#Originnat estimate from model summary
-pI<-exp(int)
-pN<-exp(int+B)
-pI
-pN
-
-genb <- data.frame(Origin=c("Invasive","Invasive","Native","Native"), Generation=c(0,1,0,1), boltmean=c(73.57167,70.31253,75.22473,56.87302), 
-                    uSE=c(81.51532,76.28078,84.65642,61.24015),lSE=c(66.40225,64.81137,66.84396,50.5215) )
+# #BoltDay.adj ~ Origin * Generation + (1 | PopID/MomFam), poisson
+# # Fixed effects:
+# #   Estimate Std. Error z value Pr(>|z|)    
+# # (Intercept)           4.29826    0.10253   41.92  < 2e-16 ***
+# #   Originnat           0.02222    0.11812    0.19  0.85081    
+# # Generation           -0.04531    0.08147   -0.56  0.57812    
+# # Originnat:Generation -0.27966    0.09620   -2.91  0.00365 ** 
+# 
+# #mean:inv, gen0 : intercept, inv gen1: int+gen, nat gen0: int-nat, nat gen1: int-nat:gen
+# #SEs: inv gen0: int +SE, 
+# #     inv gen1:int+gen+gen1SE, 
+# #     nat gen0:int-nat+natSE, 
+# #     nat gen1:int-nat:gen+nat:genSE
+# #SE
+# int<-4.298261-0.04531-0.08147#inv mean
+# B<-0.02222+0.11812#Originnat estimate from model summary
+# pI<-exp(int)
+# pN<-exp(int+B)
+# pI
+# pN
+# 
+# genb <- data.frame(Origin=c("Invasive","Invasive","Native","Native"), Generation=c(0,1,0,1), boltmean=c(73.57167,70.31253,75.22473,56.87302), 
+#                     uSE=c(81.51532,76.28078,84.65642,61.24015),lSE=c(66.40225,64.81137,66.84396,50.5215) )
 #genb <- merge(genb, ddply(graphdata, .(Generation, Origin), summarize, count = length(Origin)), all.x=TRUE)
-pd <- position_dodge(.1)
+
+#or use lsmeans
+modeldata<-gen[!is.na(gen$BoltDay.adj),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$MomFam<-as.factor(modeldata$MomFam)
+modeldata$Generation<-as.factor(modeldata$Generation)
+
+model1<-lmer(BoltDay.adj  ~ Origin* Generation  +(1|PopID/MomFam), family=poisson,data=modeldata)
+
+genb <- CI.LS.poisson.2term(model1, conf=95)
+
+# pd <- position_dodge(.1)
 
 ###color plot###
-pdf("STMF Gen boltdate_color.pdf", useDingbats=FALSE)
-p1 <- ggplot(genb, aes(x=Generation, y=boltmean, color=Origin, group=Origin, ymax=90))+
-  geom_errorbar(aes(ymin=lSE, ymax=uSE),color="black", width=.1, position=pd)+
-  geom_line(position=pd)+geom_point(size=5, position=pd)+ylab("Mean Bolt Date")+
+pdf("STMFGenboltdate_color.pdf", useDingbats=FALSE)
+# png("STMFGenboltdate_color.png", height = 600, width = 600, pointsize = 16)
+p1 <- ggplot(genb, aes(x=Generation, y=mean, color=Origin, group=Origin, ymax=90))+
+  geom_errorbar(aes(ymin=lCL, ymax=uCL),color="black", width=.1, position=position_dodge(0.1))+
+  geom_line(position=position_dodge(0.1))+
+  geom_point(size=5, position=position_dodge(0.1))+
+  ylab("Mean Bolt Date")+
   scale_x_continuous(breaks=seq(0,1,1), name="Generation")+ 
-  ggtitle("Bolt Date\nCross-generational analysis") + theme(plot.title = element_text(lineheight=.8, face="bold"))+
-  theme(legend.justification=c(1,1), legend.position=c(1,1),
+  ggtitle("Bolt Date\nCross-generational analysis") + 
+  theme(plot.title = element_text(lineheight=.8, face="bold"),legend.justification=c(1,1), legend.position=c(1,1),
         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13),
         axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=15 ))
-p1 +  annotate('point',x = 1, y = 80, pch=16, color="red",parse=T,size=3)+
-  annotate(geom="text", x=1, y=82, label="Origin",fontface="italic", size=5) +
-  annotate(geom="text", x=0, y=60, label="Origin",fontface="italic", size=5)+
-  annotate(geom="text", x=0, y=58, label="NS",fontface="italic", size=5)+
+
+p1 +  annotate('point',x = 1.02, y = 76, pch=16, color="red",parse=T,size=3)+
+  annotate(geom="text", x=1.02, y=80, label="Origin",fontface="italic", size=5) +
+  annotate(geom="text", x=1.02, y=78, label="Maternal CG",fontface="italic", size=5)+
+  
+  annotate(geom="text", x=0, y=58, label="Origin",fontface="italic", size=5)+
+  annotate(geom="text", x=0, y=54, label="NS",fontface="italic", size=5)+
+  annotate(geom="text", x=0, y=56, label="Broad CG", fontface="italic",size=5)+
+  
   annotate('point',x = 0.5, y = 78, pch=16, color="red",parse=T,size=3)+
   annotate(geom="text", x=0.5, y=80, label="Origin", size=5)+ 
   annotate(geom="text", x=0.5, y=76, label="Origin*Generation", size=5)+
   annotate('point',x = 0.48, y = 74, pch=8, color="red",parse=T,size=3)+
-  annotate('point',x = 0.52, y = 74, pch=8, color="red",parse=T,size=3)+
-  annotate(geom="text", x=0, y=56, label="Full data set", fontface="italic",size=5)
+  annotate('point',x = 0.52, y = 74, pch=8, color="red",parse=T,size=3)
+  
 dev.off()
 
 ###bw plot###
