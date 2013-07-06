@@ -45,13 +45,28 @@ alLR #check out LRs of models. Model progression logical?
 almodels <- CGtrait.models.int("Mass.gA",mfallo.dk)
 almodels
 
+#merge mf ctrl and mom df
+str(mfmom.dk)
+str(mfallo.dk)
+totmfallo <- merge(mfmom.dk,mfallo.dk, all.y=TRUE )
+str(totmfallo)
+#tidy
+# totmf <- totmf[,-c(16:18,26,29:30, 32:38, 40:44, 46:57)]
+# totmfallo <- totmfallo[!is.na(totmf$Trt),]
+# totmf$Exp<-droplevels(totmf$Exp)
+# totmf$Trt<-droplevels(totmf$Trt)
+levels(totmf$PopID)
+
 #allo, shoot mass
-modeldata<-mfallo.dk[!is.na(mfallo.dk$Mass.gA),]
+modeldata<-totmfallo[!is.na(totmfallo$Mass.gA),]
+head(modeldata)
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(Mass.gA ~ Origin *Latitude+(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1<-lmer(Mass.gA ~ Origin *Latitude+(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1)
 model2<-lmer(Mass.gA ~ Origin *Latitude+ (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(Mass.gA ~ Origin *Latitude+ (1|blank), family=gaussian,data=modeldata) # Test population effect
 anova(model2,model1) # Mom is sig!
@@ -128,12 +143,14 @@ qqline(resid(modelg3))
 
 
 #allo, root crown
-modeldata<-mfallo.dk[!is.na(mfallo.dk$Crown.mmA),]
+modeldata<-totmfallo[!is.na(totmfallo$Crown.mmA),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(Crown.mmA ~ Origin *Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1raw<-lmer(Crown.mmA ~ Origin *Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(Crown.mmA ~ Origin *Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(Crown.mmA ~ Origin *Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw), digits=22) # mom not sig
@@ -177,13 +194,27 @@ write.table(mfcom1, file="MatFxBonusCtrlM1.txt", sep="\t", quote=F)
 m1lxw <- CGtrait.LR.int("lxw", mfcom1)
 m1lf <- CGtrait.LR.int("LfCount1", mfcom1, family=poisson)#poisson distribution
 
+#merge mf ctrl and mom df
+str(mfmom.dk)
+str(mfcom1)
+totmfm1 <- merge(mfmom.dk,mfcom1, all.y=TRUE )
+str(totmfm1)
+#tidy
+# totmf <- totmf[,-c(16:18,26,29:30, 32:38, 40:44, 46:57)]
+# totmf <- totmf[!is.na(totmf$Trt),]
+# totmf$Exp<-droplevels(totmf$Exp)
+# totmf$Trt<-droplevels(totmf$Trt)
+# levels(totmf$PopID)
+
 ###m1, lxw, mom sig, do by hand###
-modeldata<-mfcom1[!is.na(mfcom1$lxw),]
+modeldata<-totmfm1[!is.na(totmfm1$lxw),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(lxw ~ Origin *Latitude+(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1<-lmer(lxw ~ Origin *Latitude+(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1)
 model2<-lmer(lxw ~ Origin *Latitude+ (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(lxw ~ Origin *Latitude+ (1|blank), family=gaussian,data=modeldata) # Test population effect
 anova(model2,model1) # Mom is sig!
@@ -204,12 +235,14 @@ anova(modelO,modelL) #test for significance of origin - origin not sig....?
 lsmeans(modelL, ~Origin, conf=95)
 
 ###m1, lfcount, mom sig, do by hand###
-modeldata<-mfcom1[!is.na(mfcom1$LfCount1),]
+modeldata<-totmfm1[!is.na(totmfm1$LfCount1),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(LfCount1 ~ Origin *Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
 model1raw<-lmer(LfCount1 ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(LfCount1 ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(LfCount1 ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
 anova(model2raw,model1raw) # Mom not sig
@@ -250,7 +283,7 @@ head(mfco.dk1)
 #merge mf ctrl and mom df
 str(mfmom.dk)
 str(mfco.dk1)
-totmf <- merge(mfmom.dk,mfco.dk1, all=TRUE )
+totmf <- merge(mfmom.dk,mfco.dk1, all.y=TRUE )
 str(totmf)
 #tidy
 totmf <- totmf[,-c(16:18,26,29:30, 32:38, 40:44, 46:57)]
@@ -279,12 +312,14 @@ pN
 coP <- lapply(names(mfco.dk1)[c(11,46)],function(n) CGtrait.LR.int(n,mfco.dk1, family=poisson)) #lfcountH, boltdate, all poisson
 
 #control, shootmass
-modeldata<-mfco.dk1[!is.na(mfco.dk1$ShootMass.g),]
+modeldata<-totmf[!is.na(totmf$ShootMass.g),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(ShootMass.g ~ Origin *Latitude+(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1<-lmer(ShootMass.g ~ Origin *Latitude+(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1)
 model2<-lmer(ShootMass.g ~ Origin *Latitude+ (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(ShootMass.g ~ Origin *Latitude+ (1|blank), family=gaussian,data=modeldata) # Test population effect
 anova(model2,model1) # Mom is sig!
@@ -322,13 +357,15 @@ anova(modelg2, modelg4)
 anova(modelg2)
 
 ####control, lxw, mom sig, so do by hand####
-modeldata<-mfco.dk1[!is.na(mfco.dk1$lxwH),]
+modeldata<-totmf[!is.na(totmf$lxwH),]
 modeldata <- modeldata[modeldata$lxwH>0,]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(lxwH ~ Origin *Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1raw<-lmer(lxwH ~ Origin *Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(lxwH ~ Origin *Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(lxwH ~ Origin *Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
 anova(model2raw,model1raw) # Mom not sig
@@ -368,7 +405,9 @@ modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(LfCountH ~ Origin *Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
 model1raw<-lmer(LfCountH ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(LfCountH ~Origin *Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(LfCountH ~ Origin *Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
 anova(model2raw,model1raw) # Mom not sig
@@ -397,7 +436,9 @@ modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(bolt.bin ~ Origin * Latitude +(Origin|PopID/Mom), family=binomial,data=modeldata)
 model1<-lmer(bolt.bin ~ Origin * Latitude +(1|PopID/Mom), family=binomial,data=modeldata)
+anova(modelobar, model1)
 model2<-lmer(bolt.bin ~ Origin * Latitude +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(bolt.bin ~ Origin * Latitude +(1|blank), family=binomial,data=modeldata) # Test population effect
 anova(model2,model1) # Mom sig
@@ -451,12 +492,14 @@ CI.LS.binomial(modelg1) #exclude sig int
 
 ###control, boltday.adj, cross sig, do by hand###
 #only bolters
-modeldata<-mfco.dk1[!is.na(mfco.dk1$BoltDay.adj),]
+modeldata<-totmf[!is.na(totmf$BoltDay.adj),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(BoltDay.adj ~ Origin * Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
 model1<-lmer(BoltDay.adj ~ Origin * Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1)
 model2<-lmer(BoltDay.adj ~ Origin * Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(BoltDay.adj ~ Origin * Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
 anova(model2,model1) # Mom sig
@@ -482,12 +525,14 @@ pN
 CI.LS.poisson(modelL)
 
 # ###control, crown, cross sig, do by hand###
-modeldata<-mfco.dk1[!is.na(mfco.dk1$CrownDiam.mm),]
+modeldata<-totmf[!is.na(totmf$CrownDiam.mm),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(CrownDiam.mm ~ Origin *Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1raw<-lmer(CrownDiam.mm ~ Origin *Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(CrownDiam.mm ~ Origin *Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(CrownDiam.mm ~ Origin *Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
 anova(model2raw,model1raw) # mom not sig
@@ -507,13 +552,15 @@ lsmeans(modelL, ~Origin, conf=95)
 
 ###control, sla, cross sig, do by hand###
 #ratios should be log transformed
-modeldata<-mfco.dk1[!is.na(mfco.dk1$sla),]
+modeldata<-totmf[!is.na(totmf$sla),]
 modeldata$sla.log <- log(modeldata$sla)
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(sla.log ~ Origin *Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1raw<-lmer(sla.log ~ Origin *Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(sla.log ~ Origin *Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(sla.log ~ Origin *Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
 anova(model2raw,model1raw) # mom not sig
@@ -591,7 +638,9 @@ modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(lxwH ~ Origin *Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1raw<-lmer(lxwH ~ Origin *Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(lxwH ~ Origin *Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(lxwH ~ Origin *Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw),digits=22) # Mom not sig
@@ -639,7 +688,9 @@ modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(ShootMass.g ~ Origin *Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1raw<-lmer(ShootMass.g ~ Origin *Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(ShootMass.g ~ Origin *Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(ShootMass.g ~ Origin *Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw),digits=22) # Mom not sig
@@ -679,7 +730,9 @@ modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(CrownDiam.mm ~ Origin *Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1raw<-lmer(CrownDiam.mm ~ Origin *Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar,model1raw)
 model2raw<-lmer(CrownDiam.mm ~ Origin *Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(CrownDiam.mm ~ Origin *Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw),digits=22) # Mom not sig
@@ -719,7 +772,9 @@ modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(LfCountH ~ Origin *Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
 model1raw<-lmer(LfCountH ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(LfCountH ~ Origin *Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(LfCountH ~ Origin *Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw),digits=22) # Mom not sig
@@ -777,12 +832,14 @@ pN
 # shapiro.test(resid(cumodels$model2))
 
 ###cut, bolt.bin###
-modeldata<-mfcu.dk[!is.na(mfcu.dk$bolt.bin),]
+modeldata<-totmfcu[!is.na(totmfcu$bolt.bin),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(bolt.bin ~ Origin * Latitude +(Origin|PopID/Mom), family=binomial,data=modeldata)
 model1<-lmer(bolt.bin ~ Origin * Latitude +(1|PopID/Mom), family=binomial,data=modeldata)
+anova(modelobar, model1)
 model2<-lmer(bolt.bin ~ Origin * Latitude +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(bolt.bin ~ Origin * Latitude +(1|blank), family=binomial,data=modeldata) # Test population effect
 print(anova(model2,model1),digits=22) # Mom sig
@@ -844,12 +901,14 @@ CI.LS.binomial(modelg)
 CI.LS.binomial(modelg1)
 
 ####cut, lf count, harvest, mom is sig, do by hand###
-modeldata<-mfcu.dk[!is.na(mfcu.dk$LfCountH),]
+modeldata<-totmfcu[!is.na(totmfcu$LfCountH),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(LfCountH ~ Origin * Latitude + (Origin|PopID/Mom), family=poisson,data=modeldata)
 model1raw<-lmer(LfCountH ~ Origin * Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(LfCountH ~ Origin * Latitude + (1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(LfCountH ~ Origin * Latitude + (1|blank), family=poisson,data=modeldata) # Test population effect
 anova(model2raw,model1raw) # Mom not sig
@@ -867,12 +926,14 @@ anova(modelOraw,modelL) #test for significance of origin
 CI.LS.poisson(modelL)
 
 ##cut, crown
-modeldata<-mfcu.dk[!is.na(mfcu.dk$CrownDiam.mm),]
+modeldata<-totmfcu[!is.na(totmfcu$CrownDiam.mm),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+modelobar<-lmer(CrownDiam.mm ~ Origin *Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1raw<-lmer(CrownDiam.mm ~ Origin *Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(CrownDiam.mm ~ Origin *Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(CrownDiam.mm ~ Origin *Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw),digits=22) # Mom not sig
@@ -919,6 +980,18 @@ head(mfd.dk)
 dLR <- lapply(names(mfd.dk)[17:19],function(n) CGtrait.LR.int(n,mfd.dk, family=poisson)) #wilt, totwilt, death, all poisson
 names(dLR) <- names(d)[17:19]
 
+
+#merge mfcu and mom df
+str(mfmom.dk)
+str(mfd.dk)
+totmfd <- merge(mfmom.dk,mfd.dk, all.y=TRUE )
+# str(totmfcu)
+# #tidy
+# # totmfn <- totmfn[,-c(16:18,26,29:30, 32:38, 40:44, 46:57)]
+# totmfcu$Exp<-droplevels(totmfcu$Exp)
+# totmfcu$Trt<-droplevels(totmfcu$Trt)
+# levels(totmfcu$PopID)
+
 # dmodels <- lapply(names(d)[8:9],function(n) CGtrait.models.int(n,d))
 # dmodels
 
@@ -932,10 +1005,13 @@ names(dLR) <- names(d)[17:19]
 # summary(d[d$Origin=="nat",]$TotWilt)
 
 #drought, death
-modeldata<-mfd.dk[!is.na(mfd.dk$DeathDay),]
+modeldata<-totmfd[!is.na(totmfd$DeathDay),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
+
+modelobar<-lmer(DeathDay ~ Origin *Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
 model1raw<-lmer(DeathDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(DeathDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(DeathDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw), digits=22) # mom not sig
@@ -971,10 +1047,13 @@ anova(modelg3)
 CI.LS.poisson(modelg3)
 
 #drought, tot wilt
-modeldata<-mfd.dk[!is.na(mfd.dk$TotWiltDay),]
+modeldata<-totmfd[!is.na(totmfd$TotWiltDay),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
+
+modelobar<-lmer(TotWiltDay ~ Origin *Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
 model1raw<-lmer(TotWiltDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(TotWiltDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(TotWiltDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw), digits=22) # mom not sig
@@ -1010,10 +1089,13 @@ anova(modelg3)
 CI.LS.poisson(modelg3)
 
 #drought, 1st wilt
-modeldata<-mfd.dk[!is.na(mfd.dk$WiltDay),]
+modeldata<-totmfd[!is.na(totmfd$WiltDay),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
+
+modelobar<-lmer(WiltDay ~ Origin *Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
 model1raw<-lmer(WiltDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(WiltDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(WiltDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw), digits=22) # mom not sig
@@ -1058,11 +1140,19 @@ fLR <- lapply(names(mff.dk)[17:19],function(n) CGtrait.LR.int(n,mff.dk, family=p
 # fmodels <- lapply(names(f)[20:21],function(n) CGtrait.models.int(n,f))
 # fmodels
 
+#merge mfcu and mom df
+str(mfmom.dk)
+str(mff.dk)
+totmff <- merge(mfmom.dk,mff.dk, all.y=TRUE )
+
 #flood, death
-modeldata<-mff.dk[!is.na(mff.dk$DeathDay),]
+modeldata<-totmff[!is.na(totmff$DeathDay),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
+
+modelobar<-lmer(DeathDay ~ Origin *Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
 model1raw<-lmer(DeathDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(DeathDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(DeathDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw), digits=22) # mom not sig
@@ -1097,10 +1187,13 @@ anova(modelg3)
 CI.LS.poisson(modelg3)
 
 #flood, root death
-modeldata<-mff.dk[!is.na(mff.dk$FloatDay),]
+modeldata<-totmff[!is.na(totmff$FloatDay),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
+
+modelobar<-lmer(FloatDay ~ Origin *Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
 model1raw<-lmer(FloatDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(FloatDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(FloatDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw), digits=22) # mom not sig
@@ -1136,10 +1229,13 @@ anova(modelg3)
 CI.LS.poisson(modelg3)
 
 #flood, yellow
-modeldata<-mff.dk[!is.na(mff.dk$YellowDay),]
+modeldata<-totmff[!is.na(totmff$YellowDay),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
+
+modelobar<-lmer(YellowDay ~ Origin *Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
 model1raw<-lmer(YellowDay ~ Origin *Latitude +(1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
 model2raw<-lmer(YellowDay ~ Origin *Latitude+(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3raw<-lmer(YellowDay ~ Origin *Latitude+(1|blank), family=poisson,data=modeldata) # Test population effect
 print(anova(model2raw,model1raw), digits=22) # mom not sig
@@ -1181,15 +1277,17 @@ mfmom.dk<-read.table("MatFxMom.dk.txt", header=T, sep="\t", quote='"', row.names
 head(mfmom.dk)
 
 ####Mom, seedwt###
-str(mfmom.dk)
-mfmom.dk$Origin<-droplevels(mfmom.dk$Origin)
+# str(mfmom.dk)
+# mfmom.dk$Origin<-droplevels(mfmom.dk$Origin)
 mfmom.dk$Mom<-as.factor(mfmom.dk$Mom)
 
 modeldata<-mfmom.dk[!is.na(mfmom.dk$SeedWt),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 
+modelobar <- lmer(SeedWt ~ Origin *Latitude+(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1 <- lmer(SeedWt ~ Origin *Latitude+(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1)
 model2<-lmer(SeedWt ~ Origin *Latitude+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(SeedWt ~ Origin *Latitude+(1|blank), family=gaussian,data=modeldata) # Test population effect
 print(anova(model1,model2),digits=20)
@@ -1225,7 +1323,9 @@ modeldata<-mfmom.dk[!is.na(mfmom.dk$GermCount),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 
+modelobar<-lmer(GermCount ~ Origin * Latitude+ SeedCount +(Origin|PopID/Mom), family=poisson, data=modeldata)
 model1<-lmer(GermCount ~ Origin * Latitude+ SeedCount +(1|PopID/Mom), family=poisson, data=modeldata)
+anova(modelobar, model1)
 model2<-lmer(GermCount ~ Origin * Latitude+ SeedCount +(1|PopID), family=poisson, data=modeldata)
 model3<-lmer(GermCount ~ Origin * Latitude+SeedCount + (1|blank), family=poisson, data=modeldata)
 anova(model1,model2)
@@ -1278,7 +1378,9 @@ modeldata<-mfmom.dk[!is.na(mfmom.dk$GermAvgDate),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 
+modelobar<-lmer(GermAvgDate ~ Origin *Latitude+(Origin|PopID/Mom), family=gaussian,data=modeldata)
 model1<-lmer(GermAvgDate ~ Origin *Latitude+(1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1)
 model2<-lmer(GermAvgDate ~ Origin *Latitude+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(GermAvgDate ~ Origin *Latitude+(1|blank), family=gaussian,data=modeldata) # Test population effect
 print(anova(model1,model2), digits=22)
@@ -1320,10 +1422,7 @@ anova(modelg3)
 
 lsmeans(modelg3, ~Origin, conf=95)
 
-
-###################################
-
-# #germ count with more covariates#
+##germ count with more covariates#
 # ####Mom, germ count###
 # modeldata<-mom[!is.na(mom$GermCount),]
 # modeldata$blank<-1
@@ -1375,7 +1474,9 @@ modeldata<-mfmom.dk[!is.na(mfmom.dk$SeedCount),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 
+modelobar<-lmer(SeedCount ~ Origin * Latitude+(Origin|PopID/Mom), family=poisson, data=modeldata)
 model1<-lmer(SeedCount ~ Origin * Latitude+(1|PopID/Mom), family=poisson, data=modeldata)
+anova(modelobar, model1)
 model2<-lmer(SeedCount ~ Origin * Latitude+ (1|PopID), family=poisson, data=modeldata)
 model3<-lmer(SeedCount ~ Origin * Latitude+ (1|blank), family=poisson, data=modeldata)
 anova(model1,model2)
