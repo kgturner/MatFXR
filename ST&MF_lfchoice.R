@@ -330,8 +330,11 @@ xtabs(~Origin+eat.bin, modeldata)
 modeldata$Mom<-as.factor(modeldata$Mom) 
 
 modelgen<-lmer(eat.bin ~ Origin + Latitude + defense+(1|PopID/Mom)+(1|gen), family=binomial,data=modeldata)
+modelobar<-lmer(eat.bin ~ Origin + Latitude + defense+(Origin|PopID/Mom), family=binomial,data=modeldata)
+
 model1<-lmer(eat.bin ~ Origin + Latitude + defense+(1|PopID/Mom), family=binomial,data=modeldata)
 anova(modelgen, model1)
+anova(modelobar, model1)
 model2<-lmer(eat.bin ~ Origin + Latitude + defense +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(eat.bin ~ Origin + Latitude + defense +(1|blank), family=binomial,data=modeldata) # Test population effect
 anova(model2,model1) # mom sig
@@ -394,11 +397,13 @@ modeldata$Mom<-as.factor(modeldata$Mom)
 # anova(modelI, modelO)
 
 #transformed
-is.na(modeldata$Eaten.log)
+# is.na(modeldata$Eaten.log)
 
 modelgen<-lmer(Eaten.log ~ Origin +Latitude+defense + (1|PopID/Mom)+ (1|gen), family = gaussian, data=modeldata)
 model1<-lmer(Eaten.log ~ Origin +Latitude+defense + (1|PopID/Mom), family = gaussian, data=modeldata)
 anova(modelgen, model1)
+modelobar<-lmer(Eaten.log ~ Origin +Latitude+defense + (Origin|PopID/Mom), family = gaussian, data=modeldata)
+anova(modelobar, model1)
 model2<-lmer(Eaten.log ~ Origin +Latitude + defense+(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(Eaten.log ~ Origin +Latitude + defense+(1|blank), family=gaussian,data=modeldata) # Test population effect
 anova(model2, model1)
