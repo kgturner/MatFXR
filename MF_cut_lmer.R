@@ -348,28 +348,28 @@ print(anova(model2raw,model1raw),digits=22) # Mom not sig
 anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 1-pchisq(0.2437,1)
 
-modelI <- lmer(CrownDiam.mm ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata)
-anova(modelI, model3raw)
-
-modelL<-lmer(CrownDiam.mm ~ Origin +(1|blank), family=gaussian,data=modeldata)
-anova(modelL, modelI)
-
-modelOraw<-lmer(CrownDiam.mm ~ (1|blank), family=gaussian,data=modeldata)
-anova(modelOraw,modelL)
+# modelI <- lmer(CrownDiam.mm ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata)
+# anova(modelI, model3raw)
+# 
+# modelL<-lmer(CrownDiam.mm ~ Origin +(1|blank), family=gaussian,data=modeldata)
+# anova(modelL, modelI)
+# 
+# modelOraw<-lmer(CrownDiam.mm ~ (1|blank), family=gaussian,data=modeldata)
+# anova(modelOraw,modelL)
 
 #try glm
 modelg <- glm(CrownDiam.mm ~ Origin*Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(CrownDiam.mm ~ Origin+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(1.0027, 1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.8629,1,lower=FALSE)#chisq value
 
 modelg3<- glm(CrownDiam.mm ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(0.045188, 1)
-anova(modelg3)
+anova(modelg3,modelg1, test="LRT")
+qchisq(0.8342,1,lower=FALSE)#chisq value
+anova(modelg3, test="LRT")
 # modelg2<- glm(CrownDiam.mm ~ Latitude, family=gaussian,data=modeldata)
-# anova(modelg2,modelg1)
-1-pchisq(0.16667, 1)
+# anova(modelg2,modelg1, test="LRT")
+qchisq(0.316,1,lower=FALSE)#chisq value
 
 lsmeans(modelg3, ~Origin, conf=95)
 

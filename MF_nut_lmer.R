@@ -75,17 +75,17 @@ print(anova(model2raw,model1raw),digits=22) # Mom not sig
 anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 1-pchisq(0.1311,1)
 
-modelI <- lmer(lxwH ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata)
-anova(modelI, model3raw)
-
-modelL<-lmer(lxwH ~ Origin +(1|blank), family=gaussian,data=modeldata)
-anova(modelL, modelI)
-
-modelOraw<-lmer(lxwH ~ (1|blank), family=gaussian,data=modeldata)
-anova(modelOraw,modelL)
-
-model1.1<-lmer(lxwH ~ Origin +Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
-step(model1.1)
+# modelI <- lmer(lxwH ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata)
+# anova(modelI, model3raw)
+# 
+# modelL<-lmer(lxwH ~ Origin +(1|blank), family=gaussian,data=modeldata)
+# anova(modelL, modelI)
+# 
+# modelOraw<-lmer(lxwH ~ (1|blank), family=gaussian,data=modeldata)
+# anova(modelOraw,modelL)
+# 
+# model1.1<-lmer(lxwH ~ Origin +Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
+# step(model1.1)
 
 interaction.plot(response = modeldata$lxwH, x.factor = modeldata$Latitude, trace.factor = modeldata$Origin)
 qplot(data=modeldata, Latitude, lxwH, color=Origin, geom="jitter")
@@ -93,19 +93,18 @@ qplot(data=modeldata, Latitude, lxwH, color=Origin, geom="jitter")
 # modeldata <- modeldata[modeldata$lxwH<111,] #try without outlier
 modelg <- glm(lxwH ~ Origin*Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(lxwH ~ Origin+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(776.89, 1)
-1-pchisq(78.216, 1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.2511,1,lower=FALSE)#chisq value
 
 modelg3<- glm(lxwH ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(668.06, 1)
-# anova(modelg3)
-modelg2<- glm(lxwH ~ Latitude, family=gaussian,data=modeldata)
-anova(modelg2,modelg1)
-1-pchisq(3059.3, 1)
+anova(modelg3,modelg1, test="LRT")
+qchisq(0.2908,1,lower=FALSE)#chisq value
+anova(modelg3, test="LRT")
+# modelg2<- glm(lxwH ~ Latitude, family=gaussian,data=modeldata)
+# anova(modelg2,modelg1, test="LRT")
+qchisq(0.00866,1,lower=FALSE)#chisq value
 
-lsmeans(modelg1, ~Origin, conf=95)
+lsmeans(modelg3, ~Origin, conf=95)
 
 # checking the normality of residuals e_i:
 qqnorm(resid(modelg), main="Q-Q plot for residuals")
@@ -225,36 +224,28 @@ print(anova(model2raw,model1raw),digits=22) # Mom not sig
 anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 1-pchisq(1.2991,1)
 
-modelI <- lmer(ShootMass.g ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata)
-anova(modelI, model3raw)
-
-modelL<-lmer(ShootMass.g ~ Origin +(1|blank), family=gaussian,data=modeldata)
-anova(modelL, modelI)
-
-modelOraw<-lmer(ShootMass.g ~ (1|blank), family=gaussian,data=modeldata)
-anova(modelOraw,modelL)
+# modelI <- lmer(ShootMass.g ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata)
+# anova(modelI, model3raw)
+# 
+# modelL<-lmer(ShootMass.g ~ Origin +(1|blank), family=gaussian,data=modeldata)
+# anova(modelL, modelI)
+# 
+# modelOraw<-lmer(ShootMass.g ~ (1|blank), family=gaussian,data=modeldata)
+# anova(modelOraw,modelL)
 
 #try glm
 modelg <- glm(ShootMass.g ~ Origin*Latitude, family=gaussian,data=modeldata)
-anova(modelg, test="Chisq")
-anova(modelg, test="LRT")
-
 modelg1 <- glm(ShootMass.g ~ Origin+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(0.24717, 1)
-anova(modelg1, modelg, test="LRT")
-anova(modelg, modelg1, test="LRT")
-anova(modelg, modelg1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.4259,1,lower=FALSE)#chisq value
 
 modelg3<- glm(ShootMass.g ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(0.0033353, 1)
-anova(modelg3, modelg1, test="LRT")
-anova(modelg3)
-anova(modelg1, modelg3, test="LRT")
+anova(modelg3,modelg1, test="LRT")
+qchisq(0.9257,1,lower=FALSE)#chisq value
+anova(modelg3, test="LRT")
 # modelg2<- glm(ShootMass.g ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
-1-pchisq(0.56918, 1)
+qchisq(0.2122,1,lower=FALSE)#chisq value
 
 lsmeans(modelg3, ~Origin, conf=95)
 
@@ -366,28 +357,28 @@ print(anova(model2raw,model1raw),digits=22) # Mom not sig
 anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 1-pchisq(0.2437,1)
 
-modelI <- lmer(CrownDiam.mm ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata)
-anova(modelI, model3raw)
-
-modelL<-lmer(CrownDiam.mm ~ Origin +(1|blank), family=gaussian,data=modeldata)
-anova(modelL, modelI)
-
-modelOraw<-lmer(CrownDiam.mm ~ (1|blank), family=gaussian,data=modeldata)
-anova(modelOraw,modelL)
+# modelI <- lmer(CrownDiam.mm ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata)
+# anova(modelI, model3raw)
+# 
+# modelL<-lmer(CrownDiam.mm ~ Origin +(1|blank), family=gaussian,data=modeldata)
+# anova(modelL, modelI)
+# 
+# modelOraw<-lmer(CrownDiam.mm ~ (1|blank), family=gaussian,data=modeldata)
+# anova(modelOraw,modelL)
 
 #try glm
 modelg <- glm(CrownDiam.mm ~ Origin*Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(CrownDiam.mm ~ Origin+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(0.069898, 1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.14,1,lower=FALSE)#chisq value
 
 modelg3<- glm(CrownDiam.mm ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(0.048201, 1)
-anova(modelg3)
+anova(modelg3,modelg1, test="LRT")
+qchisq(0.2331,1,lower=FALSE)#chisq value
+anova(modelg3, test="LRT")
 # modelg2<- glm(CrownDiam.mm ~ Latitude, family=gaussian,data=modeldata)
-# anova(modelg2,modelg1)
-1-pchisq(0.015, 1)
+# anova(modelg2,modelg1, test="LRT")
+qchisq(0.5099,1,lower=FALSE)#chisq value
 
 lsmeans(modelg3, ~Origin, conf=95)
 

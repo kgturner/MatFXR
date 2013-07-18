@@ -83,8 +83,12 @@ write.table(gen, file="ST&MFgenerations.txt", sep="\t", quote=F)
 
 ###ST and MF mixed FX models, focused on Origin BY Latitude###
 #control, m1, or allo only
-#REML, using lme4
+#Mat fx, REML, using lme4
+#mixed effect models 
 library(lme4)
+library(lsmeans)
+library(ggplot2)
+library(plyr)
 
 # #for each normal trait, compare this general set of models
 # model1<-lmer(trait  ~ Origin* Generation +Latitude +(1|PopID/MomFam), family=gaussian,data=modeldata)
@@ -289,15 +293,15 @@ anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you wan
 #try glm
 modelg <- glm(lxwH ~ Origin*Generation, family=gaussian,data=modeldata)
 modelg1 <- glm(lxwH ~ Origin+Generation, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(38.483, 1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.8868,1,lower=FALSE)#chisq value
 
 modelg3<- glm(lxwH ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(79170, 1)
+anova(modelg3,modelg1, test="LRT")
+qchisq(9.258e-11,1,lower=FALSE)#chisq value
 modelg2<- glm(lxwH ~ Generation, family=gaussian,data=modeldata)
-anova(modelg2,modelg1)
-1-pchisq(32830, 1)
+anova(modelg2,modelg1, test="LRT")
+qchisq(0.004856,1,lower=FALSE)#chisq value
 
 # checking the normality of residuals e_i:
 qqnorm(resid(modelg), main="Q-Q plot for residuals")

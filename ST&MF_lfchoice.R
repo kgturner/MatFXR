@@ -300,8 +300,12 @@ lf$defense <- droplevels(lf$defense)
 
 
 #######LEAF DISC ANALYSIS#########
-#using lmer
+#ST and Mat fx, REML, using lme4
+#mixed effect models 
 library(lme4)
+library(lsmeans)
+library(ggplot2)
+library(plyr)
 
 #merge lf and mom df
 str(mfmom.dk)
@@ -321,12 +325,12 @@ totlf$gen <- 1
 totlf[totlf$Exp=="st",]$gen <- 0
 
 ####lf disc, most eaten with defense as covar, from scan, binomial####
-str(totlf)
+# str(totlf)
 modeldata<-totlf[totlf$eat.bin<2,]#exclude ties and failed trials
 # is.na(modeldata$eat.bin)
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
-xtabs(~Origin+eat.bin, modeldata)
+# xtabs(~Origin+eat.bin, modeldata)
 modeldata$Mom<-as.factor(modeldata$Mom) 
 
 modelgen<-lmer(eat.bin ~ Origin + Latitude + defense+(1|PopID/Mom)+(1|gen), family=binomial,data=modeldata)
@@ -341,17 +345,17 @@ anova(model2,model1) # mom sig
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 (lambda <- (-2)*(-221.90 - (-528.38)))
 1-pchisq(-612.96,1)
-modelI <- lmer(eat.bin ~ Origin + Latitude + defense +(1|blank), family=binomial,data=modeldata)
-anova(model3, modelI)
-
-modelL <- lmer(eat.bin ~ Origin + defense +(1|blank), family=binomial,data=modeldata)
-anova(modelL, modelI)
-
-modelD <- lmer(eat.bin ~ Origin +(1|blank), family=binomial,data=modeldata)
-anova(modelD, modelL)
-
-modelO<-lmer(eat.bin ~ (1|blank), family=binomial,data=modeldata)
-anova(modelO,modelD) #test for significance of origin - origin sig!
+# modelI <- lmer(eat.bin ~ Origin + Latitude + defense +(1|blank), family=binomial,data=modeldata)
+# anova(model3, modelI)
+# 
+# modelL <- lmer(eat.bin ~ Origin + defense +(1|blank), family=binomial,data=modeldata)
+# anova(modelL, modelI)
+# 
+# modelD <- lmer(eat.bin ~ Origin +(1|blank), family=binomial,data=modeldata)
+# anova(modelD, modelL)
+# 
+# modelO<-lmer(eat.bin ~ (1|blank), family=binomial,data=modeldata)
+# anova(modelO,modelD) #test for significance of origin - origin sig!
 
 #try glm
 modelg <- glm(eat.bin ~ Origin +defense+Latitude, family=binomial,data=modeldata)
@@ -412,14 +416,14 @@ anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you wan
 # modelI <- lmer(Eaten.log ~ Origin + Latitude + defense +(1|PopID), family=gaussian,data=modeldata)
 # anova(model2, modelI)
 
-modelL <- lmer(Eaten.log ~ Origin + defense +(1|blank), family=gaussian,data=modeldata)
-anova(modelL, model3)
-
-modelD<-lmer(Eaten.log ~ Origin + (1|blank), family=gaussian, data=modeldata)
-anova(modelD, modelL)
-
-modelO<-lmer(Eaten.log ~ defense + (1|blank), family=gaussian,data=modeldata)
-anova(modelL,modelO) #test for significance of origin - origin not sig....?
+# modelL <- lmer(Eaten.log ~ Origin + defense +(1|blank), family=gaussian,data=modeldata)
+# anova(modelL, model3)
+# 
+# modelD<-lmer(Eaten.log ~ Origin + (1|blank), family=gaussian, data=modeldata)
+# anova(modelD, modelL)
+# 
+# modelO<-lmer(Eaten.log ~ defense + (1|blank), family=gaussian,data=modeldata)
+# anova(modelL,modelO) #test for significance of origin - origin not sig....?
 
 qqnorm(resid(model2), main="Q-Q plot for residuals")
 qqline(resid(model2))
@@ -427,12 +431,12 @@ qqline(resid(model2))
 #try glm
 modelg <- glm(Eaten.log ~ Origin+defense+Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(Eaten.log ~ Origin+defense, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(2.1713, 1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.08,1,lower=FALSE)#chisq value
 
 modelg3<- glm(Eaten.log ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(71.724, 3)
+print(anova(modelg3,modelg1, test="LRT"), digits=22)
+qchisq(pval,1,lower=FALSE)#chisq value
 modelg2<- glm(Eaten.log ~ defense, family=gaussian,data=modeldata)
-anova(modelg2,modelg1)
-1-pchisq(0.061952, 1)
+anova(modelg2,modelg1, test="LRT")
+qchisq(0.7678,1,lower=FALSE)#chisq value

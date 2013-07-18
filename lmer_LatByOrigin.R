@@ -1,7 +1,10 @@
 ###Mat FX mixed FX models, focused on Origin BY Latitude###
-#Stress Tolerance, REML, using lme4
+#Mat fx, REML, using lme4
 #mixed effect models 
 library(lme4)
+library(lsmeans)
+library(ggplot2)
+library(plyr)
 
 # #for each normal trait, compare this general set of models
 # model1<-lmer(trait  ~ Origin* Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
@@ -59,7 +62,7 @@ levels(totmf$PopID)
 
 #allo, shoot mass
 modeldata<-totmfallo[!is.na(totmfallo$Mass.gA),]
-head(modeldata)
+#head(modeldata)
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
@@ -73,29 +76,28 @@ anova(model2,model1) # Mom is sig!
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 1-pchisq(0.1406,1)
 
-modelI <- lmer(Mass.gA  ~ Origin + Latitude + (1|blank), family=gaussian,data=modeldata)
-anova(modelI,model3)
-
-modelL<-lmer(Mass.gA ~ Origin +(1|blank), family=gaussian,data=modeldata)
-anova(modelL, modelI)
-
-modelO<-lmer(Mass.gA ~ (1|blank), family=gaussian,data=modeldata)
-anova(modelO,modelL) #test for significance of origin - origin not sig....?
-#Mom and popID sig, but not Origin! for either log or raw data
+# modelI <- lmer(Mass.gA  ~ Origin + Latitude + (1|blank), family=gaussian,data=modeldata)
+# anova(modelI,model3)
+# 
+# modelL<-lmer(Mass.gA ~ Origin +(1|blank), family=gaussian,data=modeldata)
+# anova(modelL, modelI)
+# 
+# modelO<-lmer(Mass.gA ~ (1|blank), family=gaussian,data=modeldata)
+# anova(modelO,modelL) #test for significance of origin - origin not sig....?
 
 #try glm
 modelg <- glm(Mass.gA ~ Origin*Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(Mass.gA ~ Origin+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(0.050583, 1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.335,1,lower=FALSE)#chisq value
 
 modelg3<- glm(Mass.gA ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(0.075716, 1)
-anova(modelg3)
+anova(modelg3,modelg1, test="LRT")
+qchisq(0.2373,1,lower=FALSE)#chisq value
+anova(modelg3, test="LRT")
 # modelg2<- glm(Mass.gA ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
-1-pchisq(0.75479, 1)
+qchisq(0.0002189,1,lower=FALSE)#chisq value
 
 lsmeans(modelg3, ~Origin, conf=95)
 
@@ -174,16 +176,17 @@ anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
 #try glm
 modelg <- glm(Crown.mmA ~ Origin*Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(Crown.mmA ~ Origin+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(0.0037776, 1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.9284,1,lower=FALSE)#chisq value
 
 modelg3<- glm(Crown.mmA ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(0.1535, 1)
-anova(modelg3)
+anova(modelg3,modelg1, test="LRT")
+qchisq(0.5571,1,lower=FALSE)#chisq value
+anova(modelg3, test="LRT")
 # modelg2<- glm(Crown.mmA ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
-1-pchisq(0.24012, 1)
+qchisq(0.4556,1,lower=FALSE)#chisq value
+
 lsmeans(modelg3, ~Origin, conf=95)
 
 # #####m1, Origin * Lat#####
@@ -285,12 +288,12 @@ str(mfmom.dk)
 str(mfco.dk1)
 totmf <- merge(mfmom.dk,mfco.dk1, all.y=TRUE )
 str(totmf)
-#tidy
-totmf <- totmf[,-c(16:18,26,29:30, 32:38, 40:44, 46:57)]
-totmf <- totmf[!is.na(totmf$Trt),]
-totmf$Exp<-droplevels(totmf$Exp)
-totmf$Trt<-droplevels(totmf$Trt)
-levels(totmf$PopID)
+# #tidy
+# totmf <- totmf[,-c(16:18,26,29:30, 32:38, 40:44, 46:57)]
+# totmf <- totmf[!is.na(totmf$Trt),]
+# totmf$Exp<-droplevels(totmf$Exp)
+# totmf$Trt<-droplevels(totmf$Trt)
+# levels(totmf$PopID)
 
 coLR <- lapply(names(mfco.dk1)[c(12:13,21:22,41, 44)],function(n) CGtrait.LR.int(n,mfco.dk1)) #crow, shoot, root, RootH.log, lxw, all gaussian
 #names(coLR) <- names(mfco.dk1)[c(15:17,52:53)]
@@ -326,26 +329,26 @@ anova(model2,model1) # Mom is sig!
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 1-pchisq(1.3743,1)
 
-modelI <- lmer(ShootMass.g  ~ Origin + Latitude + (1|blank), family=gaussian,data=modeldata)
-anova(modelI,model3)
-
-modelL<-lmer(ShootMass.g ~ Origin +(1|blank), family=gaussian,data=modeldata)
-anova(modelL, modelI)
-
-modelO<-lmer(ShootMass.g ~ (1|blank), family=gaussian,data=modeldata)
-anova(modelO,modelL) #test for significance of origin - origin not sig....?
+# modelI <- lmer(ShootMass.g  ~ Origin + Latitude + (1|blank), family=gaussian,data=modeldata)
+# anova(modelI,model3)
+# 
+# modelL<-lmer(ShootMass.g ~ Origin +(1|blank), family=gaussian,data=modeldata)
+# anova(modelL, modelI)
+# 
+# modelO<-lmer(ShootMass.g ~ (1|blank), family=gaussian,data=modeldata)
+# anova(modelO,modelL) #test for significance of origin - origin not sig....?
 #try glm
 modelg <- glm(ShootMass.g ~ Origin*Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(ShootMass.g ~ Origin+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(0.29711, 1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.5731,1,lower=FALSE)#chisq value
 
 modelg3<- glm(ShootMass.g ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(2.919, 1)
-modelg2<- glm(ShootMass.g ~ Latitude, family=gaussian,data=modeldata)
-anova(modelg3)
-1-pchisq(4.5969, 1)
+anova(modelg3,modelg1, test="LRT")
+qchisq(0.07642,1,lower=FALSE)#chisq value
+# modelg2<- glm(ShootMass.g ~ Latitude, family=gaussian,data=modeldata)
+anova(modelg3, test="LRT")
+qchisq(0.02771,1,lower=FALSE)#chisq value
 
 lsmeans(modelg3, ~Origin, conf=95)
 
@@ -372,30 +375,30 @@ anova(model2raw,model1raw) # Mom not sig
 print(anova(model3raw,model2raw), digits=22) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 # (lambda <- (-2)*(-571.8468485550226887426 - (-571.2004667420127361765)))
 1-pchisq(1.298289999999999944084,1)
-
-modelI <- lmer(lxwH ~ Origin +Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
-anova(modelI, model1raw)
-
-modelL<-lmer(lxwH ~ Origin +(1|PopID/Mom), family=gaussian,data=modeldata)
-anova(modelL, modelI)
-
-modelOraw<-lmer(lxwH ~ (1|PopID/Mom), family=gaussian,data=modeldata)
-anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+# 
+# modelI <- lmer(lxwH ~ Origin +Latitude +(1|PopID/Mom), family=gaussian,data=modeldata)
+# anova(modelI, model1raw)
+# 
+# modelL<-lmer(lxwH ~ Origin +(1|PopID/Mom), family=gaussian,data=modeldata)
+# anova(modelL, modelI)
+# 
+# modelOraw<-lmer(lxwH ~ (1|PopID/Mom), family=gaussian,data=modeldata)
+# anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
 
 #try glm
 modelg <- glm(lxwH ~ Origin*Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(lxwH ~ Origin+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(7206.9, 1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.03858,1,lower=FALSE)#chisq value
 
 modelg3<- glm(lxwH ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(5.5154, 1)
-modelg2<- glm(lxwH ~ Latitude, family=gaussian,data=modeldata)
-anova(modelg2,modelg1)
-1-pchisq(9.0533, 1)
+anova(modelg3,modelg1, test="LRT")
+qchisq(0.1811,1,lower=FALSE)#chisq value
+# modelg2<- glm(lxwH ~ Latitude, family=gaussian,data=modeldata)
+anova(modelg3, test="LRT")
+qchisq(0.03194,1,lower=FALSE)#chisq value
 
-lsmeans(modelg1,~Origin, conf=95)
+lsmeans(modelg3,~Origin, conf=95)
 interaction.plot(response = modeldata$lxwH, x.factor = modeldata$Latitude, trace.factor = modeldata$Origin)
 
 ####control, lf count, mom sig so do by hand#####
@@ -568,28 +571,29 @@ print(anova(model2raw,model3raw), digits=22) # pop is sig. If it says there are 
 (lambda <- (-2)*(-2.578845030579588026853 - (-2.730199207582871601119)))
 1-pchisq(-0.3027084,1)
 
-modelI <- lmer(sla.log ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata)
-anova(modelI, model3raw)
-
-modelL<-lmer(sla.log ~ Origin +(1|blank), family=gaussian,data=modeldata)
-anova(modelL, modelI)
-
-modelOraw<-lmer(sla.log ~ (1|blank), family=gaussian,data=modeldata)
-anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
+# modelI <- lmer(sla.log ~ Origin +Latitude +(1|blank), family=gaussian,data=modeldata)
+# anova(modelI, model3raw)
+# 
+# modelL<-lmer(sla.log ~ Origin +(1|blank), family=gaussian,data=modeldata)
+# anova(modelL, modelI)
+# 
+# modelOraw<-lmer(sla.log ~ (1|blank), family=gaussian,data=modeldata)
+# anova(modelOraw,modelL) #test for significance of origin - origin NOT sig....!
 
 #try glm
 modelg <- glm(sla.log ~ Origin*Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(sla.log ~ Origin+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(0.17795, 1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.0964,1,lower=FALSE)#chisq value
 
 modelg3<- glm(sla.log ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(0.024404, 1)
-anova(modelg3)
+anova(modelg3,modelg1, test="LRT")
+qchisq(0.9672,1,lower=FALSE)#chisq value
+anova(modelg3, test="LRT")
 # modelg2<- glm(sla.log ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
-1-pchisq(9.0533, 1)
+qchisq(0.5399,1,lower=FALSE)#chisq value
+
 CI.LS.poisson(modelg3)
 
 
@@ -617,25 +621,26 @@ print(anova(model1,model2),digits=20)
 anova(model3,model2) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 1-pchisq(1.2983,1)
 
-modelI <- lmer(SeedWt ~ Origin +Latitude+(1|blank), family=gaussian,data=modeldata)
-anova(modelI, model3)
-modelL<-lmer(SeedWt ~ Origin + (1|blank), family=gaussian, data=modeldata)
-anova(modelL, modelI)
-modelO<-lmer(SeedWt ~ (1|blank), family=gaussian,data=modeldata)
-anova(modelO,modelL) #test for significance of origin - origin not sig....?
+# modelI <- lmer(SeedWt ~ Origin +Latitude+(1|blank), family=gaussian,data=modeldata)
+# anova(modelI, model3)
+# modelL<-lmer(SeedWt ~ Origin + (1|blank), family=gaussian, data=modeldata)
+# anova(modelL, modelI)
+# modelO<-lmer(SeedWt ~ (1|blank), family=gaussian,data=modeldata)
+# anova(modelO,modelL) #test for significance of origin - origin not sig....?
 
 #try glm
 modelg <- glm(SeedWt ~ Origin*Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(SeedWt ~ Origin+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(3.0924e-07, 1)
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.6106,1,lower=FALSE)#chisq value
+
 modelg3<- glm(SeedWt ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(2.897e-07, 1)
-anova(modelg3)
+anova(modelg3,modelg1, test="LRT")
+qchisq(0.6209,1,lower=FALSE)#chisq value
+anova(modelg3, test="LRT")
 # modelg2<- glm(SeedWt ~ Latitude, family=gaussian,data=modeldata)
 # anova(modelg2,modelg1)
-1-pchisq(1.5037e-08, 1)
+qchisq(0.91,1,lower=FALSE)#chisq value
 
 CI.LS.poisson(modelg3)
 
@@ -721,14 +726,14 @@ print(anova(model3,model2), digits=22) # pop is sig. If it says there are 0 d.f.
 (lambda <- (-2)*(-27.49945599442735399975 - (-27.70942445255505859336)))
 1-pchisq(-0.4199369,1)
 
-modelI <- lmer(GermAvgDate ~ Origin +Latitude+(1|blank), family=gaussian,data=modeldata) 
-anova(modelI,model3)
-
-modelL<-lmer(GermAvgDate ~ Origin +(1|blank), family=, data=modeldata)
-anova(modelL,modelI)
-
-modelO<-lmer(GermAvgDate ~ (1|blank), family=gaussian,data=modeldata)
-anova(modelO,modelL) #test for significance of origin - origin not sig....?
+# modelI <- lmer(GermAvgDate ~ Origin +Latitude+(1|blank), family=gaussian,data=modeldata) 
+# anova(modelI,model3)
+# 
+# modelL<-lmer(GermAvgDate ~ Origin +(1|blank), family=, data=modeldata)
+# anova(modelL,modelI)
+# 
+# modelO<-lmer(GermAvgDate ~ (1|blank), family=gaussian,data=modeldata)
+# anova(modelO,modelL) #test for significance of origin - origin not sig....?
 
 # # momfam
 # modeldata$MomFam <- as.factor(modeldata$MomFam)
@@ -738,20 +743,19 @@ anova(modelO,modelL) #test for significance of origin - origin not sig....?
 #try glm
 modelg <- glm(GermAvgDate ~ Origin*Latitude, family=gaussian,data=modeldata)
 modelg1 <- glm(GermAvgDate ~ Origin+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(0.087761, 1)
-
+anova(modelg1, modelg, test="LRT") 
+qchisq(0.3577,1,lower=FALSE)#chisq value
 
 modelg3<- glm(GermAvgDate ~ Origin, family=gaussian,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(0.57582, 1)
-anova(modelg3)
-1-pchisq( 0.040802, 1)
-# modelg2<- glm(GermAvgDate ~ Latitude, family=gaussian,data=modeldata)
-# anova(modelg2,modelg1)
-# 1-pchisq(9.0533, 1)
+anova(modelg3,modelg1, test="LRT")
+qchisq(0.01839,1,lower=FALSE)#chisq value
+# anova(modelg3, test="LRT")
+# qchisq(pval,1,lower=FALSE)#chisq value
+modelg2<- glm(GermAvgDate ~ Latitude, family=gaussian,data=modeldata)
+anova(modelg2,modelg1, test="LRT")
+qchisq(0.01889,1,lower=FALSE)#chisq value
 
-lsmeans(modelg3, ~Origin, conf=95)
+lsmeans(modelg1, ~Origin, conf=95)
 
 ##germ count with more covariates#
 # ####Mom, germ count###
