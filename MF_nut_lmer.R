@@ -110,55 +110,6 @@ lsmeans(modelg3, ~Origin, conf=95)
 qqnorm(resid(modelg), main="Q-Q plot for residuals")
 qqline(resid(modelg))
 
-#explicit tradeoff - using lf count
-modeldata <- merge(modeldata, comeans, all.x=TRUE)
-modeldata <- modeldata[!is.na(modeldata$CtrlPopLf),]
-
-# modelobar<-lmer(lxwH ~ Origin * CtrlPopLf*Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
-# model1raw<-lmer(lxwH ~ Origin * CtrlPopLf* Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
-# anova(modelobar, model1raw)
-# model2raw<-lmer(lxwH ~ Origin * CtrlPopLf* Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(lxwH ~ Origin * CtrlPopLf* Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 1-pchisq(56.023,1)
-
-modelg <- glm(lxwH ~ Origin*CtrlPopLf*Latitude, family=gaussian,data=modeldata)
-modelg1 <- glm(lxwH ~ Origin*CtrlPopLf+Latitude, family=gaussian,data=modeldata)
-anova(modelg1, modelg, test="Chisq") #'Deviance' is chisq value
-anova(modelg1, modelg)
-1-pchisq(366.06, 3)
-
-modelg <- glm(lxwH ~ Origin*CtrlPopLf*Latitude, family=quasi,data=modeldata)
-modelg1 <- glm(lxwH ~ Origin*CtrlPopLf+Latitude, family=quasi,data=modeldata)
-summary(anova(modelg1, modelg, test="Chisq")) #'Deviance' is chisq value
-chisq.test(modelg1, modelg)
-
-anova(modelg1, modelg)
-1-pchisq(366.06, 3)
-
-modelg3<- glm(lxwH ~ Origin*CtrlPopLf, family=gaussian,data=modeldata)
-an <- anova(modelg3,modelg1)
-print(1-pchisq(474.06, 1), digits = 22)
-anova(modelg3,modelg1, test="Chisq")
-anova(modelg3,modelg1, test="LRT")
-anova(modelg3,modelg1, test="F")
-an$Deviance[2]
-an$Df[2]
-
-modelg2<- glm(lxwH ~Origin +CtrlPopLf, family=gaussian,data=modeldata)
-anova(modelg2,modelg3)
-1-pchisq(3370.1, 1)
-anova(modelg2,modelg3, test="LRT")
-modelg4 <- glm(lxwH ~Origin+Latitude, family=gaussian, data=modeldata)
-anova(modelg4, modelg2)
-modelg5 <- glm(lxwH~CtrlPopLf+Latitude, family=gaussian, data=modeldata)
-anova(modelg2, modelg5)
-
-# qplot(data=modeldata,CtrlPopLf, lxwH, color = Origin)+geom_point(position="jitter")
-# moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopLf), summarize, popCount=length(PopID), poplxwH=mean(lxwH))
-# qplot(data=moddata,CtrlPopLf, poplxwH, color = Origin, xlab="Population mean leaf number in control",
-#       ylab="Population mean days to lxwH in herbivory", main="Performance in herbivory vs control, leaf no.") +geom_smooth(method=glm, se=TRUE)
 
 # #explicit trade-off using shootmass
 # modeldata <- merge(modeldata, comeans, all.x=TRUE)
@@ -249,51 +200,7 @@ qchisq(0.2122,1,lower=FALSE)#chisq value
 
 lsmeans(modelg3, ~Origin, conf=95)
 
-# #explicit tradeoff - using lf count
-# modeldata <- merge(modeldata, comeans, all.x=TRUE)
-# modeldata <- modeldata[!is.na(modeldata$CtrlPopLf),]
-# 
-# modelobar<-lmer(ShootMass.g ~ Origin * CtrlPopLf*Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
-# model1raw<-lmer(ShootMass.g ~ Origin * CtrlPopLf* Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
-# anova(modelobar, model1raw)
-# model2raw<-lmer(ShootMass.g ~ Origin * CtrlPopLf* Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(ShootMass.g ~ Origin * CtrlPopLf* Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 1-pchisq(56.023,1)
-# 
-# #modelI <- lmer(ShootMass.g ~ Origin * CtrlPopLf+ Latitude + (1|PopID), family=gaussian,data=modeldata)
-# #anova(modelI, model2raw)
-# #modelL <- lmer(ShootMass.g ~ Origin * CtrlPopLf+(1|PopID), family=gaussian,data=modeldata)
-# #anova(modelL, modelI)
-# #modelCint <- lmer(ShootMass.g ~ Origin + CtrlPopLf+Latitude+(1|PopID), family=gaussian,data=modeldata)
-# #anova(modelI, modelCint)
-# #modelC <- lmer(ShootMass.g ~ Origin +Latitude+(1|PopID), family=gaussian,data=modeldata)
-# #anova(modelCint, modelC)
-# #modelOraw<-lmer(ShootMass.g ~ Latitude+(1|PopID), family=gaussian,data=modeldata)
-# #anova(modelOraw,modelC) #test for significance of origin - origin NOT sig....!
-# 
-# modelg <- glm(ShootMass.g ~ Origin*CtrlPopLf*Latitude, family=gaussian,data=modeldata)
-# modelg1 <- glm(ShootMass.g ~ Origin*CtrlPopLf+Latitude, family=gaussian,data=modeldata)
-# anova(modelg1, modelg, test="Chisq") #'Deviance' is chisq value
-# 1-pchisq(4.5369, 3)
-# anova(modelg1, modelg)
-# modelg3<- glm(ShootMass.g ~ Origin*CtrlPopLft, family=gaussian,data=modeldata)
-# anova(modelg3,modelg1)
-# 1-pchisq(5.5154, 1)
-# modelg2<- glm(ShootMass.g ~Origin +CtrlPopLf+Latitude, family=gaussian,data=modeldata)
-# anova(modelg2,modelg1)
-# 1-pchisq(4.8599, 1)
-# modelg4 <- glm(ShootMass.g ~Origin+Latitude, family=gaussian, data=modeldata)
-# anova(modelg4, modelg2)
-# modelg5 <- glm(ShootMass.g~CtrlPopLf+Latitude, family=gaussian, data=modeldata)
-# anova(modelg2, modelg5)
-# 
-# # qplot(data=modeldata,CtrlPopLf, ShootMass.g, color = Origin)+geom_point(position="jitter")
-# # moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopLf), summarize, popCount=length(PopID), popShootMass.g=mean(ShootMass.g))
-# # qplot(data=moddata,CtrlPopLf, popShootMass.g, color = Origin, xlab="Population mean leaf number in control",
-# #       ylab="Population mean days to ShootMass.g in herbivory", main="Performance in herbivory vs control, leaf no.") +geom_smooth(method=glm, se=TRUE)
-# 
+
 # #explicit trade-off using shootmass
 # modeldata <- merge(modeldata, comeans, all.x=TRUE)
 # modeldata <- modeldata[!is.na(modeldata$CtrlPopShoot),]
@@ -382,51 +289,7 @@ qchisq(0.5099,1,lower=FALSE)#chisq value
 
 lsmeans(modelg3, ~Origin, conf=95)
 
-# #explicit tradeoff - using lf count
-# modeldata <- merge(modeldata, comeans, all.x=TRUE)
-# modeldata <- modeldata[!is.na(modeldata$CtrlPopLf),]
-# 
-# modelobar<-lmer(CrownDiam.mm ~ Origin * CtrlPopLf*Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
-# model1raw<-lmer(CrownDiam.mm ~ Origin * CtrlPopLf* Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
-# anova(modelobar, model1raw)
-# model2raw<-lmer(CrownDiam.mm ~ Origin * CtrlPopLf* Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(CrownDiam.mm ~ Origin * CtrlPopLf* Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 1-pchisq(56.023,1)
-# 
-# #modelI <- lmer(CrownDiam.mm ~ Origin * CtrlPopLf+ Latitude + (1|PopID), family=gaussian,data=modeldata)
-# #anova(modelI, model2raw)
-# #modelL <- lmer(CrownDiam.mm ~ Origin * CtrlPopLf+(1|PopID), family=gaussian,data=modeldata)
-# #anova(modelL, modelI)
-# #modelCint <- lmer(CrownDiam.mm ~ Origin + CtrlPopLf+Latitude+(1|PopID), family=gaussian,data=modeldata)
-# #anova(modelI, modelCint)
-# #modelC <- lmer(CrownDiam.mm ~ Origin +Latitude+(1|PopID), family=gaussian,data=modeldata)
-# #anova(modelCint, modelC)
-# #modelOraw<-lmer(CrownDiam.mm ~ Latitude+(1|PopID), family=gaussian,data=modeldata)
-# #anova(modelOraw,modelC) #test for significance of origin - origin NOT sig....!
-# 
-# modelg <- glm(CrownDiam.mm ~ Origin*CtrlPopLf*Latitude, family=gaussian,data=modeldata)
-# modelg1 <- glm(CrownDiam.mm ~ Origin*CtrlPopLf+Latitude, family=gaussian,data=modeldata)
-# anova(modelg1, modelg, test="Chisq") #'Deviance' is chisq value
-# 1-pchisq(4.5369, 3)
-# anova(modelg1, modelg)
-# modelg3<- glm(CrownDiam.mm ~ Origin*CtrlPopLft, family=gaussian,data=modeldata)
-# anova(modelg3,modelg1)
-# 1-pchisq(5.5154, 1)
-# modelg2<- glm(CrownDiam.mm ~Origin +CtrlPopLf+Latitude, family=gaussian,data=modeldata)
-# anova(modelg2,modelg1)
-# 1-pchisq(4.8599, 1)
-# modelg4 <- glm(CrownDiam.mm ~Origin+Latitude, family=gaussian, data=modeldata)
-# anova(modelg4, modelg2)
-# modelg5 <- glm(CrownDiam.mm~CtrlPopLf+Latitude, family=gaussian, data=modeldata)
-# anova(modelg2, modelg5)
-# 
-# # qplot(data=modeldata,CtrlPopLf, CrownDiam.mm, color = Origin)+geom_point(position="jitter")
-# # moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopLf), summarize, popCount=length(PopID), popCrownDiam.mm=mean(CrownDiam.mm))
-# # qplot(data=moddata,CtrlPopLf, popCrownDiam.mm, color = Origin, xlab="Population mean leaf number in control",
-# #       ylab="Population mean days to CrownDiam.mm in herbivory", main="Performance in herbivory vs control, leaf no.") +geom_smooth(method=glm, se=TRUE)
-# 
+ 
 # #explicit trade-off using shootmass
 # modeldata <- merge(modeldata, comeans, all.x=TRUE)
 # modeldata <- modeldata[!is.na(modeldata$CtrlPopShoot),]
@@ -501,51 +364,7 @@ anova(modelOraw,modelL)
 
 CI.LS.poisson(modelL)
 
-# #explicit tradeoff - using lf count
-# modeldata <- merge(modeldata, comeans, all.x=TRUE)
-# modeldata <- modeldata[!is.na(modeldata$CtrlPopLf),]
-# 
-# modelobar<-lmer(LfCountH ~ Origin * CtrlPopLf*Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
-# model1raw<-lmer(LfCountH ~ Origin * CtrlPopLf* Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelobar, model1raw)
-# model2raw<-lmer(LfCountH ~ Origin * CtrlPopLf* Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(LfCountH ~ Origin * CtrlPopLf* Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 1-pchisq(56.023,1)
-# 
-# #modelI <- lmer(LfCountH ~ Origin * CtrlPopLf+ Latitude + (1|PopID), family=poisson,data=modeldata)
-# #anova(modelI, model2raw)
-# #modelL <- lmer(LfCountH ~ Origin * CtrlPopLf+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelL, modelI)
-# #modelCint <- lmer(LfCountH ~ Origin + CtrlPopLf+Latitude+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelI, modelCint)
-# #modelC <- lmer(LfCountH ~ Origin +Latitude+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelCint, modelC)
-# #modelOraw<-lmer(LfCountH ~ Latitude+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelOraw,modelC) #test for significance of origin - origin NOT sig....!
-# 
-# modelg <- glm(LfCountH ~ Origin*CtrlPopLf*Latitude, family=poisson,data=modeldata)
-# modelg1 <- glm(LfCountH ~ Origin*CtrlPopLf+Latitude, family=poisson,data=modeldata)
-# anova(modelg1, modelg, test="Chisq") #'Deviance' is chisq value
-# 1-pchisq(4.5369, 3)
-# anova(modelg1, modelg)
-# modelg3<- glm(LfCountH ~ Origin*CtrlPopLft, family=poisson,data=modeldata)
-# anova(modelg3,modelg1)
-# 1-pchisq(5.5154, 1)
-# modelg2<- glm(LfCountH ~Origin +CtrlPopLf+Latitude, family=poisson,data=modeldata)
-# anova(modelg2,modelg1)
-# 1-pchisq(4.8599, 1)
-# modelg4 <- glm(LfCountH ~Origin+Latitude, family=poisson, data=modeldata)
-# anova(modelg4, modelg2)
-# modelg5 <- glm(LfCountH~CtrlPopLf+Latitude, family=poisson, data=modeldata)
-# anova(modelg2, modelg5)
-# 
-# # qplot(data=modeldata,CtrlPopLf, LfCountH, color = Origin)+geom_point(position="jitter")
-# # moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopLf), summarize, popCount=length(PopID), popLfCountH=mean(LfCountH))
-# # qplot(data=moddata,CtrlPopLf, popLfCountH, color = Origin, xlab="Population mean leaf number in control",
-# #       ylab="Population mean days to LfCountH in herbivory", main="Performance in herbivory vs control, leaf no.") +geom_smooth(method=glm, se=TRUE)
-# 
+
 # #explicit trade-off using shootmass
 # modeldata <- merge(modeldata, comeans, all.x=TRUE)
 # modeldata <- modeldata[!is.na(modeldata$CtrlPopShoot),]
