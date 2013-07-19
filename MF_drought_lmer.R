@@ -107,18 +107,18 @@ anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what y
 # 
 modelg <- glm(DeathDay ~ Origin*CtrlPopShoot*Latitude, family=poisson,data=modeldata)
 modelg1 <- glm(DeathDay ~ Origin*CtrlPopShoot+Latitude, family=poisson,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
-1-pchisq(4.5369, 3)
+anova(modelg1, modelg, test="LRT") 
+qchisq(pval,1,lower=FALSE)#chisq value
 modelg3<- glm(DeathDay ~ Origin*CtrlPopShoot, family=poisson,data=modeldata)
-anova(modelg3,modelg1)
-1-pchisq(5.5154, 1)
+anova(modelg3,modelg1, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
 modelg2<- glm(DeathDay ~Origin +CtrlPopShoot+Latitude, family=poisson,data=modeldata)
-anova(modelg2,modelg1)
-1-pchisq(4.8599, 1)
+anova(modelg2,modelg1, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
 modelg4 <- glm(DeathDay ~Origin+Latitude, family=poisson, data=modeldata)
-anova(modelg4, modelg2)
+anova(modelg4, modelg2, test="LRT")
 modelg5 <- glm(DeathDay~CtrlPopShoot+Latitude, family=poisson, data=modeldata)
-anova(modelg2, modelg5)
+anova(modelg2, modelg5, test="LRT")
 # # 
 # # qplot(data=modeldata,CtrlPopShoot, DeathDay, color = Origin)+geom_point(position="jitter")
 # # moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popDeathDay=mean(DeathDay))
@@ -169,19 +169,19 @@ anova(modelg3)
 
 CI.LS.poisson(modelg3)
  
-# #explicit trade-off using shootmass
-# modeldata <- merge(modeldata, comeans, all.x=TRUE)
-# modeldata <- modeldata[!is.na(modeldata$CtrlPopShoot),]
-# 
-# modelobar<-lmer(TotWiltDay ~ Origin * CtrlPopShoot*Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
-# model1raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelobar, model1raw)
-# model2raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 1-pchisq(56.023,1)
-# 
+#explicit trade-off using shootmass
+modeldata <- merge(modeldata, comeans, all.x=TRUE)
+modeldata <- modeldata[!is.na(modeldata$CtrlPopShoot),]
+
+modelobar<-lmer(TotWiltDay ~ Origin * CtrlPopShoot*Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
+model1raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
+model2raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+1-pchisq(56.023,1)
+
 # #modelI <- lmer(TotWiltDay ~ Origin * CtrlPopShoot+ Latitude + (1|PopID), family=poisson,data=modeldata)
 # #anova(modelI, model2raw)
 # #modelL <- lmer(TotWiltDay ~ Origin * CtrlPopShoot+(1|PopID), family=poisson,data=modeldata)
@@ -192,28 +192,28 @@ CI.LS.poisson(modelg3)
 # #anova(modelCint, modelC)
 # #modelOraw<-lmer(TotWiltDay ~ Latitude+(1|PopID), family=poisson,data=modeldata)
 # #anova(modelOraw,modelC) #test for significance of origin - origin NOT sig....!
-# 
-# modelg <- glm(TotWiltDay ~ Origin*CtrlPopShoot*Latitude, family=poisson,data=modeldata)
-# modelg1 <- glm(TotWiltDay ~ Origin*CtrlPopShoot+Latitude, family=poisson,data=modeldata)
-# anova(modelg1, modelg) #'Deviance' is chisq value
-# 1-pchisq(4.5369, 3)
-# modelg3<- glm(TotWiltDay ~ Origin*CtrlPopShoot, family=poisson,data=modeldata)
-# anova(modelg3,modelg1)
-# 1-pchisq(5.5154, 1)
-# modelg2<- glm(TotWiltDay ~Origin +CtrlPopShoot+Latitude, family=poisson,data=modeldata)
-# anova(modelg2,modelg1)
-# 1-pchisq(4.8599, 1)
-# modelg4 <- glm(TotWiltDay ~Origin+Latitude, family=poisson, data=modeldata)
-# anova(modelg4, modelg2)
-# modelg5 <- glm(TotWiltDay~CtrlPopShoot+Latitude, family=poisson, data=modeldata)
-# anova(modelg2, modelg5)
-# # 
-# # qplot(data=modeldata,CtrlPopShoot, TotWiltDay, color = Origin)+geom_point(position="jitter")
-# # moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popTotWiltDay=mean(TotWiltDay))
-# # qplot(data=moddata,CtrlPopShoot, popTotWiltDay, color = Origin, 
-# #       xlab="Population mean shoot mass in control treatment", 
-# #       ylab="Population mean days to TotWiltDay in herbivory treatment", main="Performance in herbivory vs. control treatments") +geom_smooth(method=glm, se=TRUE)
-# # 
+
+modelg <- glm(TotWiltDay ~ Origin*CtrlPopShoot*Latitude, family=poisson,data=modeldata)
+modelg1 <- glm(TotWiltDay ~ Origin*CtrlPopShoot+Latitude, family=poisson,data=modeldata)
+anova(modelg1, modelg, test="LRT") 
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg3<- glm(TotWiltDay ~ Origin*CtrlPopShoot, family=poisson,data=modeldata)
+anova(modelg3,modelg1, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg2<- glm(TotWiltDay ~Origin +CtrlPopShoot+Latitude, family=poisson,data=modeldata)
+anova(modelg2,modelg1, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg4 <- glm(TotWiltDay ~Origin+Latitude, family=poisson, data=modeldata)
+anova(modelg4, modelg2, test="LRT")
+modelg5 <- glm(TotWiltDay~Latitude, family=poisson, data=modeldata)
+anova(modelg4, modelg5, test="LRT")
+
+qplot(data=modeldata,CtrlPopShoot, TotWiltDay, color = Origin)+geom_point(position="jitter")
+moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popTotWiltDay=mean(TotWiltDay))
+qplot(data=moddata,CtrlPopShoot, popTotWiltDay, color = Origin, 
+      xlab="Population mean shoot mass in control treatment", 
+      ylab="Population mean days to TotWiltDay in drought treatment", main="Performance in drought vs. control treatments") +geom_smooth(method=glm, family=poisson,se=TRUE)
+
 
 #drought, 1st wilt
 modeldata<-totmfd[!is.na(totmfd$WiltDay),]
@@ -258,48 +258,37 @@ anova(modelg3)
 CI.LS.poisson(modelg3)
 
  
-# #explicit trade-off using shootmass
-# modeldata <- merge(modeldata, comeans, all.x=TRUE)
-# modeldata <- modeldata[!is.na(modeldata$CtrlPopShoot),]
-# 
-# modelobar<-lmer(WiltDay ~ Origin * CtrlPopShoot*Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
-# model1raw<-lmer(WiltDay ~ Origin * CtrlPopShoot* Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelobar, model1raw)
-# model2raw<-lmer(WiltDay ~ Origin * CtrlPopShoot* Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(WiltDay ~ Origin * CtrlPopShoot* Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 1-pchisq(56.023,1)
-# 
-# #modelI <- lmer(WiltDay ~ Origin * CtrlPopShoot+ Latitude + (1|PopID), family=poisson,data=modeldata)
-# #anova(modelI, model2raw)
-# #modelL <- lmer(WiltDay ~ Origin * CtrlPopShoot+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelL, modelI)
-# #modelCint <- lmer(WiltDay ~ Origin + CtrlPopShoot+Latitude+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelI, modelCint)
-# #modelC <- lmer(WiltDay ~ Origin +Latitude+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelCint, modelC)
-# #modelOraw<-lmer(WiltDay ~ Latitude+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelOraw,modelC) #test for significance of origin - origin NOT sig....!
-# 
-# modelg <- glm(WiltDay ~ Origin*CtrlPopShoot*Latitude, family=poisson,data=modeldata)
-# modelg1 <- glm(WiltDay ~ Origin*CtrlPopShoot+Latitude, family=poisson,data=modeldata)
-# anova(modelg1, modelg) #'Deviance' is chisq value
-# 1-pchisq(4.5369, 3)
-# modelg3<- glm(WiltDay ~ Origin*CtrlPopShoot, family=poisson,data=modeldata)
-# anova(modelg3,modelg1)
-# 1-pchisq(5.5154, 1)
-# modelg2<- glm(WiltDay ~Origin +CtrlPopShoot+Latitude, family=poisson,data=modeldata)
-# anova(modelg2,modelg1)
-# 1-pchisq(4.8599, 1)
-# modelg4 <- glm(WiltDay ~Origin+Latitude, family=poisson, data=modeldata)
-# anova(modelg4, modelg2)
-# modelg5 <- glm(WiltDay~CtrlPopShoot+Latitude, family=poisson, data=modeldata)
-# anova(modelg2, modelg5)
-# # 
-# # qplot(data=modeldata,CtrlPopShoot, WiltDay, color = Origin)+geom_point(position="jitter")
-# # moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popWiltDay=mean(WiltDay))
-# # qplot(data=moddata,CtrlPopShoot, popWiltDay, color = Origin, 
-# #       xlab="Population mean shoot mass in control treatment", 
-# #       ylab="Population mean days to WiltDay in herbivory treatment", main="Performance in herbivory vs. control treatments") +geom_smooth(method=glm, se=TRUE)
-# # 
+#explicit trade-off using shootmass
+modeldata <- merge(modeldata, comeans, all.x=TRUE)
+modeldata <- modeldata[!is.na(modeldata$CtrlPopShoot),]
+
+modelobar<-lmer(WiltDay ~ Origin * CtrlPopShoot*Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
+model1raw<-lmer(WiltDay ~ Origin * CtrlPopShoot* Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
+model2raw<-lmer(WiltDay ~ Origin * CtrlPopShoot* Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(WiltDay ~ Origin * CtrlPopShoot* Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+1-pchisq(56.023,1)
+
+modelg <- glm(WiltDay ~ Origin*CtrlPopShoot*Latitude, family=poisson,data=modeldata)
+modelg1 <- glm(WiltDay ~ Origin*CtrlPopShoot+Latitude, family=poisson,data=modeldata)
+anova(modelg1, modelg, test="LRT") 
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg3<- glm(WiltDay ~ Origin*CtrlPopShoot, family=poisson,data=modeldata)
+anova(modelg3,modelg1, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg2<- glm(WiltDay ~Origin +CtrlPopShoot, family=poisson,data=modeldata)
+anova(modelg2,modelg3, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg4 <- glm(WiltDay ~Origin+Latitude, family=poisson, data=modeldata)
+anova(modelg4, modelg2, test="LRT")
+modelg5 <- glm(WiltDay~CtrlPopShoot+Latitude, family=poisson, data=modeldata)
+anova(modelg2, modelg5, test="LRT")
+
+qplot(data=modeldata,CtrlPopShoot, WiltDay, color = Origin)+geom_point(position="jitter")
+moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popWiltDay=mean(WiltDay))
+qplot(data=moddata,CtrlPopShoot, popWiltDay, color = Origin, 
+      xlab="Population mean shoot mass in control treatment", 
+      ylab="Population mean days to WiltDay in herbivory treatment", main="Performance in herbivory vs. control treatments") +geom_smooth(method=glm, se=TRUE)
+
