@@ -344,17 +344,18 @@ modeldata$blank<-as.factor(modeldata$blank)
 modeldata$MomFam<-as.factor(modeldata$MomFam)
 modeldata$Generation <- as.factor(modeldata$Generation)
 
-model1<-lmer(LfCountH  ~ Origin* Generation  +(1|PopID/MomFam), family=poisson,data=modeldata)
+model1<-lmer(LfCountH  ~ Origin* Generation  +(Origin|PopID/MomFam), family=poisson,data=modeldata)
 
 genlf <- CI.LS.poisson.2term(model1, conf=95)
 
 # #use numbers to make table
-# genlf <- data.frame(Origin=c("Invasive","Invasive","Native","Native"), Generation=c(0,1,0,1), lfmean=c( ), 
+# genlf <- data.frame(Origin=c("Native","Invasive","Native","Invasive"), Generation=c(0,0,1,1), 
+#                     lfmean=c( ), 
 #                     uCL=c(),lCL=c() )
 
 ###color plot
-pdf("STMFGenleaf_color.pdf", useDingbats=FALSE)
-# png("STMFGenleaf_color.png", height = 600, width = 600, pointsize = 16)
+# pdf("STMFGenleaf_color.pdf", useDingbats=FALSE)
+png("STMFGenleaf_color.png", height = 600, width = 800, pointsize = 16)
 p1 <- ggplot(genlf, aes(x=Generation, y=mean, color=Origin, group=Origin))+
   geom_errorbar(aes(ymin=lCL, ymax=uCL),color="black", width=.1, position=position_dodge(0.1))+
   geom_line(position=position_dodge(0.1))+geom_point(size=5, position=position_dodge(0.1))+
@@ -366,17 +367,17 @@ p1 <- ggplot(genlf, aes(x=Generation, y=mean, color=Origin, group=Origin))+
         axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=15 ))
 p1
-p1 + annotate(geom="text", x=0, y=21.2, label="Broad CG", fontface="italic",size=5) +
-  annotate(geom="text", x=0, y=22, label="Origin", fontface="italic",size=5) +
-  annotate('point',x = -0.02, y = 20.4, pch=8, color="red",parse=T,size=3)+
-  annotate('point',x = 0.02, y = 20.4, pch=8, color="red",parse=T,size=3)+
+p1 + annotate(geom="text", x=0, y=20.2, label="Broad CG", fontface="italic",size=5) +
+  annotate(geom="text", x=0, y=19.4, label="Origin", fontface="italic",size=5) +
+  annotate('point',x = -0.04, y = 18.6, pch=8, color="red",parse=T,size=3)+
+  annotate('point',x = 0, y = 18.6, pch=8, color="red",parse=T,size=3)+
+  annotate('point',x = 0.04, y = 18.6, pch=8, color="red",parse=T,size=3)+
   
   annotate('point',x = 1, y = 15, pch=8, color="red",parse=T,size=3)+
   annotate(geom="text", x=1, y=16.6, label="Origin",fontface="italic", size=5) +
   annotate(geom="text", x=1, y=15.8, label="Maternal CG", fontface="italic",size=5) +
   
-  annotate('point',x = 0.48, y = 16, pch=8, color="red",parse=T,size=3)+
-  annotate('point',x = 0.52, y = 16, pch=8, color="red",parse=T,size=3)+
+  annotate('point',x = 0.50, y = 16, pch=8, color="red",parse=T,size=3)+
   annotate(geom="text", x=0.5, y=16.8, label="Origin", size=5)+ 
   annotate(geom="text", x=0.5, y=15.2, label="Origin*Generation", size=5)+
   annotate('point',x = 0.5, y = 14.4, pch=8, color="red",parse=T,size=3)+
@@ -540,4 +541,59 @@ p1 +  annotate('point',x = 1, y = 80, pch=16, color="black",parse=T,size=3)+
   annotate('point',x = 0.48, y = 74, pch=8, color="black",parse=T,size=3)+
   annotate('point',x = 0.52, y = 74, pch=8, color="black",parse=T,size=3)+
   annotate(geom="text", x=0, y=56, label="Full data set", fontface="italic",size=5)
+dev.off()
+
+####bolted at H, crossgen###########
+
+#or use lsmeans
+modeldata<-gen[!is.na(gen$bolt.bin),]
+modeldata$blank<-1
+modeldata$blank<-as.factor(modeldata$blank)
+modeldata$MomFam<-as.factor(modeldata$MomFam)
+modeldata$Generation<-as.factor(modeldata$Generation)
+
+model1<-glm(bolt.bin  ~ Origin+ Generation, family=binomial,data=modeldata)
+
+genbatH <- CI.LS.binomial.2term(model1, conf=95)
+genbatH$mean <- genbatH$mean*100
+genbatH$uCL <- genbatH$uCL*100
+genbatH$lCL <- genbatH$lCL*100
+
+# ###color plot###
+# pdf("STMFGenbatH_color.pdf", useDingbats=FALSE)
+png("STMFGenbatH_color.png", height = 600, width = 800, pointsize = 16)
+p1 <- ggplot(genbatH, aes(x=Generation, y=mean, color=Origin, group=Origin, ymax=90))+
+  geom_errorbar(aes(ymin=lCL, ymax=uCL),color="black", width=.1, 
+                position=position_dodge(0.1))+
+  geom_line(position=position_dodge(0.1))+
+  geom_point(size=5, position=position_dodge(0.1))+
+  ylab("Percent bolted at harvest")+
+  scale_x_continuous(breaks=seq(0,1,1), name="Generation")+ 
+  ggtitle("Bolting Status\nCross-generational analysis") + 
+  theme(plot.title = element_text(lineheight=.8, face="bold"),
+        legend.justification=c(0,1), legend.position=c(0,1),
+        legend.title = element_text(size=14, face="bold"),
+        legend.text = element_text(size = 13),
+        axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
+        axis.title.y = element_text(size=15, face="bold"),
+        axis.text.x = element_text(size=15 ))
+p1
+p1 +  annotate('point',x = 1, y = 33, pch=8, color="red",parse=T,size=3)+
+  annotate(geom="text", x=1, y=42, label="Origin",fontface="italic", size=5) +
+  annotate(geom="text", x=1, y=37.5, label="Maternal CG",fontface="italic", size=5)+
+  
+  annotate(geom="text", x=0, y=29.5, label="Origin",fontface="italic", size=5)+
+  annotate(geom="point", x=0, y=20.5, pch=8, color="red",parse=T,size=3)+
+  annotate(geom="point", x=0.05, y=20.5, pch=8, color="red",parse=T,size=3)+
+  annotate(geom="point", x=-0.05, y=20.5, pch=8, color="red",parse=T,size=3)+
+  annotate(geom="text", x=0, y=25, label="Broad CG", fontface="italic",size=5)+
+  
+  annotate('point',x = 0.5, y = 42, pch=8, color="red",parse=T,size=3)+
+  annotate('point',x = 0.55, y = 42, pch=8, color="red",parse=T,size=3)+
+  annotate('point',x = 0.45, y = 42, pch=8, color="red",parse=T,size=3)+
+  annotate(geom="text", x=0.5, y=46.5, label="Origin", size=5)+ 
+  annotate(geom="text", x=0.5, y=37.5, label="Origin*Generation", size=5)+
+  annotate(geom="text", x=0.5, y=33, label="NS",fontface="italic", size=5)
+  
+
 dev.off()
