@@ -30,15 +30,16 @@ grdat <- grdat[grdat$PopID!="<NA>",]
 grdat[grdat$lxwH %in% 0,]$lxwH <- NA
 
 ###color plot###
-pdf("MFsizebox_color.pdf", useDingbats=FALSE)
-# png("MFsizebox_color.png", height = 600, width = 600, pointsize = 16)
+# pdf("MFsizebox_color.pdf", useDingbats=FALSE)
+png("MFsizebox_color.png", height = 600, width = 600, pointsize = 16)
 
 p1 <- ggplot(grdat[grdat$Trt!="Herbivory",],aes(Trt, lxwH, fill=Origin))+
   geom_boxplot()+xlab("Stress Treatment")+ylab("Approximate area of longest leaf (cm2)")+
   theme(legend.justification=c(1,1), legend.position=c(1,1))
 p1 <- p1 + annotate('point',x = "Early Control", y = 110, pch=8, color="red",parse=T, size=4)+
-  annotate('point',x = "Control", y = 160, pch=8, color="red",parse=T, size=4)+annotate('point',x = "Control", y = 170, pch=8, color="red",parse=T, size=4)+annotate('point',x = "Control", y = 180, pch=8, color="red",parse=T, size=4)+
-  annotate('point',x = "Nutrient", y = 110, pch=8, color="red",parse=T, size=4)+annotate('point',x = "Nutrient", y = 120, pch=8, color="red",parse=T, size=4)+annotate('point',x = "Nutrient", y = 130, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = "Control", y = 160, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = "Nutrient", y = 110, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = "Nutrient", y = 120, pch=8, color="red",parse=T, size=4)+
   theme(axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=12 ))
 
@@ -231,8 +232,8 @@ grBatHStd$RevStackymin <- grBatHStd$RevStackymax-grBatHStd$ymax
 grBatHStd[grBatHStd$RevStackymin<0,]$RevStackymin <- 0
 
 
-pdf("MFboltedmosaic_color.pdf", useDingbats=FALSE)
-# png("MFboltedmosaic_color.png", height = 600, width = 600, pointsize = 16)
+# pdf("MFboltedmosaic_color.pdf", useDingbats=FALSE)
+png("MFboltedmosaic_color.png", height = 600, width = 600, pointsize = 16)
 
 p1 <- ggplot(grBatHStd, aes(ymin = RevStackymin, ymax = RevStackymax, xmin=xmin, xmax=xmax, fill=factor(col)))+
   geom_rect(colour = I("black"))+
