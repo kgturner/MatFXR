@@ -112,12 +112,12 @@ qchisq(pval,1,lower=FALSE)#chisq value
 modelg3<- glm(DeathDay ~ Origin*CtrlPopShoot, family=poisson,data=modeldata)
 anova(modelg3,modelg1, test="LRT")
 qchisq(pval,1,lower=FALSE)#chisq value
-modelg2<- glm(DeathDay ~Origin +CtrlPopShoot+Latitude, family=poisson,data=modeldata)
-anova(modelg2,modelg1, test="LRT")
+modelg2<- glm(DeathDay ~Origin +CtrlPopShoot, family=poisson,data=modeldata)
+anova(modelg2,modelg3, test="LRT")
 qchisq(pval,1,lower=FALSE)#chisq value
-modelg4 <- glm(DeathDay ~Origin+Latitude, family=poisson, data=modeldata)
+modelg4 <- glm(DeathDay ~Origin, family=poisson, data=modeldata)
 anova(modelg4, modelg2, test="LRT")
-modelg5 <- glm(DeathDay~CtrlPopShoot+Latitude, family=poisson, data=modeldata)
+modelg5 <- glm(DeathDay~CtrlPopShoot, family=poisson, data=modeldata)
 anova(modelg2, modelg5, test="LRT")
 # # 
 # # qplot(data=modeldata,CtrlPopShoot, DeathDay, color = Origin)+geom_point(position="jitter")
