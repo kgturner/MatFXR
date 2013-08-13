@@ -135,12 +135,18 @@ anova(modelCint, modelC)
 modelOraw<-lmer(lxwH ~ (1|PopID), family=gaussian,data=modeldata)
 anova(modelOraw,modelC) #test for significance of origin - origin NOT sig....!
 
+summary(modelL, test="LRT")
+modelg <- glm(lxwH ~ Origin*CtrlPopShoot, family=gaussian,data=modeldata)
+summary(modelg)
+
 qplot(data=modeldata,CtrlPopShoot, lxwH, color = Origin)+geom_point(position="jitter")
 moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), poplxwH=mean(lxwH))
+
+png("MF_performance_nutlfsize_shoot.png", height = 600, width = 600, pointsize = 16)
 qplot(data=moddata,CtrlPopShoot, poplxwH, color = Origin, 
       xlab="Population mean shoot mass in control treatment", 
-      ylab="Population mean days to lxwH in herbivory treatment", main="Performance in herbivory vs. control treatments") +geom_smooth(method=glm, se=TRUE)
-
+      ylab="Population mean area of longest leaf in nutrient treatment", main="Performance in nutrient vs. control treatments") +geom_smooth(method=glm, se=TRUE)
+dev.off()
 
 ##nut, shoot mass
 modeldata<-totmfn[!is.na(totmfn$ShootMass.g),]
@@ -284,12 +290,18 @@ anova(modelCint, modelC)
 modelOraw<-lmer(CrownDiam.mm ~ (1|PopID/Mom), family=gaussian,data=modeldata)
 anova(modelOraw,modelC) #test for significance of origin - origin NOT sig....!
 
+modelL
+modelg <- glm(CrownDiam.mm~Origin*CtrlPopShoot, family=gaussian, data=modeldata)
+summary(modelg)
+
 qplot(data=modeldata,CtrlPopShoot, CrownDiam.mm, color = Origin)+geom_point(position="jitter")
 moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popCrownDiam.mm=mean(CrownDiam.mm))
+
+png("MF_performance_nutcrown_shoot.png", height = 600, width = 600, pointsize = 16)
 qplot(data=moddata,CtrlPopShoot, popCrownDiam.mm, color = Origin, 
       xlab="Population mean shoot mass in control treatment", 
-      ylab="Population mean days to CrownDiam.mm in herbivory treatment", main="Performance in herbivory vs. control treatments") +geom_smooth(method=glm, se=TRUE)
-
+      ylab="Population mean CrownDiam.mm in nutrient treatment", main="Performance in nutrient vs. control treatments") +geom_smooth(method=glm, se=TRUE)
+dev.off()
 
 ##nut lf count
 modeldata<-totmfn[!is.na(totmfn$LfCountH),]

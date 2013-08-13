@@ -128,15 +128,16 @@ CI.LS.binomial(modelg1)
 #explicit trade-off using shootmass
 modeldata <- merge(modeldata, comeans, all.x=TRUE)
 modeldata <- modeldata[!is.na(modeldata$CtrlPopShoot),]
+xtabs(bolt.bin~Origin+CtrlPopShoot, data=modeldata)
 
-modelobar<-lmer(bolt.bin ~ Origin * CtrlPopShoot*Latitude +(Origin|PopID/Mom), family=binomial,data=modeldata)
-model1raw<-lmer(bolt.bin ~ Origin * CtrlPopShoot* Latitude + (1|PopID/Mom), family=binomial,data=modeldata)
-anova(modelobar, model1raw)
-model2raw<-lmer(bolt.bin ~ Origin * CtrlPopShoot* Latitude +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3raw<-lmer(bolt.bin ~ Origin * CtrlPopShoot* Latitude +(1|blank), family=binomial,data=modeldata) # Test population effect
-anova(model2raw,model1raw) # mom not sig
-anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-1-pchisq(56.023,1)
+# modelobar<-lmer(bolt.bin ~ Origin * CtrlPopShoot*Latitude +(Origin|PopID/Mom), family=binomial,data=modeldata)
+# model1raw<-lmer(bolt.bin ~ Origin * CtrlPopShoot* Latitude + (1|PopID/Mom), family=binomial,data=modeldata)
+# anova(modelobar, model1raw)
+# model2raw<-lmer(bolt.bin ~ Origin * CtrlPopShoot* Latitude +(1|PopID), family=binomial,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+# model3raw<-lmer(bolt.bin ~ Origin * CtrlPopShoot* Latitude +(1|blank), family=binomial,data=modeldata) # Test population effect
+# anova(model2raw,model1raw) # mom not sig
+# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+# 1-pchisq(56.023,1)
 
 modelg <- glm(bolt.bin ~ Origin*CtrlPopShoot*Latitude, family=binomial,data=modeldata)
 modelg1 <- glm(bolt.bin ~ Origin*CtrlPopShoot+Latitude, family=binomial,data=modeldata)
@@ -156,6 +157,8 @@ modelg6 <- glm(bolt.bin ~ Origin+CtrlPopShoot, family=binomial,data=modeldata)
 anova(modelg6, modelg3)
 modelg7 <- glm(bolt.bin ~Origin, family=binomial, data=modeldata)
 anova(modelg4, modelg7)
+
+summary(modelg1)
 
 qplot(data=modeldata,CtrlPopShoot, bolt.bin, color = Origin)+geom_point(position="jitter")
 moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popbolt.bin=mean(bolt.bin))
