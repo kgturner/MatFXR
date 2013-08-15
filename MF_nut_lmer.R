@@ -15,8 +15,11 @@ str(mfco.dk1)
 totmf <- merge(mfmom.dk,mfco.dk1, all.y=TRUE )
 
 se <- function(x) sqrt(var(x)/length(x)) #chokes on NAs
-comeans<- ddply(totmf, .(PopID, Origin, Latitude), summarize, CtrlPopCount=length(PopID), CtrlPopLf=mean(LfCountH, na.rm=TRUE), CtrlPopLfSE=se(LfCountH, na.rm=TRUE),
-                CtrlPopShoot=mean(ShootMass.g, na.rm=TRUE), CtrlPopShootSE=se(ShootMass.g, na.rm=TRUE))
+comeans<- ddply(totmf, .(PopID, Origin, Latitude), summarize, CtrlPopCount=length(PopID), 
+                CtrlPopLf=mean(LfCountH, na.rm=TRUE), 
+                CtrlPopShoot=mean(ShootMass.g, na.rm=TRUE),
+                CtrlPoplxw=mean(lxwH, na.rm=TRUE), 
+                CtrlPopCrown=mean(CrownDiam.mm, na.rm=TRUE))
 
 ####Nut def, Origin + Lat####
 mfn.dk<-read.table("MatFxNut.dk.txt", header=T, sep="\t", quote='"', row.names=1) #nut, dk only
@@ -115,29 +118,31 @@ qqline(resid(modelg))
 modeldata <- merge(modeldata, comeans, all.x=TRUE)
 modeldata <- modeldata[!is.na(modeldata$CtrlPopShoot),]
 
-modelobar<-lmer(lxwH ~ Origin * CtrlPopShoot*Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
-model1raw<-lmer(lxwH ~ Origin * CtrlPopShoot* Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
-anova(modelobar, model1raw)
-model2raw<-lmer(lxwH ~ Origin * CtrlPopShoot* Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-model3raw<-lmer(lxwH ~ Origin * CtrlPopShoot* Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
-anova(model2raw,model1raw) # mom not sig
-anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-1-pchisq(56.023,1)
+# modelobar<-lmer(lxwH ~ Origin * CtrlPopShoot*Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
+# model1raw<-lmer(lxwH ~ Origin * CtrlPopShoot* Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
+# anova(modelobar, model1raw)
+# model2raw<-lmer(lxwH ~ Origin * CtrlPopShoot* Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+# model3raw<-lmer(lxwH ~ Origin * CtrlPopShoot* Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
+# anova(model2raw,model1raw) # mom not sig
+# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+# 1-pchisq(56.023,1)
 
-modelI <- lmer(lxwH ~ Origin * CtrlPopShoot+ Latitude + (1|PopID), family=gaussian,data=modeldata)
-anova(modelI, model2raw)
-modelL <- lmer(lxwH ~ Origin * CtrlPopShoot+(1|PopID), family=gaussian,data=modeldata)
-anova(modelL, modelI)
-modelCint <- lmer(lxwH ~ Origin + CtrlPopShoot+(1|PopID), family=gaussian,data=modeldata)
-anova(modelL, modelCint)
-modelC <- lmer(lxwH ~ Origin +(1|PopID), family=gaussian,data=modeldata)
-anova(modelCint, modelC)
-modelOraw<-lmer(lxwH ~ (1|PopID), family=gaussian,data=modeldata)
-anova(modelOraw,modelC) #test for significance of origin - origin NOT sig....!
+modelg <- glm(lxwH ~ Origin*CtrlPopShoot*Latitude, family=gaussian,data=modeldata)
+modelg1 <- glm(lxwH ~ Origin*CtrlPopShoot+Latitude, family=gaussian,data=modeldata)
+anova(modelg1, modelg, test="LRT") #'Deviance' is chisq value
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg3<- glm(lxwH ~ Origin*CtrlPopShoot, family=gaussian,data=modeldata)
+anova(modelg3,modelg1, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg2<- glm(lxwH ~Origin +CtrlPopShoot, family=gaussian,data=modeldata)
+anova(modelg2,modelg3, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg4 <- glm(lxwH ~Origin, family=gaussian, data=modeldata)
+anova(modelg4, modelg2, test="LRT")
+modelg5 <- glm(lxwH~CtrlPopShoot, family=gaussian, data=modeldata)
+anova(modelg2, modelg5, test="LRT")
 
-summary(modelL, test="LRT")
-modelg <- glm(lxwH ~ Origin*CtrlPopShoot, family=gaussian,data=modeldata)
-summary(modelg)
+summary(modelg3)
 
 qplot(data=modeldata,CtrlPopShoot, lxwH, color = Origin)+geom_point(position="jitter")
 moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), poplxwH=mean(lxwH))
@@ -145,6 +150,45 @@ moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize,
 png("MF_performance_nutlfsize_shoot.png", height = 600, width = 600, pointsize = 16)
 qplot(data=moddata,CtrlPopShoot, poplxwH, color = Origin, 
       xlab="Population mean shoot mass in control treatment", 
+      ylab="Population mean area of longest leaf in nutrient treatment", main="Performance in nutrient vs. control treatments") +geom_smooth(method=glm, se=TRUE)
+dev.off()
+
+#explicit trade-off using lxw
+modeldata <- merge(modeldata, comeans, all.x=TRUE)
+modeldata <- modeldata[!is.na(modeldata$CtrlPoplxw),]
+
+# modelobar<-lmer(lxwH ~ Origin * CtrlPoplxw*Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
+# model1raw<-lmer(lxwH ~ Origin * CtrlPoplxw* Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
+# anova(modelobar, model1raw)
+# model2raw<-lmer(lxwH ~ Origin * CtrlPoplxw+ Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+# model3raw<-lmer(lxwH ~ Origin * CtrlPoplxw+ Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
+# anova(model2raw,model1raw) # mom not sig
+# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+# 1-pchisq(56.023,1)
+
+modelg <- glm(lxwH ~ Origin*CtrlPoplxw*Latitude, family=gaussian,data=modeldata)
+modelg1 <- glm(lxwH ~ Origin*CtrlPoplxw+Latitude, family=gaussian,data=modeldata)
+anova(modelg1, modelg, test="LRT") #'Deviance' is chisq value
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg3<- glm(lxwH ~ Origin*CtrlPoplxw, family=gaussian,data=modeldata)
+anova(modelg3,modelg1, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg2<- glm(lxwH ~Origin +CtrlPoplxw, family=gaussian,data=modeldata)
+anova(modelg2,modelg3, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg4 <- glm(lxwH ~Origin, family=gaussian, data=modeldata)
+anova(modelg4, modelg2, test="LRT")
+modelg5 <- glm(lxwH~CtrlPoplxw, family=gaussian, data=modeldata)
+anova(modelg2, modelg5, test="LRT")
+
+summary(modelg3)
+
+qplot(data=modeldata,CtrlPoplxw, lxwH, color = Origin)+geom_point(position="jitter")
+moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPoplxw), summarize, popCount=length(PopID), poplxwH=mean(lxwH))
+
+png("MF_performance_nutlfsize_lxw.png", height = 600, width = 600, pointsize = 16)
+qplot(data=moddata,CtrlPoplxw, poplxwH, color = Origin, 
+      xlab="Population mean area of longest leaf in control treatment", 
       ylab="Population mean area of longest leaf in nutrient treatment", main="Performance in nutrient vs. control treatments") +geom_smooth(method=glm, se=TRUE)
 dev.off()
 
@@ -279,10 +323,10 @@ anova(model2raw,model1raw) # mom not sig
 anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 1-pchisq(56.023,1)
 
-modelI <- lmer(CrownDiam.mm ~ Origin * CtrlPopShoot+ Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
-anova(modelI, model1raw)
+# modelI <- lmer(CrownDiam.mm ~ Origin * CtrlPopShoot+ Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
+# anova(modelI, model1raw)
 modelL <- lmer(CrownDiam.mm ~ Origin * CtrlPopShoot+(1|PopID/Mom), family=gaussian,data=modeldata)
-anova(modelL, modelI)
+anova(modelL, model1raw)
 modelCint <- lmer(CrownDiam.mm ~ Origin + CtrlPopShoot+(1|PopID/Mom), family=gaussian,data=modeldata)
 anova(modelL, modelCint)
 modelC <- lmer(CrownDiam.mm ~ Origin+(1|PopID/Mom), family=gaussian,data=modeldata)
@@ -290,7 +334,7 @@ anova(modelCint, modelC)
 modelOraw<-lmer(CrownDiam.mm ~ (1|PopID/Mom), family=gaussian,data=modeldata)
 anova(modelOraw,modelC) #test for significance of origin - origin NOT sig....!
 
-modelL
+summary(modelL)
 modelg <- glm(CrownDiam.mm~Origin*CtrlPopShoot, family=gaussian, data=modeldata)
 summary(modelg)
 
@@ -300,6 +344,43 @@ moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize,
 png("MF_performance_nutcrown_shoot.png", height = 600, width = 600, pointsize = 16)
 qplot(data=moddata,CtrlPopShoot, popCrownDiam.mm, color = Origin, 
       xlab="Population mean shoot mass in control treatment", 
+      ylab="Population mean CrownDiam.mm in nutrient treatment", main="Performance in nutrient vs. control treatments") +geom_smooth(method=glm, se=TRUE)
+dev.off()
+
+#explicit trade-off using crown
+modeldata <- merge(modeldata, comeans, all.x=TRUE)
+modeldata <- modeldata[!is.na(modeldata$CtrlPopCrown),]
+
+modelobar<-lmer(CrownDiam.mm ~ Origin * CtrlPopCrown+Latitude +(Origin|PopID/Mom), family=gaussian,data=modeldata)
+model1raw<-lmer(CrownDiam.mm ~ Origin * CtrlPopCrown+ Latitude + (1|PopID/Mom), family=gaussian,data=modeldata)
+anova(modelobar, model1raw)
+model2raw<-lmer(CrownDiam.mm ~ Origin * CtrlPopCrown+ Latitude +(1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(CrownDiam.mm ~ Origin * CtrlPopCrown+ Latitude +(1|blank), family=gaussian,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+1-pchisq(56.023,1)
+
+modelg <- glm(CrownDiam.mm ~ Origin*CtrlPopCrown*Latitude, family=gaussian,data=modeldata)
+modelg1 <- glm(CrownDiam.mm ~ Origin*CtrlPopCrown+Latitude, family=gaussian,data=modeldata)
+anova(modelg1, modelg, test="LRT") #'Deviance' is chisq value
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg3<- glm(CrownDiam.mm ~ Origin*CtrlPopCrown, family=gaussian,data=modeldata)
+anova(modelg3,modelg1, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg2<- glm(CrownDiam.mm ~Origin +CtrlPopCrown, family=gaussian,data=modeldata)
+anova(modelg2,modelg3, test="LRT")
+qchisq(pval,1,lower=FALSE)#chisq value
+modelg4 <- glm(CrownDiam.mm ~Origin, family=gaussian, data=modeldata)
+anova(modelg4, modelg2, test="LRT")
+modelg5 <- glm(CrownDiam.mm~CtrlPopCrown, family=gaussian, data=modeldata)
+anova(modelg2, modelg5, test="LRT")
+
+qplot(data=modeldata,CtrlPopCrown, CrownDiam.mm, color = Origin)+geom_point(position="jitter")
+moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopCrown), summarize, popCount=length(PopID), popCrownDiam.mm=mean(CrownDiam.mm))
+
+png("MF_performance_nutcrown_crown.png", height = 600, width = 600, pointsize = 16)
+qplot(data=moddata,CtrlPopCrown, popCrownDiam.mm, color = Origin, 
+      xlab="Population mean crown diam. in control treatment", 
       ylab="Population mean CrownDiam.mm in nutrient treatment", main="Performance in nutrient vs. control treatments") +geom_smooth(method=glm, se=TRUE)
 dev.off()
 
