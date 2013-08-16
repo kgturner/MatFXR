@@ -112,13 +112,13 @@ modelg4 <- glm(DeathDay ~Origin+Latitude, family=poisson, data=modeldata)
 anova(modelg4, modelg2, test="LRT")
 modelg5 <- glm(DeathDay~CtrlPopShoot+Latitude, family=poisson, data=modeldata)
 anova(modelg2, modelg5, test="LRT")
-# # 
-# # qplot(data=modeldata,CtrlPopShoot, DeathDay, color = Origin)+geom_point(position="jitter")
-# # moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popDeathDay=mean(DeathDay))
-# # qplot(data=moddata,CtrlPopShoot, popDeathDay, color = Origin, 
-# #       xlab="Population mean shoot mass in control treatment", 
-# #       ylab="Population mean days to DeathDay in herbivory treatment", main="Performance in herbivory vs. control treatments") +geom_smooth(method=glm, se=TRUE)
-# # 
+
+qplot(data=modeldata,CtrlPopShoot, DeathDay, color = Origin)+geom_point(position="jitter")
+moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popDeathDay=mean(DeathDay))
+qplot(data=moddata,CtrlPopShoot, popDeathDay, color = Origin, 
+      xlab="Population mean shoot mass in control treatment", 
+      ylab="Population mean days to DeathDay in herbivory treatment", main="Performance in herbivory vs. control treatments") +geom_smooth(method=glm, se=TRUE)
+
 
 #flood, root death
 modeldata<-totmff[!is.na(totmff$FloatDay),]

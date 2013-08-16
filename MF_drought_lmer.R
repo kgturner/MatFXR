@@ -15,8 +15,8 @@ str(mfco.dk1)
 totmf <- merge(mfmom.dk,mfco.dk1, all.y=TRUE )
 
 se <- function(x) sqrt(var(x)/length(x)) #chokes on NAs
-comeans<- ddply(totmf, .(PopID, Origin, Latitude), summarize, CtrlPopCount=length(PopID), CtrlPopLf=mean(LfCountH, na.rm=TRUE), CtrlPopLfSE=se(LfCountH, na.rm=TRUE),
-                CtrlPopShoot=mean(ShootMass.g, na.rm=TRUE), CtrlPopShootSE=se(ShootMass.g, na.rm=TRUE))
+comeans<- ddply(totmf, .(PopID, Origin, Latitude), summarize, CtrlPopCount=length(PopID), CtrlPopLf=mean(LfCountH, na.rm=TRUE), CtrlPopLfSE=se(LfCountH),
+                CtrlPopShoot=mean(ShootMass.g, na.rm=TRUE), CtrlPopShootSE=se(ShootMass.g))
 
 ####Drought, Origin * Lat####
 mfd.dk<-read.table("MatFxDrought.dk.txt", header=T, sep="\t", quote='"', row.names=1) #drought, dk only
@@ -49,7 +49,7 @@ totmfd <- merge(mfmom.dk,mfd.dk, all.y=TRUE )
 # summary(d[d$Origin=="inv",]$TotWilt)
 # summary(d[d$Origin=="nat",]$TotWilt)
 
-#drought, death
+###drought, death
 modeldata<-totmfd[!is.na(totmfd$DeathDay),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
@@ -119,15 +119,17 @@ modelg4 <- glm(DeathDay ~Origin, family=poisson, data=modeldata)
 anova(modelg4, modelg2, test="LRT")
 modelg5 <- glm(DeathDay~CtrlPopShoot, family=poisson, data=modeldata)
 anova(modelg2, modelg5, test="LRT")
-# # 
-# # qplot(data=modeldata,CtrlPopShoot, DeathDay, color = Origin)+geom_point(position="jitter")
-# # moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popDeathDay=mean(DeathDay))
-# # qplot(data=moddata,CtrlPopShoot, popDeathDay, color = Origin, 
-# #       xlab="Population mean shoot mass in control treatment", 
-# #       ylab="Population mean days to DeathDay in herbivory treatment", main="Performance in herbivory vs. control treatments") +geom_smooth(method=glm, se=TRUE)
-# # 
 
-#drought, tot wilt
+qplot(data=modeldata,CtrlPopShoot, DeathDay, color = Origin)+geom_point(position="jitter")
+moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popDeathDay=mean(DeathDay))
+
+png("MF_performance_drdeath_shoot.png", height = 600, width = 600, pointsize = 16)
+qplot(data=moddata,CtrlPopShoot, popDeathDay, color = Origin, 
+      xlab="Population mean shoot mass in control treatment", 
+      ylab="Population mean days to DeathDay in herbivory treatment", main="Performance in herbivory vs. control treatments") +geom_smooth(method=glm, se=TRUE)
+dev.off()
+
+###drought, tot wilt
 modeldata<-totmfd[!is.na(totmfd$TotWiltDay),]
 modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
@@ -189,15 +191,16 @@ qchisq(pval,1,lower=FALSE)#chisq value
 modelg3<- glm(TotWiltDay ~ Origin*CtrlPopShoot, family=poisson,data=modeldata)
 anova(modelg3,modelg1, test="LRT")
 qchisq(pval,1,lower=FALSE)#chisq value
-modelg2<- glm(TotWiltDay ~Origin +CtrlPopShoot+Latitude, family=poisson,data=modeldata)
-anova(modelg2,modelg1, test="LRT")
+
+modelg2<- glm(TotWiltDay ~Origin +CtrlPopShoot, family=poisson,data=modeldata)
+anova(modelg2,modelg3, test="LRT")
 qchisq(pval,1,lower=FALSE)#chisq value
 modelg4 <- glm(TotWiltDay ~Origin+Latitude, family=poisson, data=modeldata)
 anova(modelg4, modelg2, test="LRT")
 modelg5 <- glm(TotWiltDay~Latitude, family=poisson, data=modeldata)
 anova(modelg4, modelg5, test="LRT")
 
-summary(modelg1)
+summary(modelg3)
 
 qplot(data=modeldata,CtrlPopShoot, TotWiltDay, color = Origin)+geom_point(position="jitter")
 moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popTotWiltDay=mean(TotWiltDay))
@@ -206,7 +209,7 @@ png("MF_performance_totwilt_shoot.png", height = 600, width = 600, pointsize = 1
 qplot(data=moddata,CtrlPopShoot, popTotWiltDay, color = Origin, 
       xlab="Population mean shoot mass in control treatment", 
       ylab="Population mean days to TotWiltDay in drought treatment",
-      main="Performance in drought vs. control treatments") +geom_smooth(method=glm, family=poisson,se=TRUE)
+      main="Performance in drought vs. control treatments") +geom_smooth(method=glm,se=TRUE)
 dev.off()
 
 #drought, 1st wilt
