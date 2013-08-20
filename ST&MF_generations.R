@@ -167,7 +167,7 @@ pN
 # anova(modelg2,modelg1)
 # 1-pchisq(0.32473, 1)
 
-model1
+modelobar
 
 ls <- as.data.frame(lsmeans(model1, ~ Origin+Generation, conf=95))
 ls
@@ -372,6 +372,9 @@ anova(modelO,modelI)
 
 model1
 CI.LS.poisson.2term(model1, conf=95)
+
+moddata <- ddply(modeldata, .(PopID, Origin, Generation), summarize, popCount=length(PopID), popBoltDay=mean(BoltDay.adj))
+qplot(data=moddata,popBoltDay, Generation, color = Origin) +geom_smooth(method=glm)
 
 ###bolt.bin, binomial
 modeldata<-gen[!is.na(gen$bolt.bin),]

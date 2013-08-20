@@ -121,6 +121,12 @@ modelg2<- glm(bolt.bin ~ Latitude, family=binomial,data=modeldata)
 anova(modelg2,modelg1)
 1-pchisq(9.0533, 1)
 
+summary(modelg)
+moddata <- ddply(modeldata, .(PopID, Origin, Latitude), summarize, popCount=length(PopID), popBolt=mean(bolt.bin))
+moddata
+qplot(data=moddata,Latitude, popBolt, color = Origin) +geom_smooth(method=glm, se=TRUE)
+
+
 CI.LS.binomial(modelg)
 CI.LS.binomial(modelg1)
 

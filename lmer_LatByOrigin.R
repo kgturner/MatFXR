@@ -275,6 +275,15 @@ CI.LS.poisson(modelI) #exclude sig interactions
 interaction.plot(response = modeldata$LfCount1, x.factor = modeldata$Latitude, trace.factor = modeldata$Origin)
 plot(modeldata$Latitude, modeldata$Origin)
 qplot(data=modeldata, Latitude, LfCount1, color=Origin, geom = "jitter")
+
+moddata <- ddply(modeldata, .(PopID, Origin, Latitude), summarize, popCount=length(PopID), popLfCount1=mean(LfCount1, na.rm=TRUE))
+
+#png("MF_    .png", height = 600, width = 600, pointsize = 16)
+qplot(data=moddata,Latitude, popLfCount1, color = Origin, 
+      xlab="latitude", 
+      ylab="Population mean lf count treatment", main="") +geom_smooth(method=glm, se=TRUE)
+# dev.off()
+
 modelI2 <- lmer(LfCount1  ~ Latitude+ Origin + (1|PopID/Mom), family=poisson,data=modeldata)
 anova(modelI, modelI2)
 
@@ -401,6 +410,10 @@ qchisq(0.03194,1,lower=FALSE)#chisq value
 lsmeans(modelg3,~Origin, conf=95)
 interaction.plot(response = modeldata$lxwH, x.factor = modeldata$Latitude, trace.factor = modeldata$Origin)
 
+summary(modelg)
+moddata <- ddply(modeldata, .(PopID, Origin, Latitude), summarize, popCount=length(PopID), poplxwH=mean(lxwH, na.rm=TRUE))
+qplot(data=moddata,Latitude, poplxwH, color = Origin, xlab="latitude", ylab="Population mean lxwH", main="") +geom_smooth(method=glm, se=TRUE)
+
 ####control, lf count, mom sig so do by hand#####
 #poisson on raw data
 modeldata<-totmf[!is.na(totmf$LfCountH),]
@@ -492,6 +505,10 @@ anova(modelg3)
 # 1-pchisq(9.0533, 1)
 
 CI.LS.binomial(modelg1) #exclude sig int
+
+summary(modelg)
+moddata <- ddply(modeldata, .(PopID, Origin, Latitude), summarize, popCount=length(PopID), popBolt=mean(bolt.bin, na.rm=TRUE))
+qplot(data=moddata,Latitude, popBolt, color = Origin, xlab="latitude", ylab="Population mean bolt.bin", main="") +geom_smooth(method=glm, se=TRUE)
 
 ###control, boltday.adj, cross sig, do by hand###
 #only bolters
