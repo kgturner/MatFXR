@@ -87,17 +87,6 @@ anova(model2raw,model1raw) # mom not sig
 anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
 1-pchisq(56.023,1)
 
-# #modelI <- lmer(DeathDay ~ Origin * CtrlPopShoot+ Latitude + (1|PopID), family=poisson,data=modeldata)
-# #anova(modelI, model2raw)
-# #modelL <- lmer(DeathDay ~ Origin * CtrlPopShoot+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelL, modelI)
-# #modelCint <- lmer(DeathDay ~ Origin + CtrlPopShoot+Latitude+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelI, modelCint)
-# #modelC <- lmer(DeathDay ~ Origin +Latitude+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelCint, modelC)
-# #modelOraw<-lmer(DeathDay ~ Latitude+(1|PopID), family=poisson,data=modeldata)
-# #anova(modelOraw,modelC) #test for significance of origin - origin NOT sig....!
-# 
 modelg <- glm(DeathDay ~ Origin*CtrlPopShoot*Latitude, family=poisson,data=modeldata)
 modelg1 <- glm(DeathDay ~ Origin*CtrlPopShoot+Latitude, family=poisson,data=modeldata)
 anova(modelg1, modelg, test="LRT") 
@@ -110,8 +99,8 @@ anova(modelg2,modelg3, test="LRT")
 qchisq(pval,1,lower=FALSE)#chisq value
 modelg4 <- glm(DeathDay ~Origin, family=poisson, data=modeldata)
 anova(modelg4, modelg2, test="LRT")
-modelg5 <- glm(DeathDay~CtrlPopShoot, family=poisson, data=modeldata)
-anova(modelg2, modelg5, test="LRT")
+# modelg5 <- glm(DeathDay~CtrlPopShoot, family=poisson, data=modeldata)
+anova(modelg4, test="LRT")
 
 qplot(data=modeldata,CtrlPopShoot, DeathDay, color = Origin)+geom_point(position="jitter")
 moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popDeathDay=mean(DeathDay))

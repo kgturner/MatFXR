@@ -118,7 +118,7 @@ qchisq(pval,1,lower=FALSE)#chisq value
 modelg4 <- glm(DeathDay ~Origin, family=poisson, data=modeldata)
 anova(modelg4, modelg2, test="LRT")
 modelg5 <- glm(DeathDay~CtrlPopShoot, family=poisson, data=modeldata)
-anova(modelg2, modelg5, test="LRT")
+anova(modelg5, modelg2, test="LRT")
 
 qplot(data=modeldata,CtrlPopShoot, DeathDay, color = Origin)+geom_point(position="jitter")
 moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popDeathDay=mean(DeathDay))
@@ -175,14 +175,14 @@ CI.LS.poisson(modelg3)
 modeldata <- merge(modeldata, comeans, all.x=TRUE)
 modeldata <- modeldata[!is.na(modeldata$CtrlPopShoot),]
 
-# modelobar<-lmer(TotWiltDay ~ Origin * CtrlPopShoot*Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
-# model1raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
-# anova(modelobar, model1raw)
-# model2raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
-# model3raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
-# anova(model2raw,model1raw) # mom not sig
-# anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
-# 1-pchisq(56.023,1)
+modelobar<-lmer(TotWiltDay ~ Origin * CtrlPopShoot*Latitude +(Origin|PopID/Mom), family=poisson,data=modeldata)
+model1raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude + (1|PopID/Mom), family=poisson,data=modeldata)
+anova(modelobar, model1raw)
+model2raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude +(1|PopID), family=poisson,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
+model3raw<-lmer(TotWiltDay ~ Origin * CtrlPopShoot* Latitude +(1|blank), family=poisson,data=modeldata) # Test population effect
+anova(model2raw,model1raw) # mom not sig
+anova(model3raw,model2raw) # pop is sig. If it says there are 0 d.f. then what you want to do is a Chi-square test using the X2 value and 1 d.f. freedom to get the p value.
+1-pchisq(56.023,1)
 
 modelg <- glm(TotWiltDay ~ Origin*CtrlPopShoot*Latitude, family=poisson,data=modeldata)
 modelg1 <- glm(TotWiltDay ~ Origin*CtrlPopShoot+Latitude, family=poisson,data=modeldata)
@@ -277,10 +277,10 @@ qchisq(pval,1,lower=FALSE)#chisq value
 modelg2<- glm(WiltDay ~Origin +CtrlPopShoot, family=poisson,data=modeldata)
 anova(modelg2,modelg3, test="LRT")
 qchisq(pval,1,lower=FALSE)#chisq value
-modelg4 <- glm(WiltDay ~Origin+Latitude, family=poisson, data=modeldata)
+modelg4 <- glm(WiltDay ~Origin, family=poisson, data=modeldata)
 anova(modelg4, modelg2, test="LRT")
-modelg5 <- glm(WiltDay~CtrlPopShoot+Latitude, family=poisson, data=modeldata)
-anova(modelg2, modelg5, test="LRT")
+# modelg5 <- glm(WiltDay~CtrlPopShoot, family=poisson, data=modeldata)
+anova(modelg4, test="LRT")
 
 qplot(data=modeldata,CtrlPopShoot, WiltDay, color = Origin)+geom_point(position="jitter")
 moddata <- ddply(modeldata, .(PopID, Origin, Latitude, CtrlPopShoot), summarize, popCount=length(PopID), popWiltDay=mean(WiltDay))
