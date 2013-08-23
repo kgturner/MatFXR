@@ -30,16 +30,26 @@ grdat <- grdat[grdat$PopID!="<NA>",]
 grdat[grdat$lxwH %in% 0,]$lxwH <- NA
 
 ###color plot###
+<<<<<<< HEAD
 pdf("KTurnerFig4.pdf", useDingbats=FALSE, width=13.38)
 # png("MFsizebox_color.png", height = 600, width = 600, pointsize = 16)
 # postscript("KTurnerFig4.eps", horizontal = FALSE, onefile = FALSE, paper = "special", height = 7, width = 13.38)
+=======
+# pdf("KTurnerFig4.pdf", useDingbats=FALSE, width=13.38)
+# png("MFsizebox_color.png", height = 600, width = 600, pointsize = 16)
+postscript("KTurnerFig4.eps", horizontal = FALSE, onefile = FALSE, paper = "special", height = 7, width = 13.38)
+>>>>>>> 1a81b2096770c138e1a55ab72f09d182ccc5b65f
 
 p1 <- ggplot(grdat[grdat$Trt!="Herbivory",],aes(Trt, lxwH, fill=Origin))+
   geom_boxplot()+
   xlab("Stress Treatment")+ylab("Approximate area of longest leaf [cm2]")+
   theme_bw()+
+<<<<<<< HEAD
   theme(legend.justification=c(1,1), legend.position=c(1,1),
         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13))
+=======
+  theme(legend.justification=c(1,1), legend.position=c(1,1))
+>>>>>>> 1a81b2096770c138e1a55ab72f09d182ccc5b65f
 p1 <- p1 + annotate('point',x = "Early Control", y = 110, pch=8, color="red",parse=T, size=4)+
   annotate('point',x = "Control", y = 160, pch=8, color="red",parse=T, size=4)+
   annotate('point',x = "Nutrient", y = 110, pch=8, color="red",parse=T, size=4)+
@@ -59,7 +69,11 @@ p2 <- p2 +  annotate('point',x = "Control", y = 30, pch=8, color="red",parse=T, 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=12 ))
 
 # multiplot(p1,p2, cols=2) #size only plots
+<<<<<<< HEAD
 multiplot(p1,p2,p3, cols=3) #all MF plots, see code below for p3 LH trait
+=======
+multiplot(p1,p2,p3, cols=3) #all MF plots, see code below for LH trait
+>>>>>>> 1a81b2096770c138e1a55ab72f09d182ccc5b65f
 dev.off()
 
 # ###b&w plot###
