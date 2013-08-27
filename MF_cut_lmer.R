@@ -112,7 +112,7 @@ summary(mfco.dk1[totmfcu$Origin=="inv",]) #55 rows, 8 boltedatH = 14.5%
 #try glm
 modelg <- glm(bolt.bin ~ Origin*Latitude, family=binomial,data=modeldata)
 modelg1 <- glm(bolt.bin ~ Origin+Latitude, family=binomial,data=modeldata)
-anova(modelg1, modelg) #'Deviance' is chisq value
+anova(modelg1, modelg, test="LRT") #'Deviance' is chisq value
 1-pchisq(7.3387, 1)
 modelg3<- glm(bolt.bin ~ Origin, family=binomial,data=modeldata)
 anova(modelg3,modelg1)
