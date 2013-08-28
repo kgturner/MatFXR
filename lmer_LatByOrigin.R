@@ -263,6 +263,11 @@ anova(modelL, modelO)
 modelOraw<-lmer(LfCount1 ~ Latitude+(1|PopID/Mom), family=poisson,data=modeldata)
 anova(modelOraw,modelO) #test for significance of origin - origin NOT sig....!
 model1raw
+summary(model1raw)
+summary(glmmPQL(LfCount1 ~ Origin*Latitude, random = ~ 1 | PopID/Mom,
+                family = poisson, data = modeldata))
+xtabs(modeldata)
+
 int<-5.27022 #inv mean
 B<--4.79533 #Originnat estimate from model summary
 pI<-exp(int)
