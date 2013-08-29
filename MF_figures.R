@@ -522,8 +522,8 @@ genb <- CI.LS.poisson.2term(model1, conf=95)
 # pd <- position_dodge(.1)
 
 ###color plot###
-pdf("KTurnerFig5.pdf", useDingbats=FALSE, width=6.29, height=11)
-# postscript("KTurnerFig2.eps", horizontal = FALSE, onefile = FALSE, paper = "special", height = 11, width = 6.29)
+# pdf("KTurnerFig5.pdf", useDingbats=FALSE, width=6.29, height=11)
+postscript("KTurnerFig5.eps", horizontal = FALSE, onefile = FALSE, paper = "special", height = 11, width = 6.29)
 # png("STMFGenboltdate_color.png", height = 600, width = 600, pointsize = 16)
 
 p2 <- ggplot(genb, aes(x=Generation, y=mean, color=Origin, group=Origin, ymax=90))+
