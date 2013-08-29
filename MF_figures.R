@@ -33,6 +33,10 @@ grdat[grdat$lxwH %in% 0,]$lxwH <- NA
 
 
 ###color plot###
+<<<<<<< HEAD
+=======
+
+>>>>>>> d457119972c8431de375815e18111cfb0b5b5cd5
 pdf("KTurnerFig4.pdf", useDingbats=FALSE, width=13.38)
 # png("MFsizebox_color.png", height = 600, width = 600, pointsize = 16)
 postscript("KTurnerFig4.eps", horizontal = FALSE, onefile = FALSE, paper = "special", height = 7, width = 13.38)
@@ -255,7 +259,11 @@ png("MFboltedmosaic_color.png", height = 600, width = 600, pointsize = 16)
 
 p3 <- ggplot(grBatHStd, aes(ymin = RevStackymin, ymax = RevStackymax, xmin=xmin, xmax=xmax, fill=factor(col))) +
   geom_rect(colour = I("white"))+
+<<<<<<< HEAD
   scale_x_continuous(breaks=c(20,60,100),labels=c("Control", "Herbivory", "Nutr. Stress"), name="Treatment") +
+=======
+  scale_x_continuous(breaks=c(20,60,100),labels=c("Control", "Herbivory", "Nutr. Stress"), name="Treatments") +
+>>>>>>> d457119972c8431de375815e18111cfb0b5b5cd5
   scale_y_continuous(name="Percent Bolted at Harvest")+
   theme_bw()+cscale
 # p3
