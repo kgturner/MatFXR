@@ -20,6 +20,8 @@ grdat <- merge(grdat,mfn.dk, all=TRUE )
 levels(grdat$Trt)[levels(grdat$Trt)=="control"] <- "Control"
 levels(grdat$Trt)[levels(grdat$Trt)=="cut"] <- "Herbivory"
 levels(grdat$Trt)[levels(grdat$Trt)=="nut def"] <- "Nutrient"
+levels(grdat$Trt)[levels(grdat$Trt)=="Nutrient Stress"] <- "Nutr. Stress"
+
 levels(grdat$Origin)[levels(grdat$Origin)=="inv"] <- "Invasive"
 levels(grdat$Origin)[levels(grdat$Origin)=="nat"] <- "Native"
 grdat$Trt <- factor(grdat$Trt, c("Early Control", "Control", "Nutrient", "Herbivory"))
@@ -29,37 +31,32 @@ levels(grdat$PopID)
 grdat <- grdat[grdat$PopID!="<NA>",]
 grdat[grdat$lxwH %in% 0,]$lxwH <- NA
 
+
 ###color plot###
-<<<<<<< HEAD
+
 pdf("KTurnerFig4.pdf", useDingbats=FALSE, width=13.38)
 # png("MFsizebox_color.png", height = 600, width = 600, pointsize = 16)
-# postscript("KTurnerFig4.eps", horizontal = FALSE, onefile = FALSE, paper = "special", height = 7, width = 13.38)
-=======
-# pdf("KTurnerFig4.pdf", useDingbats=FALSE, width=13.38)
-# png("MFsizebox_color.png", height = 600, width = 600, pointsize = 16)
 postscript("KTurnerFig4.eps", horizontal = FALSE, onefile = FALSE, paper = "special", height = 7, width = 13.38)
->>>>>>> 1a81b2096770c138e1a55ab72f09d182ccc5b65f
+
 
 p1 <- ggplot(grdat[grdat$Trt!="Herbivory",],aes(Trt, lxwH, fill=Origin))+
   geom_boxplot()+
-  xlab("Stress Treatment")+ylab("Approximate area of longest leaf [cm2]")+
+  xlab("Treatment")+ylab("Approximate area of longest leaf [cm2]")+
   theme_bw()+
-<<<<<<< HEAD
   theme(legend.justification=c(1,1), legend.position=c(1,1),
         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13))
-=======
-  theme(legend.justification=c(1,1), legend.position=c(1,1))
->>>>>>> 1a81b2096770c138e1a55ab72f09d182ccc5b65f
+
 p1 <- p1 + annotate('point',x = "Early Control", y = 110, pch=8, color="red",parse=T, size=4)+
   annotate('point',x = "Control", y = 160, pch=8, color="red",parse=T, size=4)+
-  annotate('point',x = "Nutrient", y = 110, pch=8, color="red",parse=T, size=4)+
-  annotate('point',x = "Nutrient", y = 120, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = "Nutr. Stress", y = 110, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = "Nutr. Stress", y = 120, pch=8, color="red",parse=T, size=4)+
   annotate(geom="text", x="Early Control", y=285, label="(a)",fontface="bold", size=5)+
   theme(axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=12 ))
 
+# p1
 p2 <- ggplot(grdat, aes(Trt, LfCountH, fill=Origin))+
-  geom_boxplot()+xlab("Stress Treatment")+ylab("Number of basal leaves")+
+  geom_boxplot()+xlab("Treatment")+ylab("Number of basal leaves")+
   theme_bw()+
   theme(legend.position="none")
 #legend position(left/right,top/bottom)
@@ -68,12 +65,11 @@ p2 <- p2 +  annotate('point',x = "Control", y = 30, pch=8, color="red",parse=T, 
   theme(axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=12 ))
 
+# p2
 # multiplot(p1,p2, cols=2) #size only plots
-<<<<<<< HEAD
+
 multiplot(p1,p2,p3, cols=3) #all MF plots, see code below for p3 LH trait
-=======
-multiplot(p1,p2,p3, cols=3) #all MF plots, see code below for LH trait
->>>>>>> 1a81b2096770c138e1a55ab72f09d182ccc5b65f
+
 dev.off()
 
 # ###b&w plot###
@@ -254,12 +250,13 @@ grBatHStd$RevStackymin <- grBatHStd$RevStackymax-grBatHStd$ymax
 grBatHStd[grBatHStd$RevStackymin<0,]$RevStackymin <- 0
 
 
+
 # pdf("MFboltedmosaic_color.pdf", useDingbats=FALSE)
 png("MFboltedmosaic_color.png", height = 600, width = 600, pointsize = 16)
 
-p3 <- ggplot(grBatHStd, aes(ymin = RevStackymin, ymax = RevStackymax, xmin=xmin, xmax=xmax, fill=factor(col)))+
-  geom_rect(colour = I("black"))+
-  scale_x_continuous(breaks=c(20,60,100),labels=c("Control", "Herbivory", "Nutrient"), name="Stress Treatments") +
+p3 <- ggplot(grBatHStd, aes(ymin = RevStackymin, ymax = RevStackymax, xmin=xmin, xmax=xmax, fill=factor(col))) +
+  geom_rect(colour = I("white"))+
+  scale_x_continuous(breaks=c(20,60,100),labels=c("Control", "Herbivory", "Nutr. Stress"), name="Treatment") +
   scale_y_continuous(name="Percent Bolted at Harvest")+
   theme_bw()+cscale
 # p3
@@ -268,12 +265,14 @@ p3 <- p3 + theme(panel.grid.minor.y=element_blank(), panel.grid.major.y=element_
 #   annotate(geom="text", x=(grBatHStd$xmax-grBatHStd$xmin)/2 + grBatHStd$xmin, y=105, label=grBatHStd$Origin, size=4) +
   theme(legend.position="none", axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=12 ))+ 
-  annotate('point',x = 20, y = 102, pch=8, color="red",parse=T, size=4)+
-  annotate('point',x = 25, y = 102, pch=8, color="red",parse=T, size=4)+
-  annotate('point',x = 15, y = 102, pch=8, color="red",parse=T, size=4)+
-  annotate('point',x = 57.5, y = 102, pch=8, color="red",parse=T, size=4) +
-  annotate('point',x = 62.5, y = 102, pch=8, color="red",parse=T, size=4)+
-  annotate(geom="text", x=5, y=102, label="(c)",fontface="bold", size=5)
+  annotate('point',x = 20, y = 70, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = 25, y = 70, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = 15, y = 70, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = 57.5, y = 70, pch=8, color="red",parse=T, size=4) +
+  annotate('point',x = 62.5, y = 70, pch=8, color="red",parse=T, size=4)+
+  annotate(geom="text", x=2.5, y=98, label="(c)",fontface="bold", size=5)
+
+p3
 
 dev.off()
 
