@@ -33,7 +33,6 @@ grdat[grdat$lxwH %in% 0,]$lxwH <- NA
 
 
 ###color plot###
-
 pdf("KTurnerFig4.pdf", useDingbats=FALSE, width=13.38)
 # png("MFsizebox_color.png", height = 600, width = 600, pointsize = 16)
 postscript("KTurnerFig4.eps", horizontal = FALSE, onefile = FALSE, paper = "special", height = 7, width = 13.38)
