@@ -41,7 +41,8 @@ postscript("KTurnerFig4.eps", horizontal = FALSE, onefile = FALSE, paper = "spec
 
 p1 <- ggplot(grdat[grdat$Trt!="Herbivory",],aes(Trt, lxwH, fill=Origin))+
   geom_boxplot()+
-  xlab("Treatment")+ylab("Approximate area of longest leaf [cm2]")+
+  xlab("Treatment")+ ylab("Approximate area of longest leaf [cm2]")+
+  #ylab(expression(paste("Approximate area of longest leaf [",cm^2,"]")))+ #make 2 superscript, but can't bold?
   theme_bw()+
   theme(legend.justification=c(1,1), legend.position=c(1,1),
         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13))
