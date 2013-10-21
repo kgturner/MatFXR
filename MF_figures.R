@@ -33,10 +33,7 @@ grdat[grdat$lxwH %in% 0,]$lxwH <- NA
 
 
 ###color plot###
-<<<<<<< HEAD
-=======
 
->>>>>>> d457119972c8431de375815e18111cfb0b5b5cd5
 pdf("KTurnerFig4.pdf", useDingbats=FALSE, width=13.38)
 # png("MFsizebox_color.png", height = 600, width = 600, pointsize = 16)
 postscript("KTurnerFig4.eps", horizontal = FALSE, onefile = FALSE, paper = "special", height = 7, width = 13.38)
@@ -57,7 +54,7 @@ p1 <- p1 + annotate('point',x = "Early Control", y = 110, pch=8, color="red",par
   theme(axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=12 ))
 
-# p1
+p1
 p2 <- ggplot(grdat, aes(Trt, LfCountH, fill=Origin))+
   geom_boxplot()+xlab("Treatment")+ylab("Number of basal leaves")+
   theme_bw()+
