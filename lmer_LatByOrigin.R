@@ -511,6 +511,30 @@ anova(modelg3)
 
 CI.LS.binomial(modelg1) #exclude sig int
 
+#overdispersed?
+deviance(modelg) ## [1] 111.7172
+summary(modelg)$dispersion ## 1 (by definition)
+dfr <- df.residual(modelg)
+deviance(modelg)/dfr ## [1] 1.044086
+d_2 <- sum(residuals(modelg,"pearson")^2) 
+(disp2 <- d_2/dfr)  ## [1] 1.040685
+
+pchisq(d_2,df=dfr,lower.tail=FALSE) ##[1] 0.3672733
+
+# gg2 <- update(modelg,family=quasipoisson)
+# summary(gg2)$dispersion  ##[1] 0.6419276
+# all.equal(coef(modelg),coef(gg2)) ## [1] "Mean relative difference: 0.3883268"
+# se1 <- coef(summary(modelg))[,"Std. Error"]
+# se2 <- coef(summary(gg2))[,"Std. Error"]
+# se2/se1
+# sqrt(disp2)
+
+# dfr <- df.residual(gg2)
+# deviance(gg2)/dfr ## [1] 1.044086
+# d_2 <- sum(residuals(gg2,"pearson")^2) 
+# (disp2 <- d_2/dfr)  ## [1] 1.040685
+
+
 summary(modelg)
 moddata <- ddply(modeldata, .(PopID, Origin, Latitude), summarize, popCount=length(PopID), popBolt=mean(bolt.bin, na.rm=TRUE))
 qplot(data=moddata,Latitude, popBolt, color = Origin, xlab="latitude", ylab="Population mean bolt.bin", main="") +geom_smooth(method=glm, se=TRUE)
@@ -713,6 +737,8 @@ anova(modelg2,modelg3)
 1-pchisq(9.0533, 1)
 
 CI.LS.poisson(modelg3)
+
+dispersiontest(modelg3)
 
 summary(modeldata$SeedCount) #% of global seed count
 3.9003268057357/6.59*100

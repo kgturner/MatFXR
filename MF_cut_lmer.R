@@ -130,6 +130,28 @@ qplot(data=moddata,Latitude, popBolt, color = Origin) +geom_smooth(method=glm, s
 CI.LS.binomial(modelg)
 CI.LS.binomial(modelg1)
 
+#overdispersed?
+deviance(modelg1) ## [1] 111.7172
+summary(modelg1)$dispersion ## 1 (by definition)
+dfr <- df.residual(modelg1)
+deviance(modelg1)/dfr ## [1] 1.044086
+d_2 <- sum(residuals(modelg1,"pearson")^2) 
+(disp2 <- d_2/dfr)  ## [1] 1.040685
+
+pchisq(d_2,df=dfr,lower.tail=FALSE) ##[1] 0.3672733
+
+# gg2 <- update(modelg,family=quasipoisson)
+# summary(gg2)$dispersion  ##[1] 0.6419276
+# all.equal(coef(modelg),coef(gg2)) ## [1] "Mean relative difference: 0.3883268"
+# se1 <- coef(summary(modelg))[,"Std. Error"]
+# se2 <- coef(summary(gg2))[,"Std. Error"]
+# se2/se1
+# sqrt(disp2)
+
+# dfr <- df.residual(gg2)
+# deviance(gg2)/dfr ## [1] 1.044086
+# d_2 <- sum(residuals(gg2,"pearson")^2) 
+# (disp2 <- d_2/dfr)  ## [1] 1.040685
  
 #explicit trade-off using shootmass
 modeldata <- merge(modeldata, comeans, all.x=TRUE)

@@ -251,7 +251,7 @@ modelg <- glm(LfCount1 ~ Origin*Generation, family=poisson,data=modeldata)
 modelg1 <- glm(LfCount1 ~ Origin+Generation, family=poisson,data=modeldata)
 anova(modelg1, modelg) #'Deviance' is chisq value
 1-pchisq( 0.78597, 1)
-
+dispersiontest(modelg1)
 modelg3<- glm(LfCount1 ~ Origin, family=poisson,data=modeldata)
 anova(modelg3,modelg1)
 1-pchisq(44.724, 1)
@@ -418,9 +418,33 @@ modelg3<- glm(bolt.bin ~ Origin, family=binomial,data=modeldata)
 anova(modelg3,modelg1)
 1-pchisq(5.5154, 1)
 anova(modelg3)
+
 # modelg2<- glm(bolt.bin ~ Generation, family=binomial,data=modeldata)
 # anova(modelg2,modelg1)
 # 1-pchisq(9.0533, 1)
+
+#overdispersed?
+deviance(modelg3) ## [1] 111.7172
+summary(modelg3)$dispersion ## 1 (by definition)
+dfr <- df.residual(modelg3)
+deviance(modelg3)/dfr ## [1] 1.044086
+d_2 <- sum(residuals(modelg3,"pearson")^2) 
+(disp2 <- d_2/dfr)  ## [1] 1.040685
+
+pchisq(d_2,df=dfr,lower.tail=FALSE) ##[1] 0.3672733
+
+# gg2 <- update(modelg,family=quasipoisson)
+# summary(gg2)$dispersion  ##[1] 0.6419276
+# all.equal(coef(modelg),coef(gg2)) ## [1] "Mean relative difference: 0.3883268"
+# se1 <- coef(summary(modelg))[,"Std. Error"]
+# se2 <- coef(summary(gg2))[,"Std. Error"]
+# se2/se1
+# sqrt(disp2)
+
+# dfr <- df.residual(gg2)
+# deviance(gg2)/dfr ## [1] 1.044086
+# d_2 <- sum(residuals(gg2,"pearson")^2) 
+# (disp2 <- d_2/dfr)  ## [1] 1.040685
 
 ###Germination analysis across gen... but seeds handled differently####
 ###doesn't include obar###

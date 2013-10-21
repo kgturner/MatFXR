@@ -72,7 +72,12 @@ anova(modelg3,modelg1)
 # anova(modelg2,modelg1)
 anova(modelg3)
 1-pchisq(1.078, 1)
+
 CI.LS.poisson(modelg3)
+
+#overdispersion
+library(AER)
+dispersiontest(modelg3)
 
 #explicit trade-off using shootmass
 modeldata <- merge(modeldata, comeans, all.x=TRUE)
@@ -94,6 +99,7 @@ qchisq(pval,1,lower=FALSE)#chisq value
 modelg3<- glm(DeathDay ~ Origin*CtrlPopShoot, family=poisson,data=modeldata)
 anova(modelg3,modelg1, test="LRT")
 qchisq(pval,1,lower=FALSE)#chisq value
+dispersiontest(modelg3)
 modelg2<- glm(DeathDay ~Origin +CtrlPopShoot, family=poisson,data=modeldata)
 anova(modelg2,modelg3, test="LRT")
 qchisq(pval,1,lower=FALSE)#chisq value
@@ -151,6 +157,9 @@ anova(modelg3)
 
 CI.LS.poisson(modelg3)
 
+#overdispersion
+library(AER)
+dispersiontest(modelg3)
 
 #explicit trade-off using shootmass
 modeldata <- merge(modeldata, comeans, all.x=TRUE)
@@ -231,6 +240,9 @@ anova(modelg3)
 
 CI.LS.poisson(modelg3)
 
+#overdispersion
+library(AER)
+dispersiontest(modelg3)
 
 #explicit trade-off using shootmass
 modeldata <- merge(modeldata, comeans, all.x=TRUE)
