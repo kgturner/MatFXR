@@ -20,7 +20,7 @@ grdat <- merge(grdat,mfn.dk, all=TRUE )
 levels(grdat$Trt)[levels(grdat$Trt)=="control"] <- "Control"
 levels(grdat$Trt)[levels(grdat$Trt)=="cut"] <- "Herbivory"
 levels(grdat$Trt)[levels(grdat$Trt)=="nut def"] <- "Nutrient"
-levels(grdat$Trt)[levels(grdat$Trt)=="Nutrient Stress"] <- "Nutr. Stress"
+levels(grdat$Trt)[levels(grdat$Trt)=="Nutrient"] <- "Nutr. Stress"
 
 levels(grdat$Origin)[levels(grdat$Origin)=="inv"] <- "Invasive"
 levels(grdat$Origin)[levels(grdat$Origin)=="nat"] <- "Native"
@@ -41,7 +41,8 @@ postscript("KTurnerFig4.eps", horizontal = FALSE, onefile = FALSE, paper = "spec
 
 p1 <- ggplot(grdat[grdat$Trt!="Herbivory",],aes(Trt, lxwH, fill=Origin))+
   geom_boxplot()+
-  xlab("Treatment")+ylab("Approximate area of longest leaf [cm2]")+
+  xlab("Treatment")+ ylab("Approximate area of longest leaf [cm2]")+
+  #ylab(expression(paste("Approximate area of longest leaf [",cm^2,"]")))+ #make 2 superscript, but can't bold?
   theme_bw()+
   theme(legend.justification=c(1,1), legend.position=c(1,1),
         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13))
@@ -256,11 +257,7 @@ png("MFboltedmosaic_color.png", height = 600, width = 600, pointsize = 16)
 
 p3 <- ggplot(grBatHStd, aes(ymin = RevStackymin, ymax = RevStackymax, xmin=xmin, xmax=xmax, fill=factor(col))) +
   geom_rect(colour = I("white"))+
-<<<<<<< HEAD
-  scale_x_continuous(breaks=c(20,60,100),labels=c("Control", "Herbivory", "Nutr. Stress"), name="Treatment") +
-=======
   scale_x_continuous(breaks=c(20,60,100),labels=c("Control", "Herbivory", "Nutr. Stress"), name="Treatments") +
->>>>>>> d457119972c8431de375815e18111cfb0b5b5cd5
   scale_y_continuous(name="Percent Bolted at Harvest")+
   theme_bw()+cscale
 # p3
@@ -525,7 +522,7 @@ genb <- CI.LS.poisson.2term(model1, conf=95)
 # pd <- position_dodge(.1)
 
 ###color plot###
-# pdf("KTurnerFig5.pdf", useDingbats=FALSE, width=6.29, height=11)
+pdf("KTurnerFig5.pdf", useDingbats=FALSE, width=6.29, height=11)
 postscript("KTurnerFig5.eps", horizontal = FALSE, onefile = FALSE, paper = "special", height = 11, width = 6.29)
 # png("STMFGenboltdate_color.png", height = 600, width = 600, pointsize = 16)
 
