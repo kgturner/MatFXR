@@ -131,11 +131,11 @@ CI.LS.binomial(modelg)
 CI.LS.binomial(modelg1)
 
 #overdispersed?
-deviance(modelg1) ## [1] 111.7172
-summary(modelg1)$dispersion ## 1 (by definition)
-dfr <- df.residual(modelg1)
-deviance(modelg1)/dfr ## [1] 1.044086
-d_2 <- sum(residuals(modelg1,"pearson")^2) 
+deviance(modelg) ## [1] 111.7172
+summary(modelg)$dispersion ## 1 (by definition)
+dfr <- df.residual(modelg)
+deviance(modelg)/dfr ## [1] 1.044086
+d_2 <- sum(residuals(modelg,"pearson")^2) 
 (disp2 <- d_2/dfr)  ## [1] 1.040685
 
 pchisq(d_2,df=dfr,lower.tail=FALSE) ##[1] 0.3672733
@@ -152,7 +152,7 @@ pchisq(d_2,df=dfr,lower.tail=FALSE) ##[1] 0.3672733
 # deviance(gg2)/dfr ## [1] 1.044086
 # d_2 <- sum(residuals(gg2,"pearson")^2) 
 # (disp2 <- d_2/dfr)  ## [1] 1.040685
- 
+
 #explicit trade-off using shootmass
 modeldata <- merge(modeldata, comeans, all.x=TRUE)
 modeldata <- modeldata[!is.na(modeldata$CtrlPopShoot),]

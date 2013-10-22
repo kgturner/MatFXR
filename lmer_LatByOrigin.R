@@ -67,8 +67,12 @@ modeldata$blank<-1
 modeldata$blank<-as.factor(modeldata$blank)
 modeldata$Mom<-as.factor(modeldata$Mom)
 
+# modelplus<-lmer(Mass.gA ~ Origin *Latitude+(1|PopID) + (Origin|PopID/Mom), family=gaussian,data=modeldata)
 modelobar<-lmer(Mass.gA ~ Origin *Latitude+(Origin|PopID/Mom), family=gaussian,data=modeldata)
+# anova(modelplus, modelobar)
 model1<-lmer(Mass.gA ~ Origin *Latitude+(1|PopID/Mom), family=gaussian,data=modeldata)
+# modelplus2 <- lmer(Mass.gA ~ Origin *Latitude+(1|PopID) + (1|PopID/Mom), family=gaussian,data=modeldata)
+# anova(modelplus2, model1)
 anova(modelobar, model1)
 model2<-lmer(Mass.gA ~ Origin *Latitude+ (1|PopID), family=gaussian,data=modeldata) # Removes maternal family variance to test if it is a significant random effect
 model3<-lmer(Mass.gA ~ Origin *Latitude+ (1|blank), family=gaussian,data=modeldata) # Test population effect
