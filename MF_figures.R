@@ -48,7 +48,9 @@ p1 <- ggplot(grdat[grdat$Trt!="Herbivory",],aes(Trt, lxwH, fill=Origin))+
         legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13))
 
 p1 <- p1 + annotate('point',x = "Early Control", y = 110, pch=8, color="red",parse=T, size=4)+
-  annotate('point',x = "Control", y = 160, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = "Control", y = 160, pch=8, color="red", parse=T,size=4)+
+  annotate('point',x = "Control", y = 160, pch=0, color="red", parse=T,size=6)+
+#   annotate(geom="text", x="Early Control", y=285, label="(a)",fontface="bold", size=5)+
   annotate('point',x = "Nutr. Stress", y = 110, pch=8, color="red",parse=T, size=4)+
   annotate('point',x = "Nutr. Stress", y = 120, pch=8, color="red",parse=T, size=4)+
   annotate(geom="text", x="Early Control", y=285, label="(a)",fontface="bold", size=5)+
@@ -62,11 +64,13 @@ p2 <- ggplot(grdat, aes(Trt, LfCountH, fill=Origin))+
   theme(legend.position="none")
 #legend position(left/right,top/bottom)
 p2 <- p2 +  annotate('point',x = "Control", y = 30, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = "Early Control", y = 30, pch=0, color="red", parse=T,size=6)+
+  annotate('point',x = "Early Control", y = 30, pch=8, color="red", parse=T,size=4)
   annotate(geom="text", x="Early Control", y=87.5, label="(b)",fontface="bold", size=5)+
   theme(axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=12 ))
 
-# p2
+p2
 # multiplot(p1,p2, cols=2) #size only plots
 
 multiplot(p1,p2,p3, cols=3) #all MF plots, see code below for p3 LH trait
@@ -266,11 +270,15 @@ p3 <- p3 + theme(panel.grid.minor.y=element_blank(), panel.grid.major.y=element_
 #   annotate(geom="text", x=(grBatHStd$xmax-grBatHStd$xmin)/2 + grBatHStd$xmin, y=105, label=grBatHStd$Origin, size=4) +
   theme(legend.position="none", axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=12 ))+ 
+  
   annotate('point',x = 20, y = 70, pch=8, color="red",parse=T, size=4)+
-  annotate('point',x = 25, y = 70, pch=8, color="red",parse=T, size=4)+
-  annotate('point',x = 15, y = 70, pch=8, color="red",parse=T, size=4)+
-  annotate('point',x = 57.5, y = 70, pch=8, color="red",parse=T, size=4) +
-  annotate('point',x = 62.5, y = 70, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = 20, y = 70, pch=0, color="red",parse=T, size=6)+
+  
+  annotate('point',x = 60, y = 70, pch=8, color="red",parse=T, size=4) +
+  annotate('point',x = 60, y = 70, pch=0, color="red",parse=T, size=6) +
+  annotate('point',x = 60, y = 74, pch=8, color="red",parse=T, size=4)+
+  annotate('point',x = 60, y = 74, pch=0, color="red",parse=T, size=6)+
+  
   annotate(geom="text", x=2.5, y=98, label="(c)",fontface="bold", size=5)
 
 p3
@@ -395,18 +403,16 @@ p1 <- ggplot(genlf, aes(x=Generation, y=mean, color=Origin, group=Origin)) +
         axis.title.x = element_text(size=15, face="bold", vjust=-0.4), 
         axis.title.y = element_text(size=15, face="bold"),axis.text.x = element_text(size=12 ))
 # p1
-p1 <- p1 + annotate(geom="text", x=0, y=20.2, label="Broad CG", fontface="italic",size=5) +
-  annotate(geom="text", x=0, y=19.4, label="Origin", fontface="italic",size=5) +
-  annotate('point',x = -0.04, y = 18.6, pch=8, color="red",parse=T,size=4)+
-  annotate('point',x = 0, y = 18.6, pch=8, color="red",parse=T,size=4)+
-  annotate('point',x = 0.04, y = 18.6, pch=8, color="red",parse=T,size=4)+
+p1 <- p1 + annotate(geom="text", x=0, y=18.6, label="Broad CG", fontface="italic",size=5) +
+  annotate(geom="text", x=0, y=20.2, label="Origin", fontface="italic",size=5) +
+  annotate('point',x = -0.04, y = 19.4, pch=8, color="red",parse=T,size=4)+
+  annotate('point',x = 0, y = 19.4, pch=8, color="red",parse=T,size=4)+
+  annotate('point',x = 0.04, y = 19.4, pch=8, color="red",parse=T,size=4)+
   
-  annotate('point',x = 0.95, y = 15, pch=8, color="red",parse=T,size=4)+
+  annotate('point',x = 0.95, y = 15.8, pch=8, color="red",parse=T,size=4)+
   annotate(geom="text", x=0.95, y=16.6, label="Origin",fontface="italic", size=5) +
-  annotate(geom="text", x=0.95, y=15.8, label="Maternal CG", fontface="italic",size=5) +
+  annotate(geom="text", x=0.95, y=15, label="Maternal CG", fontface="italic",size=5) +
   
-  annotate('point',x = 0.50, y = 16, pch=8, color="red",parse=T,size=4)+
-  annotate(geom="text", x=0.5, y=16.8, label="Origin", size=5)+ 
   annotate(geom="text", x=0.5, y=15.2, label="Origin*Generation", size=5)+
   annotate('point',x = 0.5, y = 14.4, pch=8, color="red",parse=T,size=4)+
   annotate('point',x = 0.54, y = 14.4, pch=8, color="red",parse=T,size=4)+
@@ -540,16 +546,14 @@ p2 <- ggplot(genb, aes(x=Generation, y=mean, color=Origin, group=Origin, ymax=90
 # legend.justification=c(1,1), legend.position=c(1,1),
 # legend.title = element_text(size=14, face="bold"),legend.text = element_text(size = 13)
 
-p2 <- p2 +  annotate('point',x = 0.95, y = 85, pch=16, color="red",parse=T,size=4)+
+p2 <- p2 +  annotate('point',x = 0.95, y = 87, pch=16, color="red",parse=T,size=4)+
   annotate(geom="text", x=0.95, y=89, label="Origin",fontface="italic", size=5) +
-  annotate(geom="text", x=0.95, y=87, label="Maternal CG",fontface="italic", size=5)+
+  annotate(geom="text", x=0.95, y=85, label="Maternal CG",fontface="italic", size=5)+
   
   annotate(geom="text", x=0, y=58, label="Origin",fontface="italic", size=5)+
-  annotate(geom="text", x=0, y=54, label="NS",fontface="italic", size=5)+
-  annotate(geom="text", x=0, y=56, label="Broad CG", fontface="italic",size=5)+
+  annotate(geom="text", x=0, y=56, label="NS",fontface="italic", size=5)+
+  annotate(geom="text", x=0, y=54, label="Broad CG", fontface="italic",size=5)+
   
-  annotate('point',x = 0.5, y = 78, pch=16, color="red",parse=T,size=4)+
-  annotate(geom="text", x=0.5, y=80, label="Origin", size=5)+ 
   annotate(geom="text", x=0.5, y=76, label="Origin*Generation", size=5)+
   annotate('point',x = 0.48, y = 74, pch=8, color="red",parse=T,size=4)+
   annotate('point',x = 0.52, y = 74, pch=8, color="red",parse=T,size=4)+
