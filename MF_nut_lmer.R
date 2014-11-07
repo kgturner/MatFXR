@@ -1,7 +1,8 @@
 #MF stress treatment - nutrient deficiency
 #Mat fx, REML, using lme4
 #mixed effect models 
-library(lme4)
+library(lme4.0) #or
+# library(lme4)
 library(lsmeans)
 library(ggplot2)
 library(plyr)

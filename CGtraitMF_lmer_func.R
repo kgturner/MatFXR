@@ -1,6 +1,8 @@
 ####Common Garden trait analysis####FOR MAT FX
 #using lmer, REML mixed models#
-library(lme4)
+library(lme4.0)
+# or maybe?
+# libary(lme4) 
 #with Origin and latitude as fixed effects, population and Mom as random effects#
 #custom functions
 

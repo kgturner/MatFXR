@@ -1,7 +1,8 @@
 ###Mat FX mixed FX models, focused on Origin BY Latitude###
 #Mat fx, REML, using lme4
 #mixed effect models 
-library(lme4)
+library(lme4.0) #or
+# library(lme4)
 library(lsmeans)
 library(ggplot2)
 library(plyr)
@@ -49,6 +50,7 @@ almodels <- CGtrait.models.int("Mass.gA",mfallo.dk)
 almodels
 
 #merge mf ctrl and mom df
+mfmom.dk<-read.table("MatFxMom.dk.txt", header=T, sep="\t", quote='"', row.names=1) 
 str(mfmom.dk)
 str(mfallo.dk)
 totmfallo <- merge(mfmom.dk,mfallo.dk, all.y=TRUE )
